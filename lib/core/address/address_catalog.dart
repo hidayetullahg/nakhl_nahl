@@ -377,10 +377,20 @@ class AddressCatalog {
     }).toList();
   }
 
-  /// Belirli bir şehirdeki ilçeleri getirir
+  /// Belirli bir şehirdeki ilçeleri getirir (Türkçe & Uluslararası takma adları destekler)
   static List<AddressDistrict> getDistrictsByCity(String cityName) {
     if (cityName.isEmpty) return [];
-    return districts.where((d) => d.cityName.toLowerCase() == cityName.toLowerCase()).toList();
+    final target = cityName.trim().toLowerCase();
+    return districts.where((d) {
+      final dCity = d.cityName.toLowerCase();
+      if (dCity == target) return true;
+      if ((target == 'riyadh' || target == 'riyad') && (dCity == 'riyad' || dCity == 'riyadh')) return true;
+      if ((target == 'jeddah' || target == 'cidde') && (dCity == 'cidde' || dCity == 'jeddah')) return true;
+      if ((target.contains('medin') || target.contains('medina')) && (dCity.contains('medine') || dCity.contains('medina'))) return true;
+      if ((target.contains('mecc') || target.contains('mekke')) && (dCity.contains('mekke') || dCity.contains('mecca'))) return true;
+      if ((target == 'istanbul' || target == 'i̇stanbul') && (dCity == 'istanbul' || dCity == 'i̇stanbul')) return true;
+      return false;
+    }).toList();
   }
 
   /// Belirli bir ilçedeki mahalleleri getirir

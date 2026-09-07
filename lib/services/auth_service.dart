@@ -343,6 +343,15 @@ class AuthService {
     );
   }
 
+  /// Doğrudan kullanıcı profili atar ve TenantContext oturumunu senkronize eder
+  void kullaniciProfiliAyarla(KullaniciProfili profil) {
+    _aktifProfil = profil;
+    TenantContext.instance.setSession(
+      userId: profil.uid,
+      userEmail: profil.email,
+    );
+  }
+
   // ============================================================
   // 6. ÇIKIŞ YAP (LOGOUT) & GÜVENLİ OTURUM SONLANDIRMA
   // ============================================================

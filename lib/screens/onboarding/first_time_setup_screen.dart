@@ -23,6 +23,7 @@ import '../../services/user_preferences_service.dart';
 import '../../services/opening_balance_service.dart';
 import '../../models/location_master_model.dart';
 import '../../services/location_service.dart';
+import '../../services/auth_service.dart';
 import '../dashboard_screen.dart';
 
 class FirstTimeSetupScreen extends StatefulWidget {
@@ -269,6 +270,19 @@ class _FirstTimeSetupScreenState extends State<FirstTimeSetupScreen> {
         companyId: companyId,
         companyName: _sirketAdiController.text.trim(),
       );
+
+      // 5. Kurucu Kullanıcı Profilini ve Rolünü Kaydet (9-Role Enterprise Hierarchy)
+      final userRole = KullaniciRolu.fromString(_selectedRole);
+      final profile = KullaniciProfili(
+        uid: userId,
+        email: _emailController.text.trim().isNotEmpty ? _emailController.text.trim() : 'yonetici@nakhlnahl.com',
+        adSoyad: '${_yetkiliAdController.text.trim()} ${_yetkiliSoyadController.text.trim()}'.trim(),
+        rol: userRole,
+        pinKodu: _pinController.text.trim().isNotEmpty ? _pinController.text.trim() : '1234',
+        sonGirisTarihi: DateTime.now(),
+        olusturmaTarihi: DateTime.now(),
+      );
+      AuthService.instance.kullaniciProfiliAyarla(profile);
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -756,6 +770,22 @@ class _FirstTimeSetupScreenState extends State<FirstTimeSetupScreen> {
       _acikAdresController.text = 'Bağdat Cad. No: 12 Kat: 2';
       _vergiDairesiController.text = 'Kadıköy Vergi Dairesi';
       _vknController.text = '1234567890';
+    } else if (countryCode == 'AE') {
+      _bolgeController.text = 'Dubai';
+      _sehirController.text = 'Dubai';
+      _ilceController.text = 'Downtown Dubai';
+      _mahalleController.text = 'Business Bay';
+      _acikAdresController.text = 'Sheikh Zayed Road No: 50';
+      _vergiDairesiController.text = 'FTA Dubai Tax Office';
+      _vknController.text = '100234567800003';
+    } else {
+      _bolgeController.text = profile.countryName;
+      _sehirController.text = profile.countryName;
+      _ilceController.text = 'Merkez';
+      _mahalleController.text = 'Ana Mahalle';
+      _acikAdresController.text = '1. Cadde No: 1';
+      _vergiDairesiController.text = '${profile.countryName} Vergi Dairesi';
+      _vknController.text = '123456789';
     }
   }
 
@@ -1355,8 +1385,12 @@ class _FirstTimeSetupScreenState extends State<FirstTimeSetupScreen> {
                 items: const [
                   DropdownMenuItem(value: 'SAR', child: Text('SAR — Suudi Arabistan Riyali (﷼)')),
                   DropdownMenuItem(value: 'TRY', child: Text('TRY — Türk Lirası (₺)')),
+                  DropdownMenuItem(value: 'AED', child: Text('AED — BAE Dirhemi (د.إ)')),
                   DropdownMenuItem(value: 'USD', child: Text('USD — Amerikan Doları (\$)')),
                   DropdownMenuItem(value: 'EUR', child: Text('EUR — Euro (€)')),
+                  DropdownMenuItem(value: 'GBP', child: Text('GBP — İngiliz Sterlini (£)')),
+                  DropdownMenuItem(value: 'QAR', child: Text('QAR — Katar Riyali (ر.ق)')),
+                  DropdownMenuItem(value: 'KWD', child: Text('KWD — Kuveyt Dinarı (د.ك)')),
                 ],
                 onChanged: (val) => setState(() => _selectedCurrency = val ?? 'SAR'),
                 decoration: const InputDecoration(labelText: 'Ana Para Birimi', isDense: true),
@@ -1409,34 +1443,44 @@ class _FirstTimeSetupScreenState extends State<FirstTimeSetupScreen> {
   Widget _adim15RolVeYetki() {
     return _adimWrapper(
       title: '15. Rol ve Yetkilendirme (RBAC)',
-      subtitle: 'İlk kullanıcıya atanacak güvenlik rolünü seçiniz. (RLS güvenlik seviyesi)',
+      subtitle: 'İlk kullanıcıya atanacak güvenlik rolünü seçiniz. (9 Seviyeli Kurumsal Rol Hiyerarşisi)',
       content: Column(
-        children: [
-          RadioListTile<String>(
-            value: 'Admin',
-            groupValue: _selectedRole,
-            activeColor: hurmaKahvesi,
-            title: const Text('Sistem Yöneticisi (Admin)', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('Tüm finansal, muhasebe, stok ve kullanıcı ayarlarına tam yetki.'),
-            onChanged: (val) => setState(() => _selectedRole = val!),
-          ),
-          RadioListTile<String>(
-            value: 'Muhasebe',
-            groupValue: _selectedRole,
-            activeColor: hurmaKahvesi,
-            title: const Text('Mali İşler & Muhasebe', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('Kasa, banka, fatura, cari hesaplar ve defter kayıtları yönetimi.'),
-            onChanged: (val) => setState(() => _selectedRole = val!),
-          ),
-          RadioListTile<String>(
-            value: 'DepoSorumlusu',
-            groupValue: _selectedRole,
-            activeColor: hurmaKahvesi,
-            title: const Text('Depo ve Sevkiyat Sorumlusu', style: TextStyle(fontWeight: FontWeight.bold)),
-            subtitle: const Text('Stok giriş/çıkış, parti/lot takibi ve lojistik sevkiyatlar.'),
-            onChanged: (val) => setState(() => _selectedRole = val!),
-          ),
-        ],
+        children: KullaniciRolu.values.map((rol) {
+          final isSelected = KullaniciRolu.fromString(_selectedRole) == rol;
+          return Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            decoration: BoxDecoration(
+              color: isSelected ? hurmaKahvesi.withOpacity(0.06) : Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: isSelected ? hurmaKahvesi : Colors.grey.shade300,
+                width: isSelected ? 1.8 : 1,
+              ),
+            ),
+            child: RadioListTile<String>(
+              value: rol.name,
+              groupValue: KullaniciRolu.fromString(_selectedRole).name,
+              activeColor: hurmaKahvesi,
+              title: Text(
+                rol.baslik,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13.5,
+                  color: isSelected ? hurmaKahvesiKoyu : Colors.black87,
+                ),
+              ),
+              subtitle: Text(
+                rol.aciklama,
+                style: TextStyle(fontSize: 11.5, color: Colors.grey.shade700),
+              ),
+              onChanged: (val) {
+                if (val != null) {
+                  setState(() => _selectedRole = val);
+                }
+              },
+            ),
+          );
+        }).toList(),
       ),
     );
   }
