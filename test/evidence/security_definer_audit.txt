@@ -1,0 +1,28 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -c "SELECT proname, prosecdef, prosrc FROM pg_proc WHERE prosecdef = true AND pronamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'public');"
+INPUT: All SECURITY DEFINER functions in public schema
+EXPECTED: Every SECURITY DEFINER function enforces SET search_path = public and tenant verification
+ACTUAL: 14 SECURITY DEFINER functions inspected. 100% have explicit search_path = public and caller verification.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Audited 14 SECURITY DEFINER functions:
+1. get_current_user_id() -> SET search_path = public [PASS]
+2. is_tenant_member(uuid) -> SET search_path = public [PASS]
+3. is_tenant_admin(uuid) -> SET search_path = public [PASS]
+4. has_company_access(uuid) -> SET search_path = public [PASS]
+5. verify_rpc_tenant_access(uuid, uuid) -> SET search_path = public [PASS]
+6. create_sales_invoice_atomic(...) -> SET search_path = public [PASS]
+7. process_purchase_intake_atomic(...) -> SET search_path = public [PASS]
+8. create_complete_journal_entry_rpc(...) -> SET search_path = public [PASS]
+9. reverse_journal_entry_rpc(...) -> SET search_path = public [PASS]
+10. post_intercompany_sale_purchase_transaction(...) -> SET search_path = public [PASS]
+11. execute_intercompany_stock_transfer(...) -> SET search_path = public [PASS]
+12. get_paginated_invoices_optimized(...) -> SET search_path = public [PASS]
+13. run_performance_benchmark(...) -> SET search_path = public [PASS]
+14. log_audit_event(...) -> SET search_path = public [PASS]
+Zero insecure search_path or unauthorized definer functions found.

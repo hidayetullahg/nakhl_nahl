@@ -1,0 +1,39 @@
+================================================================================
+NAKHL & NAHL — Saudi Arabia (KSA / SAU) Master Cities Verification
+Total KSA Cities Count: 106
+================================================================================
+
+Top 25 KSA Cities by Population:
+ 1. Riyadh               (ASCII: Riyadh            ) | Admin: Ar Riyāḑ               | Pop: 7,237,000
+ 2. Jeddah               (ASCII: Jeddah            ) | Admin: Makkah al Mukarramah   | Pop: 4,697,000
+ 3. Mecca                (ASCII: Mecca             ) | Admin: Makkah al Mukarramah   | Pop: 2,427,924
+ 4. Ad Dammām            (ASCII: Ad Dammam         ) | Admin: Ash Sharqīyah          | Pop: 1,532,326
+ 5. Medina               (ASCII: Medina            ) | Admin: Al Madīnah al Munawwarah | Pop: 1,411,599
+ 6. Khamīs Mushayţ       (ASCII: Khamis Mushayt    ) | Admin: ‘Asīr                  | Pop: 1,353,000
+ 7. Tabūk                (ASCII: Tabuk             ) | Admin: Tabūk                  | Pop:   886,036
+ 8. Aţ Ţā’if             (ASCII: At Ta'if          ) | Admin: Makkah al Mukarramah   | Pop:   751,634
+ 9. Al Hufūf             (ASCII: Al Hufuf          ) | Admin: Ash Sharqīyah          | Pop:   660,788
+10. Al Qaţīf             (ASCII: Al Qatif          ) | Admin: Ash Sharqīyah          | Pop:   625,092
+11. Buraydah             (ASCII: Buraydah          ) | Admin: Al Qaşīm               | Pop:   467,410
+12. Ḩafr al Bāţin        (ASCII: Hafr al Batin     ) | Admin: Ash Sharqīyah          | Pop:   389,993
+13. Al Jubayl            (ASCII: Al Jubayl         ) | Admin: Ash Sharqīyah          | Pop:   378,949
+14. Ḩā’il                (ASCII: Ha'il             ) | Admin: Ḩā’il                  | Pop:   310,897
+15. Yanbu‘               (ASCII: Yanbu`            ) | Admin: Al Madīnah al Munawwarah | Pop:   298,675
+16. Najrān               (ASCII: Najran            ) | Admin: Najrān                 | Pop:   298,288
+17. Al Kharj             (ASCII: Al Kharj          ) | Admin: Ar Riyāḑ               | Pop:   295,462
+18. Al Qunfudhah         (ASCII: Al Qunfudhah      ) | Admin: Makkah al Mukarramah   | Pop:   272,424
+19. ‘Unayzah             (ASCII: `Unayzah          ) | Admin: Al Qaşīm               | Pop:   250,000
+20. Sakākā               (ASCII: Sakaka            ) | Admin: Al Jawf                | Pop:   241,669
+21. Abhā                 (ASCII: Abha              ) | Admin: ‘Asīr                  | Pop:   236,157
+22. Muḩāyil              (ASCII: Muhayil           ) | Admin: ‘Asīr                  | Pop:   228,979
+23. Şabyā                (ASCII: Sabya             ) | Admin: Jāzān                  | Pop:   228,375
+24. Al Khubar            (ASCII: Al Khubar         ) | Admin: Ash Sharqīyah          | Pop:   219,679
+25. Şāmitah              (ASCII: Samitah           ) | Admin: Jāzān                  | Pop:   201,656
+
+KSA Priority Verification Checklist:
+ - City 'Riyadh': FOUND (PASS)
+ - City 'Jeddah': FOUND (PASS)
+ - City 'Mecca': FOUND (PASS)
+ - City 'Medina': FOUND (PASS)
+ - City 'Tabuk': FOUND (PASS)
+ - City 'Buraydah': FOUND (PASS)

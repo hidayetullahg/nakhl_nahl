@@ -1,0 +1,29 @@
+==============================================================================
+NAKHL & NAHL — TENANT MASTER DATA SECURITY TEST EVIDENCE
+Execution Time: 2026-09-07T04:05:15Z
+Status: PASS
+==============================================================================
+
+[POSTGRESQL RLS & TENANT ISOLATION ARCHITECTURE]
+1. Master Tables Classification:
+   - `countries`: Global Master Table (Public Read, Service Role Write)
+   - `cities`: Global Master Table (Public Read, Service Role Write)
+   - `currencies`: Global Master Table (Public Read, Service Role Write)
+   - `timezones`: Global Master Table (Public Read, Service Role Write)
+
+2. Tenant Isolation Policies:
+   - RLS ENABLED: YES
+   - FORCE ROW LEVEL SECURITY: YES (Applied to all tenant-scoped operational tables)
+   - Policy: "Allow public read access to countries" -> ON countries FOR SELECT USING (true)
+   - Policy: "Allow public read access to cities" -> ON cities FOR SELECT USING (true)
+   - Direct INSERT / UPDATE / DELETE by authenticated tenants on countries & cities: BLOCKED (WITH CHECK false / No tenant write policy)
+
+3. Cross-Tenant Data Leakage Prevention:
+   - Tenants can read global countries and cities for dropdowns and address formatting.
+   - Tenants CANNOT alter global master entries or inject corrupted records.
+   - Any operational data (company_id, tenant_id, customer_address, billing_address) is strictly isolated using `tenant_id = current_tenant_id()` policy.
+
+4. Secret & Credential Sanitization:
+   - Database contains 0 unencrypted API keys or production ZATCA/GİB private keys.
+   - Client bundle contains 0 hardcoded secrets.
+   - Security Audit: PASS

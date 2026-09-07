@@ -1,0 +1,26 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/034_accounting_finance_tests.sql
+INPUT: Balanced journals, unbalanced journals (10000 Borc vs 9000 Alacak), duplicate posting, posted modifications, reversal
+EXPECTED: Double-entry invariant enforced (SUM(debit)=SUM(credit)). Unbalanced rejected. Reversal validated.
+ACTUAL: 10/10 accounting finance tests PASS.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+NOTICE:  ====================================================================
+NOTICE:  === FAZ 14: ACCOUNTING & FINANCE CORE TESTLERİ BAŞLIYOR          ===
+NOTICE:  ====================================================================
+NOTICE:  TEST 1: Balanced Journal Creation & Line Entries -> PASS (5000 SAR)
+NOTICE:  TEST 2: Balanced Journal Posting -> PASS (Status: POSTED)
+NOTICE:  TEST 3: Unbalanced Journal Posting Rejection (10000 vs 9000) -> PASS (chk_journal_entry_balance enforced)
+NOTICE:  TEST 4: Duplicate Posting Prevention -> PASS (Already posted exception)
+NOTICE:  TEST 5: Immutability of Posted Entries (Header & Lines) -> PASS (Modification blocked)
+NOTICE:  TEST 6: Atomic Journal Reversal (Ters Kayıt) -> PASS (Reversal created and linked)
+NOTICE:  TEST 7: Fiscal Period Lock Enforcement -> PASS (Posting to closed period blocked)
+NOTICE:  TEST 8: Cross-Company Account Posting Prevention -> PASS (Foreign account blocked)
+NOTICE:  TEST 9: Cross-Tenant Journal RLS Isolation -> PASS (0 rows visible to other tenant)
+NOTICE:  TEST 10: Multi-Currency Exchange Rate Conversion -> PASS (USD/SAR converted at rate)
+NOTICE:  === FAZ 14 TEST SONUÇLARI: 10 / 10 TEST BAŞARIYLA GEÇTİ (PASS) ===

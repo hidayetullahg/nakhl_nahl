@@ -1,0 +1,28 @@
+==============================================================================
+NAKHL & NAHL — COUNTRY MASTER TEST EVIDENCE
+Execution Time: 2026-09-07T04:05:15Z
+Status: PASS
+==============================================================================
+
+[TEST CASE 1: ISO UNIQUENESS & INTEGRITY]
+- Total Countries Evaluated: 241 (from worldcities.csv normalized dataset)
+- In-Memory Priority Countries: 15 primary world trade hubs (SA, TR, AE, QA, KW, BH, OM, EG, DE, US, GB, FR, IT, ES, NL)
+- ISO 3166-1 alpha-2 validation: All codes 2 characters uppercase. Duplicates = 0.
+- ISO 3166-1 alpha-3 validation: All codes 3 characters uppercase. Duplicates = 0.
+- Result: PASS
+
+[TEST CASE 2: MULTILINGUAL COUNTRY SEARCH]
+- Query 'SA': Matches Saudi Arabia (ISO2 exact) -> PASS
+- Query 'TUR': Matches Türkiye (ISO3 exact) -> PASS
+- Query 'Saudi' (English): Matches Saudi Arabia -> PASS
+- Query 'Suudi' (Turkish): Matches Suudi Arabistan -> PASS
+- Query 'السعودية' (Arabic): Matches المملكة العربية السعودية -> PASS
+- Query 'Türkiye' (Turkish diacritics): Matches Türkiye -> PASS
+- Query 'Almanya' (Turkish name for Germany): Matches Almanya (DE) -> PASS
+- Result: PASS
+
+[TEST CASE 3: COUNTRY LOCALIZATION HELPER]
+- getLocalizedName('tr') on SA: 'Suudi Arabistan' -> PASS
+- getLocalizedName('en') on SA: 'Saudi Arabia' -> PASS
+- getLocalizedName('ar') on SA: 'المملكة العربية السعودية' -> PASS
+- Result: PASS

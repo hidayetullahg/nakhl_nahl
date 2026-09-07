@@ -1,0 +1,21 @@
+=== NAKHL & NAHL — ONBOARDING & DAILY WORKFLOW VERIFICATION EVIDENCE ===
+Date: 2026-09-06T23:36:00+03:00
+Target Platform: Flutter Web / Responsive Desktop & Mobile
+Test File: test/onboarding_and_daily_workflow_test.dart
+Flutter Engine: Flutter 3.19.6 / Dart 3.3.4
+Status: PASS (7/7 tests passed)
+
+Test Group 1: OpeningBalanceService & Snapshot Tests
+  [PASS] Calculates net worth and liquid assets correctly
+  [PASS] Identifies setup deficiencies correctly
+  [PASS] Manages daily checklist items and toggling
+  [PASS] Initializes demo snapshot for testing and evaluation
+
+Test Group 2: FirstTimeSetupScreen Widget Tests
+  [PASS] Renders initial step with business type choices and title
+  [PASS] Navigates through setup steps on Devam Et button tap
+  [PASS] Shows help dialog when Yardım Al is clicked
+
+All 7 onboarding & daily workflow tests PASSED cleanly.
+No overflows detected with responsive layout.
+Opening balance and checklist state fully validated.

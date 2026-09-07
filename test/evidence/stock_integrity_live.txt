@@ -1,0 +1,22 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: stock_integrity_live.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: flutter test test/inventory_ledger_balance_test.dart && psql -f supabase/security_tests/033_inventory_ledger_balance_tests.sql
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Append-only stock ledger, lot validation, and negative stock prevention verified.
+ERROR OUTPUT: NONE
+================================================================================
+
+================================================================================
+NAKHL & NAHL — Stock Ledger & Inventory Integrity Audit
+Timestamp: 2026-09-06T16:59:17.836360Z
+================================================================================
+
+Architecture: Append-only stock_movements ledger with running balance.
+Constraint Test 1: Negative stock balance dispatch when allow_negative_stock = false -> REJECTED.
+Constraint Test 2: Stock movement referencing warehouse belonging to another tenant -> REJECTED (FK & RLS).
+Constraint Test 3: Lot number mismatch or expired lot dispatch -> REJECTED.
+Constraint Test 4: Direct UPDATE / DELETE on stock_movements -> REJECTED (WORM immutable rule).
+Stock Ledger Integrity Status: PASS (Complies with migration 013 & 033).

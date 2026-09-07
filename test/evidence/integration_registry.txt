@@ -1,0 +1,17 @@
+ country_code |     country_name     | currency | provider_type |               provider_name               | environment | active 
+--------------+----------------------+----------+---------------+-------------------------------------------+-------------+--------
+ AE           | United Arab Emirates | AED      | PEPPOL        | UAE FTA Peppol Gateway                    | sandbox     | t
+ DE           | Germany              | EUR      | CUSTOM_REST   | Kosit XRechnung Leitweg-ID Connector      | sandbox     | t
+ EU           | European Union       | EUR      | PEPPOL        | OpenPEPPOL Access Point                   | sandbox     | t
+ SA           | Saudi Arabia         | SAR      | ZATCA         | ZATCA Fatoora Phase 2 (Developer Sandbox) | sandbox     | t
+ SA           | Saudi Arabia         | SAR      | ZATCA         | ZATCA Fatoora Phase 2 (Live Core)         | production  | t
+ SA           | Saudi Arabia         | SAR      | ZATCA         | ZATCA Fatoora Phase 2 (Simulation)        | simulation  | t
+ TR           | Türkiye              | TRY      | GIB           | Gelir İdaresi Başkanlığı (Canlı)          | production  | t
+ TR           | Türkiye              | TRY      | GIB           | Gelir İdaresi Başkanlığı (Test/Sandbox)   | sandbox     | t
+ TR           | Türkiye              | TRY      | LOGO          | Logo Özel Entegratör                      | production  | t
+ TR           | Türkiye              | TRY      | QNB           | QNB eFinans Özel Entegratör               | production  | t
+ TR           | Türkiye              | TRY      | SOVOS         | Sovos Foriba Entegratör                   | production  | t
+ TR           | Türkiye              | TRY      | UYUMSOFT      | Uyumsoft Bilgi Sistemleri                 | production  | t
+ US           | United States        | USD      | CUSTOM_REST   | Avalara AvaTax Universal Connector        | sandbox     | t
+(13 rows)
+

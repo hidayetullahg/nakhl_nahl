@@ -1,0 +1,8 @@
+{
+    "event": "BACKUP_FAILURE",
+    "timestamp": "2026-09-06T15:30:23Z",
+    "database": "nakhl_nahl_prod",
+    "host": "localhost",
+    "error": "Unexpected script failure at line 63",
+    "action_required": "Investigate immediately under DR Playbook DB-FAIL-01"
+}

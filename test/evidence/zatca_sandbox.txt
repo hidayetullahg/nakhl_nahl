@@ -1,0 +1,19 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: flutter test test/einvoice_zatca_health_test.dart --plain-name 'FAZ 31'
+INPUT: ZatcaPhase2Adapter, UBL 2.1 XML, TLV QR Code Base64, cryptographic stamp
+EXPECTED: ZATCA Phase 2 Fatoora standard validated in Sandbox mode
+ACTUAL: ZATCA SANDBOX VERIFIED. Production CSID / live clearance credentials pending merchant onboarding.
+RESULT: CONDITIONAL
+EXIT CODE: 0
+================================================================================
+
+Saudi Arabia ZATCA Phase 2 Fatoora Status:
+- UBL 2.1 XML Generator: PASS
+- TLV Base64 QR Code Generator: PASS (Tag 1: Seller Name, Tag 2: VAT Number, Tag 3: Timestamp, Tag 4: Total, Tag 5: VAT)
+- Idempotency & Duplicate Submission Defense: PASS
+- Sandbox Mode: VERIFIED PASS
+- Production Clearance: CONDITIONAL (Awaiting customer merchant CSID and ZATCA compliance portal registration).
+- Rating: ZATCA SANDBOX VERIFIED / PRODUCTION CONDITIONAL.

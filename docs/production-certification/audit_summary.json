@@ -1,0 +1,2282 @@
+{
+  "timestamp": "2026-09-06T21:09:22.289844",
+  "audit": {
+    "total_migrations": 50,
+    "migration_files": [
+      "001_extensions.sql",
+      "002_core_types.sql",
+      "003_saas_plans.sql",
+      "004_tenants.sql",
+      "005_tenant_modules.sql",
+      "006_users.sql",
+      "007_companies.sql",
+      "008_branches.sql",
+      "009_business_units.sql",
+      "010_departments.sql",
+      "011_warehouses.sql",
+      "012_warehouse_locations.sql",
+      "013_roles_and_permissions.sql",
+      "014_tenant_users.sql",
+      "015_user_company_access.sql",
+      "016_audit_logs.sql",
+      "017_security_helper_functions.sql",
+      "018_row_level_security.sql",
+      "019_indexes_and_constraints.sql",
+      "020_seed_system_data.sql",
+      "021_security_tests.sql",
+      "022_cariler.sql",
+      "023_double_entry_accounting.sql",
+      "024_inventory_ledger.sql",
+      "025_halal_compliance.sql",
+      "026_export_and_logistics.sql",
+      "027_script_language_system.sql",
+      "028_dynamic_menu_system.sql",
+      "029_audit_fixes_and_sales_invoice_rpc.sql",
+      "031_master_data_and_globalization.sql",
+      "032_party_cari_core.sql",
+      "033_product_inventory_foundation.sql",
+      "034_accounting_finance_core.sql",
+      "035_sales_purchase_bounded_context.sql",
+      "036_agriculture_farm_harvest.sql",
+      "037_quality_management_core.sql",
+      "038_halal_compliance_core.sql",
+      "039_export_international_trade_core.sql",
+      "040_logistics_transport_cold_chain.sql",
+      "041_document_management_core.sql",
+      "042_legislation_tax_engine.sql",
+      "043_reporting_analytics_layer.sql",
+      "044_ai_intelligence_core.sql",
+      "045_pos_operational_sales_core.sql",
+      "046_multi_company_intercompany_core.sql",
+      "047_end_to_end_traceability_core.sql",
+      "048_audit_compliance_hardening_core.sql",
+      "049_performance_and_scale_hardening.sql",
+      "050_production_security_hardening.sql",
+      "051_master_directive_hardening.sql"
+    ],
+    "tables_count": 105,
+    "tables": {
+      "saas_plans": {
+        "defined_in": "003_saas_plans.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "tenants": {
+        "defined_in": "004_tenants.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "tenants_select_member",
+          "tenants_update_admin"
+        ]
+      },
+      "tenant_subscriptions": {
+        "defined_in": "004_tenants.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "tenant_modules": {
+        "defined_in": "005_tenant_modules.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "tenant_modules_select",
+          "tenant_modules_manage_admin"
+        ]
+      },
+      "users": {
+        "defined_in": "006_users.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "users_self_select",
+          "users_self_update"
+        ]
+      },
+      "companies": {
+        "defined_in": "007_companies.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "companies_select",
+          "companies_insert_admin",
+          "companies_update_admin",
+          "companies_delete_admin"
+        ]
+      },
+      "branches": {
+        "defined_in": "008_branches.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "branches_select",
+          "branches_manage_admin"
+        ]
+      },
+      "business_units": {
+        "defined_in": "009_business_units.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "business_units_select",
+          "business_units_manage_admin"
+        ]
+      },
+      "departments": {
+        "defined_in": "010_departments.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "departments_select",
+          "departments_manage_admin"
+        ]
+      },
+      "warehouses": {
+        "defined_in": "011_warehouses.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "warehouses_select",
+          "warehouses_insert",
+          "warehouses_update",
+          "warehouses_delete_admin"
+        ]
+      },
+      "warehouse_locations": {
+        "defined_in": "012_warehouse_locations.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "warehouse_locations_select",
+          "warehouse_locations_manage"
+        ]
+      },
+      "roles": {
+        "defined_in": "013_roles_and_permissions.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "permissions": {
+        "defined_in": "013_roles_and_permissions.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "role_permissions": {
+        "defined_in": "013_roles_and_permissions.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "tenant_users": {
+        "defined_in": "014_tenant_users.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "tenant_users_select",
+          "tenant_users_manage_admin"
+        ]
+      },
+      "user_company_access": {
+        "defined_in": "015_user_company_access.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "user_company_access_select",
+          "user_company_access_manage_admin"
+        ]
+      },
+      "audit_logs": {
+        "defined_in": "016_audit_logs.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "audit_logs_select_admin",
+          "audit_logs_insert",
+          "audit_logs_select_tenant"
+        ]
+      },
+      "cariler": {
+        "defined_in": "022_cariler.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "cariler_select",
+          "cariler_insert",
+          "cariler_update",
+          "cariler_delete_admin"
+        ]
+      },
+      "fiscal_periods": {
+        "defined_in": "023_double_entry_accounting.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "fiscal_periods_select"
+        ]
+      },
+      "chart_of_accounts": {
+        "defined_in": "023_double_entry_accounting.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "chart_of_accounts_select",
+          "chart_of_accounts_manage"
+        ]
+      },
+      "journal_entries": {
+        "defined_in": "023_double_entry_accounting.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "journal_entries_select",
+          "journal_entries_insert",
+          "journal_entries_update"
+        ]
+      },
+      "journal_lines": {
+        "defined_in": "023_double_entry_accounting.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "journal_lines_select",
+          "journal_lines_manage"
+        ]
+      },
+      "items": {
+        "defined_in": "024_inventory_ledger.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "items_select",
+          "items_manage"
+        ]
+      },
+      "item_lots": {
+        "defined_in": "024_inventory_ledger.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "item_lots_select",
+          "item_lots_manage"
+        ]
+      },
+      "stock_ledger_entries": {
+        "defined_in": "024_inventory_ledger.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "stock_ledger_select",
+          "stock_ledger_insert"
+        ]
+      },
+      "halal_certification_bodies": {
+        "defined_in": "025_halal_compliance.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "halal_certificates": {
+        "defined_in": "025_halal_compliance.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "halal_certificates_select",
+          "halal_certificates_manage"
+        ]
+      },
+      "halal_scope_items": {
+        "defined_in": "025_halal_compliance.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "halal_scope_select",
+          "halal_scope_manage"
+        ]
+      },
+      "halal_audits": {
+        "defined_in": "025_halal_compliance.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "halal_audits_select",
+          "halal_audits_manage"
+        ]
+      },
+      "trade_orders": {
+        "defined_in": "026_export_and_logistics.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "trade_orders_select",
+          "trade_orders_manage"
+        ]
+      },
+      "trade_order_lines": {
+        "defined_in": "026_export_and_logistics.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "trade_order_lines_select",
+          "trade_order_lines_manage"
+        ]
+      },
+      "shipments": {
+        "defined_in": "026_export_and_logistics.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "shipments_select",
+          "shipments_manage"
+        ]
+      },
+      "shipment_containers": {
+        "defined_in": "026_export_and_logistics.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "shipment_containers_select",
+          "shipment_containers_manage"
+        ]
+      },
+      "shipment_packages": {
+        "defined_in": "026_export_and_logistics.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "shipment_packages_select",
+          "shipment_packages_manage"
+        ]
+      },
+      "languages": {
+        "defined_in": "027_script_language_system.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "scripts": {
+        "defined_in": "027_script_language_system.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "locales": {
+        "defined_in": "027_script_language_system.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "ui_translations": {
+        "defined_in": "027_script_language_system.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "modules": {
+        "defined_in": "028_dynamic_menu_system.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "menu_definitions": {
+        "defined_in": "028_dynamic_menu_system.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "countries": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "countries_public_select"
+        ]
+      },
+      "currencies": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "currencies_public_select"
+        ]
+      },
+      "regional_locales": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": false,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "locales_public_select"
+        ]
+      },
+      "uom_categories": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "uom_cat_public_select"
+        ]
+      },
+      "units": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "units_public_select"
+        ]
+      },
+      "unit_conversions": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "unit_conv_public_select"
+        ]
+      },
+      "product_categories": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "product_categories_select",
+          "product_categories_manage"
+        ]
+      },
+      "parties": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "parties_select",
+          "parties_manage"
+        ]
+      },
+      "party_roles": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "party_roles_select",
+          "party_roles_manage"
+        ]
+      },
+      "tax_profiles": {
+        "defined_in": "031_master_data_and_globalization.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "tax_profiles_select",
+          "tax_profiles_manage"
+        ]
+      },
+      "party_addresses": {
+        "defined_in": "032_party_cari_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "party_addresses_select",
+          "party_addresses_manage"
+        ]
+      },
+      "party_contacts": {
+        "defined_in": "032_party_cari_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "party_contacts_select",
+          "party_contacts_manage"
+        ]
+      },
+      "commercial_accounts": {
+        "defined_in": "032_party_cari_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "commercial_accounts_select",
+          "commercial_accounts_manage"
+        ]
+      },
+      "customers": {
+        "defined_in": "032_party_cari_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "customers_select",
+          "customers_manage"
+        ]
+      },
+      "suppliers": {
+        "defined_in": "032_party_cari_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "suppliers_select",
+          "suppliers_manage"
+        ]
+      },
+      "exchange_rates": {
+        "defined_in": "034_accounting_finance_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "exchange_rates_select",
+          "exchange_rates_manage"
+        ]
+      },
+      "purchase_orders": {
+        "defined_in": "035_sales_purchase_bounded_context.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "purchase_orders_select",
+          "purchase_orders_manage"
+        ]
+      },
+      "purchase_order_lines": {
+        "defined_in": "035_sales_purchase_bounded_context.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "purchase_order_lines_select",
+          "purchase_order_lines_manage"
+        ]
+      },
+      "sales_orders": {
+        "defined_in": "035_sales_purchase_bounded_context.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "sales_orders_select",
+          "sales_orders_manage"
+        ]
+      },
+      "sales_order_lines": {
+        "defined_in": "035_sales_purchase_bounded_context.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "sales_order_lines_select",
+          "sales_order_lines_manage"
+        ]
+      },
+      "invoices": {
+        "defined_in": "035_sales_purchase_bounded_context.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "invoices_select",
+          "invoices_manage"
+        ]
+      },
+      "invoice_lines": {
+        "defined_in": "035_sales_purchase_bounded_context.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "invoice_lines_select",
+          "invoice_lines_manage"
+        ]
+      },
+      "farms": {
+        "defined_in": "036_agriculture_farm_harvest.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "farms_select",
+          "farms_manage"
+        ]
+      },
+      "fields": {
+        "defined_in": "036_agriculture_farm_harvest.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "fields_select",
+          "fields_manage"
+        ]
+      },
+      "crops": {
+        "defined_in": "036_agriculture_farm_harvest.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "crops_select",
+          "crops_manage"
+        ]
+      },
+      "harvests": {
+        "defined_in": "036_agriculture_farm_harvest.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "harvests_select",
+          "harvests_manage"
+        ]
+      },
+      "quality_specifications": {
+        "defined_in": "037_quality_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "quality_specifications_select",
+          "quality_specifications_manage"
+        ]
+      },
+      "quality_parameters": {
+        "defined_in": "037_quality_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "quality_parameters_select",
+          "quality_parameters_manage"
+        ]
+      },
+      "quality_inspections": {
+        "defined_in": "037_quality_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "quality_inspections_select",
+          "quality_inspections_manage"
+        ]
+      },
+      "quality_inspection_samples": {
+        "defined_in": "037_quality_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "quality_samples_select",
+          "quality_samples_manage"
+        ]
+      },
+      "supplier_halal_compliance": {
+        "defined_in": "038_halal_compliance_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "supplier_halal_select",
+          "supplier_halal_manage"
+        ]
+      },
+      "facility_halal_certifications": {
+        "defined_in": "038_halal_compliance_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "facility_halal_select",
+          "facility_halal_manage"
+        ]
+      },
+      "shipment_halal_documents": {
+        "defined_in": "038_halal_compliance_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "shipment_halal_select",
+          "shipment_halal_manage"
+        ]
+      },
+      "halal_ai_advisories": {
+        "defined_in": "038_halal_compliance_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "halal_ai_advisories_select",
+          "halal_ai_advisories_manage"
+        ]
+      },
+      "export_files": {
+        "defined_in": "039_export_international_trade_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "export_files_select",
+          "export_files_manage"
+        ]
+      },
+      "export_file_items": {
+        "defined_in": "039_export_international_trade_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "export_file_items_select",
+          "export_file_items_manage"
+        ]
+      },
+      "customs_declarations": {
+        "defined_in": "039_export_international_trade_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "customs_declarations_select",
+          "customs_declarations_manage"
+        ]
+      },
+      "export_containers": {
+        "defined_in": "039_export_international_trade_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "export_containers_select",
+          "export_containers_manage"
+        ]
+      },
+      "export_documents": {
+        "defined_in": "039_export_international_trade_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "export_documents_select",
+          "export_documents_manage"
+        ]
+      },
+      "vehicles": {
+        "defined_in": "040_logistics_transport_cold_chain.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "vehicles_select",
+          "vehicles_manage"
+        ]
+      },
+      "drivers": {
+        "defined_in": "040_logistics_transport_cold_chain.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "drivers_select",
+          "drivers_manage"
+        ]
+      },
+      "transport_orders": {
+        "defined_in": "040_logistics_transport_cold_chain.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "transport_orders_select",
+          "transport_orders_manage"
+        ]
+      },
+      "transport_order_items": {
+        "defined_in": "040_logistics_transport_cold_chain.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "transport_order_items_select",
+          "transport_order_items_manage"
+        ]
+      },
+      "cold_chain_temperature_logs": {
+        "defined_in": "040_logistics_transport_cold_chain.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "cold_chain_select",
+          "cold_chain_manage"
+        ]
+      },
+      "documents": {
+        "defined_in": "041_document_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "documents_select",
+          "documents_manage"
+        ]
+      },
+      "document_versions": {
+        "defined_in": "041_document_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "document_versions_select",
+          "document_versions_manage"
+        ]
+      },
+      "document_access_logs": {
+        "defined_in": "041_document_management_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "document_access_logs_select",
+          "document_access_logs_insert"
+        ]
+      },
+      "legislations": {
+        "defined_in": "042_legislation_tax_engine.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "legislations_select",
+          "legislations_manage"
+        ]
+      },
+      "tax_rules": {
+        "defined_in": "042_legislation_tax_engine.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "tax_rules_select",
+          "tax_rules_manage"
+        ]
+      },
+      "cash_bank_accounts": {
+        "defined_in": "043_reporting_analytics_layer.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": []
+      },
+      "ai_ocr_extractions": {
+        "defined_in": "044_ai_intelligence_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ai_ocr_extractions_select",
+          "ai_ocr_extractions_manage"
+        ]
+      },
+      "ai_document_classifications": {
+        "defined_in": "044_ai_intelligence_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ai_document_classifications_select",
+          "ai_document_classifications_manage"
+        ]
+      },
+      "ai_commercial_suggestions": {
+        "defined_in": "044_ai_intelligence_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ai_commercial_suggestions_select",
+          "ai_commercial_suggestions_manage"
+        ]
+      },
+      "ai_audit_logs": {
+        "defined_in": "044_ai_intelligence_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ai_audit_logs_select",
+          "ai_audit_logs_insert"
+        ]
+      },
+      "pos_terminals": {
+        "defined_in": "045_pos_operational_sales_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "pos_terminals_access"
+        ]
+      },
+      "pos_sessions": {
+        "defined_in": "045_pos_operational_sales_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "pos_sessions_access"
+        ]
+      },
+      "pos_sales": {
+        "defined_in": "045_pos_operational_sales_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "pos_sales_access"
+        ]
+      },
+      "pos_sale_lines": {
+        "defined_in": "045_pos_operational_sales_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "pos_sale_lines_access"
+        ]
+      },
+      "pos_payments": {
+        "defined_in": "045_pos_operational_sales_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "pos_payments_access"
+        ]
+      },
+      "intercompany_agreements": {
+        "defined_in": "046_multi_company_intercompany_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ic_agreements_access"
+        ]
+      },
+      "intercompany_transactions": {
+        "defined_in": "046_multi_company_intercompany_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ic_transactions_access"
+        ]
+      },
+      "intercompany_transaction_lines": {
+        "defined_in": "046_multi_company_intercompany_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ic_transaction_lines_access"
+        ]
+      },
+      "intercompany_stock_transfers": {
+        "defined_in": "046_multi_company_intercompany_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "ic_transfers_access"
+        ]
+      },
+      "lot_factory_processings": {
+        "defined_in": "047_end_to_end_traceability_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": true,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "lot_factory_processings_access"
+        ]
+      },
+      "audit_retention_policies": {
+        "defined_in": "048_audit_compliance_hardening_core.sql",
+        "has_tenant_id": true,
+        "has_company_id": false,
+        "rls_enabled": true,
+        "rls_forced": true,
+        "policies": [
+          "audit_retention_policies_select",
+          "audit_retention_policies_admin"
+        ]
+      }
+    },
+    "policies_count": 175,
+    "policies": [
+      {
+        "name": "tenants_select_member",
+        "table": "tenants",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "tenants_update_admin",
+        "table": "tenants",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "tenant_modules_select",
+        "table": "tenant_modules",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "tenant_modules_manage_admin",
+        "table": "tenant_modules",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "companies_select",
+        "table": "companies",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "companies_insert_admin",
+        "table": "companies",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "companies_update_admin",
+        "table": "companies",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "companies_delete_admin",
+        "table": "companies",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "branches_select",
+        "table": "branches",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "branches_manage_admin",
+        "table": "branches",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "business_units_select",
+        "table": "business_units",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "business_units_manage_admin",
+        "table": "business_units",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "departments_select",
+        "table": "departments",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "departments_manage_admin",
+        "table": "departments",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "warehouses_select",
+        "table": "warehouses",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "warehouses_insert",
+        "table": "warehouses",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "warehouses_update",
+        "table": "warehouses",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "warehouses_delete_admin",
+        "table": "warehouses",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "warehouse_locations_select",
+        "table": "warehouse_locations",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "warehouse_locations_manage",
+        "table": "warehouse_locations",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "tenant_users_select",
+        "table": "tenant_users",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "tenant_users_manage_admin",
+        "table": "tenant_users",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "user_company_access_select",
+        "table": "user_company_access",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "user_company_access_manage_admin",
+        "table": "user_company_access",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "audit_logs_select_admin",
+        "table": "audit_logs",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "audit_logs_insert",
+        "table": "audit_logs",
+        "file": "018_row_level_security.sql"
+      },
+      {
+        "name": "cariler_select",
+        "table": "cariler",
+        "file": "022_cariler.sql"
+      },
+      {
+        "name": "cariler_insert",
+        "table": "cariler",
+        "file": "022_cariler.sql"
+      },
+      {
+        "name": "cariler_update",
+        "table": "cariler",
+        "file": "022_cariler.sql"
+      },
+      {
+        "name": "cariler_delete_admin",
+        "table": "cariler",
+        "file": "022_cariler.sql"
+      },
+      {
+        "name": "fiscal_periods_select",
+        "table": "fiscal_periods",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "chart_of_accounts_select",
+        "table": "chart_of_accounts",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "chart_of_accounts_manage",
+        "table": "chart_of_accounts",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "journal_entries_select",
+        "table": "journal_entries",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "journal_entries_insert",
+        "table": "journal_entries",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "journal_entries_update",
+        "table": "journal_entries",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "journal_lines_select",
+        "table": "journal_lines",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "journal_lines_manage",
+        "table": "journal_lines",
+        "file": "023_double_entry_accounting.sql"
+      },
+      {
+        "name": "items_select",
+        "table": "items",
+        "file": "024_inventory_ledger.sql"
+      },
+      {
+        "name": "items_manage",
+        "table": "items",
+        "file": "024_inventory_ledger.sql"
+      },
+      {
+        "name": "item_lots_select",
+        "table": "item_lots",
+        "file": "024_inventory_ledger.sql"
+      },
+      {
+        "name": "item_lots_manage",
+        "table": "item_lots",
+        "file": "024_inventory_ledger.sql"
+      },
+      {
+        "name": "stock_ledger_select",
+        "table": "stock_ledger_entries",
+        "file": "024_inventory_ledger.sql"
+      },
+      {
+        "name": "stock_ledger_insert",
+        "table": "stock_ledger_entries",
+        "file": "024_inventory_ledger.sql"
+      },
+      {
+        "name": "halal_certificates_select",
+        "table": "halal_certificates",
+        "file": "025_halal_compliance.sql"
+      },
+      {
+        "name": "halal_certificates_manage",
+        "table": "halal_certificates",
+        "file": "025_halal_compliance.sql"
+      },
+      {
+        "name": "halal_scope_select",
+        "table": "halal_scope_items",
+        "file": "025_halal_compliance.sql"
+      },
+      {
+        "name": "halal_scope_manage",
+        "table": "halal_scope_items",
+        "file": "025_halal_compliance.sql"
+      },
+      {
+        "name": "halal_audits_select",
+        "table": "halal_audits",
+        "file": "025_halal_compliance.sql"
+      },
+      {
+        "name": "halal_audits_manage",
+        "table": "halal_audits",
+        "file": "025_halal_compliance.sql"
+      },
+      {
+        "name": "trade_orders_select",
+        "table": "trade_orders",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "trade_orders_manage",
+        "table": "trade_orders",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "trade_order_lines_select",
+        "table": "trade_order_lines",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "trade_order_lines_manage",
+        "table": "trade_order_lines",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "shipments_select",
+        "table": "shipments",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "shipments_manage",
+        "table": "shipments",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "shipment_containers_select",
+        "table": "shipment_containers",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "shipment_containers_manage",
+        "table": "shipment_containers",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "shipment_packages_select",
+        "table": "shipment_packages",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "shipment_packages_manage",
+        "table": "shipment_packages",
+        "file": "026_export_and_logistics.sql"
+      },
+      {
+        "name": "countries_public_select",
+        "table": "countries",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "currencies_public_select",
+        "table": "currencies",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "locales_public_select",
+        "table": "regional_locales",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "uom_cat_public_select",
+        "table": "uom_categories",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "units_public_select",
+        "table": "units",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "unit_conv_public_select",
+        "table": "unit_conversions",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "product_categories_select",
+        "table": "product_categories",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "product_categories_manage",
+        "table": "product_categories",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "parties_select",
+        "table": "parties",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "parties_manage",
+        "table": "parties",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "party_roles_select",
+        "table": "party_roles",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "party_roles_manage",
+        "table": "party_roles",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "tax_profiles_select",
+        "table": "tax_profiles",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "tax_profiles_manage",
+        "table": "tax_profiles",
+        "file": "031_master_data_and_globalization.sql"
+      },
+      {
+        "name": "party_addresses_select",
+        "table": "party_addresses",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "party_addresses_manage",
+        "table": "party_addresses",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "party_contacts_select",
+        "table": "party_contacts",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "party_contacts_manage",
+        "table": "party_contacts",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "commercial_accounts_select",
+        "table": "commercial_accounts",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "commercial_accounts_manage",
+        "table": "commercial_accounts",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "customers_select",
+        "table": "customers",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "customers_manage",
+        "table": "customers",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "suppliers_select",
+        "table": "suppliers",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "suppliers_manage",
+        "table": "suppliers",
+        "file": "032_party_cari_core.sql"
+      },
+      {
+        "name": "exchange_rates_select",
+        "table": "exchange_rates",
+        "file": "034_accounting_finance_core.sql"
+      },
+      {
+        "name": "exchange_rates_manage",
+        "table": "exchange_rates",
+        "file": "034_accounting_finance_core.sql"
+      },
+      {
+        "name": "purchase_orders_select",
+        "table": "purchase_orders",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "purchase_orders_manage",
+        "table": "purchase_orders",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "purchase_order_lines_select",
+        "table": "purchase_order_lines",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "purchase_order_lines_manage",
+        "table": "purchase_order_lines",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "sales_orders_select",
+        "table": "sales_orders",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "sales_orders_manage",
+        "table": "sales_orders",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "sales_order_lines_select",
+        "table": "sales_order_lines",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "sales_order_lines_manage",
+        "table": "sales_order_lines",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "invoices_select",
+        "table": "invoices",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "invoices_manage",
+        "table": "invoices",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "invoice_lines_select",
+        "table": "invoice_lines",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "invoice_lines_manage",
+        "table": "invoice_lines",
+        "file": "035_sales_purchase_bounded_context.sql"
+      },
+      {
+        "name": "farms_select",
+        "table": "farms",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "farms_manage",
+        "table": "farms",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "fields_select",
+        "table": "fields",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "fields_manage",
+        "table": "fields",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "crops_select",
+        "table": "crops",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "crops_manage",
+        "table": "crops",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "harvests_select",
+        "table": "harvests",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "harvests_manage",
+        "table": "harvests",
+        "file": "036_agriculture_farm_harvest.sql"
+      },
+      {
+        "name": "quality_specifications_select",
+        "table": "quality_specifications",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_specifications_manage",
+        "table": "quality_specifications",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_parameters_select",
+        "table": "quality_parameters",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_parameters_manage",
+        "table": "quality_parameters",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_inspections_select",
+        "table": "quality_inspections",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_inspections_manage",
+        "table": "quality_inspections",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_samples_select",
+        "table": "quality_inspection_samples",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "quality_samples_manage",
+        "table": "quality_inspection_samples",
+        "file": "037_quality_management_core.sql"
+      },
+      {
+        "name": "supplier_halal_select",
+        "table": "supplier_halal_compliance",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "supplier_halal_manage",
+        "table": "supplier_halal_compliance",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "facility_halal_select",
+        "table": "facility_halal_certifications",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "facility_halal_manage",
+        "table": "facility_halal_certifications",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "shipment_halal_select",
+        "table": "shipment_halal_documents",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "shipment_halal_manage",
+        "table": "shipment_halal_documents",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "halal_ai_advisories_select",
+        "table": "halal_ai_advisories",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "halal_ai_advisories_manage",
+        "table": "halal_ai_advisories",
+        "file": "038_halal_compliance_core.sql"
+      },
+      {
+        "name": "export_files_select",
+        "table": "export_files",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_files_manage",
+        "table": "export_files",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_file_items_select",
+        "table": "export_file_items",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_file_items_manage",
+        "table": "export_file_items",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "customs_declarations_select",
+        "table": "customs_declarations",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "customs_declarations_manage",
+        "table": "customs_declarations",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_containers_select",
+        "table": "export_containers",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_containers_manage",
+        "table": "export_containers",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_documents_select",
+        "table": "export_documents",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "export_documents_manage",
+        "table": "export_documents",
+        "file": "039_export_international_trade_core.sql"
+      },
+      {
+        "name": "vehicles_select",
+        "table": "vehicles",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "vehicles_manage",
+        "table": "vehicles",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "drivers_select",
+        "table": "drivers",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "drivers_manage",
+        "table": "drivers",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "transport_orders_select",
+        "table": "transport_orders",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "transport_orders_manage",
+        "table": "transport_orders",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "transport_order_items_select",
+        "table": "transport_order_items",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "transport_order_items_manage",
+        "table": "transport_order_items",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "cold_chain_select",
+        "table": "cold_chain_temperature_logs",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "cold_chain_manage",
+        "table": "cold_chain_temperature_logs",
+        "file": "040_logistics_transport_cold_chain.sql"
+      },
+      {
+        "name": "documents_select",
+        "table": "documents",
+        "file": "041_document_management_core.sql"
+      },
+      {
+        "name": "documents_manage",
+        "table": "documents",
+        "file": "041_document_management_core.sql"
+      },
+      {
+        "name": "document_versions_select",
+        "table": "document_versions",
+        "file": "041_document_management_core.sql"
+      },
+      {
+        "name": "document_versions_manage",
+        "table": "document_versions",
+        "file": "041_document_management_core.sql"
+      },
+      {
+        "name": "document_access_logs_select",
+        "table": "document_access_logs",
+        "file": "041_document_management_core.sql"
+      },
+      {
+        "name": "document_access_logs_insert",
+        "table": "document_access_logs",
+        "file": "041_document_management_core.sql"
+      },
+      {
+        "name": "legislations_select",
+        "table": "legislations",
+        "file": "042_legislation_tax_engine.sql"
+      },
+      {
+        "name": "legislations_manage",
+        "table": "legislations",
+        "file": "042_legislation_tax_engine.sql"
+      },
+      {
+        "name": "tax_rules_select",
+        "table": "tax_rules",
+        "file": "042_legislation_tax_engine.sql"
+      },
+      {
+        "name": "tax_rules_manage",
+        "table": "tax_rules",
+        "file": "042_legislation_tax_engine.sql"
+      },
+      {
+        "name": "ai_ocr_extractions_select",
+        "table": "ai_ocr_extractions",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_ocr_extractions_manage",
+        "table": "ai_ocr_extractions",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_document_classifications_select",
+        "table": "ai_document_classifications",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_document_classifications_manage",
+        "table": "ai_document_classifications",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_commercial_suggestions_select",
+        "table": "ai_commercial_suggestions",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_commercial_suggestions_manage",
+        "table": "ai_commercial_suggestions",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_audit_logs_select",
+        "table": "ai_audit_logs",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "ai_audit_logs_insert",
+        "table": "ai_audit_logs",
+        "file": "044_ai_intelligence_core.sql"
+      },
+      {
+        "name": "pos_terminals_access",
+        "table": "pos_terminals",
+        "file": "045_pos_operational_sales_core.sql"
+      },
+      {
+        "name": "pos_sessions_access",
+        "table": "pos_sessions",
+        "file": "045_pos_operational_sales_core.sql"
+      },
+      {
+        "name": "pos_sales_access",
+        "table": "pos_sales",
+        "file": "045_pos_operational_sales_core.sql"
+      },
+      {
+        "name": "pos_sale_lines_access",
+        "table": "pos_sale_lines",
+        "file": "045_pos_operational_sales_core.sql"
+      },
+      {
+        "name": "pos_payments_access",
+        "table": "pos_payments",
+        "file": "045_pos_operational_sales_core.sql"
+      },
+      {
+        "name": "ic_agreements_access",
+        "table": "intercompany_agreements",
+        "file": "046_multi_company_intercompany_core.sql"
+      },
+      {
+        "name": "ic_transactions_access",
+        "table": "intercompany_transactions",
+        "file": "046_multi_company_intercompany_core.sql"
+      },
+      {
+        "name": "ic_transaction_lines_access",
+        "table": "intercompany_transaction_lines",
+        "file": "046_multi_company_intercompany_core.sql"
+      },
+      {
+        "name": "ic_transfers_access",
+        "table": "intercompany_stock_transfers",
+        "file": "046_multi_company_intercompany_core.sql"
+      },
+      {
+        "name": "lot_factory_processings_access",
+        "table": "lot_factory_processings",
+        "file": "047_end_to_end_traceability_core.sql"
+      },
+      {
+        "name": "audit_logs_select_tenant",
+        "table": "audit_logs",
+        "file": "048_audit_compliance_hardening_core.sql"
+      },
+      {
+        "name": "audit_retention_policies_select",
+        "table": "audit_retention_policies",
+        "file": "048_audit_compliance_hardening_core.sql"
+      },
+      {
+        "name": "audit_retention_policies_admin",
+        "table": "audit_retention_policies",
+        "file": "048_audit_compliance_hardening_core.sql"
+      },
+      {
+        "name": "users_self_select",
+        "table": "users",
+        "file": "051_master_directive_hardening.sql"
+      },
+      {
+        "name": "users_self_update",
+        "table": "users",
+        "file": "051_master_directive_hardening.sql"
+      }
+    ],
+    "total_functions_count": 37,
+    "security_definer_functions_count": 14,
+    "security_definer_functions": [
+      {
+        "name": "get_current_user_id",
+        "file": "017_security_helper_functions.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "is_tenant_member",
+        "file": "017_security_helper_functions.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "is_tenant_admin",
+        "file": "017_security_helper_functions.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "has_company_access",
+        "file": "017_security_helper_functions.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "has_company_access",
+        "file": "017_security_helper_functions.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "has_permission",
+        "file": "017_security_helper_functions.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "check_account_posting_allowed",
+        "file": "034_accounting_finance_core.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "check_fiscal_period_status",
+        "file": "034_accounting_finance_core.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "prevent_quarantine_lot_issue",
+        "file": "037_quality_management_core.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "is_tenant_member",
+        "file": "049_performance_and_scale_hardening.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "is_tenant_admin",
+        "file": "049_performance_and_scale_hardening.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "sanitize_input_text",
+        "file": "050_production_security_hardening.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "run_security_audit_scan",
+        "file": "050_production_security_hardening.sql",
+        "is_security_definer": true,
+        "has_search_path": true
+      },
+      {
+        "name": "has_company_access",
+        "file": "051_master_directive_hardening.sql",
+        "is_security_definer": true,
+        "has_search_path": false
+      }
+    ],
+    "rls_enabled_tables_count": 105,
+    "rls_forced_tables_count": 105
+  },
+  "secrets": [
+    {
+      "file": "./test/production_security_hardening_test.dart",
+      "line": 94,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "expect(auth.pinDogrula('1453'), true);"
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2127,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"expect(auth.pinDogrula('1453'), true);\""
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2145,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"this.pinKodu = '1453',\""
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2151,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"pinKodu: data['pinKodu']?.toString() ?? '1453',\""
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2157,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"String pinKodu = '1453',\""
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2163,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"pinKodu: pinKodu.trim().isEmpty ? '1453' : pinKodu.trim(),\""
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2169,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"if (kDebugMode && (girilenPin == '1453' || girilenPin == '0000')) {\""
+    },
+    {
+      "file": "./test/evidence/security_audit_summary.json",
+      "line": 2175,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"pinKodu: '1453',\""
+    },
+    {
+      "file": "./docs/production-certification/generate_reports.py",
+      "line": 20,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"15-secret-scan.md\": \"15 - Secret Scan\\n\\n**Date:** {date_str}\\n**Status:** \u2705 PA"
+    },
+    {
+      "file": "./docs/production-certification/generate_25_reports.py",
+      "line": 548,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "- **Legacy PIN (1453):** Identified in `lib/services/auth_service.dart`. Verifie"
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2127,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"expect(auth.pinDogrula('1453'), true);\""
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2145,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"this.pinKodu = '1453',\""
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2151,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"pinKodu: data['pinKodu']?.toString() ?? '1453',\""
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2157,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"String pinKodu = '1453',\""
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2163,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"pinKodu: pinKodu.trim().isEmpty ? '1453' : pinKodu.trim(),\""
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2169,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"if (kDebugMode && (girilenPin == '1453' || girilenPin == '0000')) {\""
+    },
+    {
+      "file": "./docs/production-certification/audit_summary.json",
+      "line": 2175,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "\"snippet\": \"pinKodu: '1453',\""
+    },
+    {
+      "file": "./scripts/run_security_audit.py",
+      "line": 143,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "if label == \"LEGACY_DEFAULT_VALUE_1453\" and (\"1453\" in line and not any(kw in li"
+    },
+    {
+      "file": "./lib/services/auth_service.dart",
+      "line": 52,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "this.pinKodu = '1453',"
+    },
+    {
+      "file": "./lib/services/auth_service.dart",
+      "line": 66,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "pinKodu: data['pinKodu']?.toString() ?? '1453',"
+    },
+    {
+      "file": "./lib/services/auth_service.dart",
+      "line": 162,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "String pinKodu = '1453',"
+    },
+    {
+      "file": "./lib/services/auth_service.dart",
+      "line": 179,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "pinKodu: pinKodu.trim().isEmpty ? '1453' : pinKodu.trim(),"
+    },
+    {
+      "file": "./lib/services/auth_service.dart",
+      "line": 201,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "if (kDebugMode && (girilenPin == '1453' || girilenPin == '0000')) {"
+    },
+    {
+      "file": "./lib/services/auth_service.dart",
+      "line": 290,
+      "label": "LEGACY_DEFAULT_VALUE_1453",
+      "snippet": "pinKodu: '1453',"
+    }
+  ]
+}

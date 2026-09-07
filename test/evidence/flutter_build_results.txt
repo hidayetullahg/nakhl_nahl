@@ -1,0 +1,15 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: flutter build web --release
+INPUT: lib/main.dart production web release build
+EXPECTED: Clean release web bundle generated in build/web/ without compile errors
+ACTUAL: Compiling lib/main.dart for the Web... 3,5s. Exit code 0.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Compiling lib/main.dart for the Web...                              3,5s
+Built build/web/
+Release bundle verified.

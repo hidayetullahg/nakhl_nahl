@@ -1,0 +1,16 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: users_privilege_test_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: UPDATE public.users SET role = 'super_admin', tenant_id = 'TENANT_B' WHERE id = auth.uid();
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Self-service privilege escalation blocked by RLS policy users_self_update.
+ERROR OUTPUT: NONE
+================================================================================
+
+Users Privilege Test Results:
+1. User A self-update role to 'super_admin': REJECTED (42501 Insufficient Privileges)
+2. User A self-update tenant_id to 'TENANT_B': REJECTED (42501 Insufficient Privileges)
+3. User A assigning permissions to other users: REJECTED (Requires tenant_owner / tenant_admin role)
+4. Result: public.users is secure against client tampering.

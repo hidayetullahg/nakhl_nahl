@@ -1,0 +1,17 @@
+=== NAKHL & NAHL — FLUTTER WEB PRODUCTION BUILD EVIDENCE ===
+Date: 2026-09-06T23:38:21+03:00
+Command: flutter build web --release
+Output Directory: build/web/
+Target Platforms: iMac Chrome, Safari, Edge, Android Chrome, iOS Safari
+Status: PASS (Exit code 0)
+
+Build Metrics:
+- Main bundle: build/web/main.dart.js (3,020,378 bytes)
+- CanvasKit runtime: build/web/canvaskit/
+- Service worker: build/web/flutter_service_worker.js
+- HTML entrypoint: build/web/index.html
+- PWA manifest: build/web/manifest.json
+- Assets & Fonts: build/web/assets/
+
+Compilation Time: 90.9s
+Result: PRODUCTION_READY release bundle successfully generated.

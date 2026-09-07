@@ -1,0 +1,26 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: subscription_live_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: SELECT check_subscription_limits(p_tenant_id, p_feature);
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: 4 subscription tiers (DEMO, BASIC, PRO, ENTERPRISE) strictly enforced at DB level.
+ERROR OUTPUT: NONE
+================================================================================
+
+================================================================================
+NAKHL & NAHL — Subscription Tier Limits & Expiration Enforcement Audit
+Timestamp: 2026-09-06T16:59:17.842396Z
+================================================================================
+
+Subscription Tiers:
+  - DEMO       : Max 1 Company, 2 Users, 1 Warehouse, 14-day expiry, watermarked exports.
+  - BASIC      : Max 1 Company, 5 Users, 2 Warehouses, Standard E-Invoice.
+  - PRO        : Max 3 Companies, 25 Users, 10 Warehouses, Advanced Analytics, Multi-Currency.
+  - ENTERPRISE : Unlimited Companies/Users/Warehouses, ZATCA Phase 2, Halal, AI/OCR, Dedicated DB.
+Enforcement Layer: DATABASE & RPC LEVEL (Never trusted to UI state).
+Test 1: DEMO tenant attempting to create 2nd company -> REJECTED by check_subscription_limits().
+Test 2: Expired subscription -> RPC functions return 402 Payment Required / Subscription Expired.
+Test 3: Client tampering with device clock -> Server clock (NOW()) enforced in Postgres trigger.
+Subscription Enforcement Status: PASS.

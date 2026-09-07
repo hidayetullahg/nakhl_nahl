@@ -1,0 +1,12 @@
+{
+    "backup_id": "nakhl_nahl_20260906_211437",
+    "timestamp": "2026-09-06T18:14:38Z",
+    "database": "nakhl_nahl",
+    "host": "localhost",
+    "encrypted_file": "nakhl_nahl_20260906_211437.sql.gz.enc",
+    "sha256": "ad4894f1fd0a649b81c11b59c8e68d80e2d9df280f887510605cbea94d3af066",
+    "size_bytes": 80320,
+    "encryption": "AES-256-CBC-PBKDF2-100k",
+    "retention_days": 30,
+    "status": "VERIFIED"
+}

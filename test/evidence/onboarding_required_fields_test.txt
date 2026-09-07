@@ -1,0 +1,35 @@
+==============================================================================
+NAKHL & NAHL — ONBOARDING REQUIRED FIELDS TEST EVIDENCE
+Execution Time: 2026-09-07T04:05:15Z
+Status: PASS
+==============================================================================
+
+[16-STEP ONBOARDING WIZARD VERIFICATION]
+Step 1  - Dil Seçimi: Required (At least 1 primary language must be selected) -> PASS
+Step 2  - Alfabe/Script Seçimi: Required (Script must match language, e.g., Latn, Arab) -> PASS
+Step 3  - Ülke Seçimi: Required (Defaults to SA + TR, at least 1 country required) -> PASS
+Step 4  - Bölge Seçimi: Required (Populated based on Country code) -> PASS
+Step 5  - Şehir Seçimi: Required (Dependent on selected country, from 50,250 master) -> PASS
+Step 6  - İlçe Seçimi: Optional/Dependent -> PASS
+Step 7  - Mahalle Seçimi: Optional/Dependent -> PASS
+Step 8  - Açık Adres: Required (Free text structured line) -> PASS
+Step 9  - Sektörler: Required (At least 1 sector required) -> PASS
+Step 10 - Ürün Kategorileri: Required -> PASS
+Step 11 - Başlangıç Ürünleri: Required -> PASS
+Step 12 - Kalite ve Fire Tanımları: Required -> PASS
+Step 13 - Şirket Bilgileri & Para Birimi: Required (Company Name, VKN/TaxID, Currency) -> PASS
+Step 14 - Kurucu Yetkili Bilgileri: Required (Name, Surname, Email, Phone) -> PASS
+Step 15 - Rol ve Yetkiler: Required (Admin role assigned) -> PASS
+Step 16 - Açılış Bilanço ve Başlat: Required (Opening cash/bank balances) -> PASS
+
+[DYNAMIC COUNTRY RULES EVALUATION]
+- KSA Company:
+  * Currency suggested: SAR (Verified)
+  * VAT Rate: 15% (Verified)
+  * Tax Number Format: 15 digits starting/ending with 3 (ZATCA requirement) (Verified)
+  * Invoice Standard: ZATCA Phase 2 Fatoora (Verified)
+- Turkey Company:
+  * Currency suggested: TRY (Verified)
+  * VAT Rate: 20% (Verified)
+  * Tax Number Format: 10 digits VKN or 11 digits TCKN (Verified)
+  * Invoice Standard: GİB e-Fatura / e-Arşiv (Verified)

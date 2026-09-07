@@ -1,0 +1,10 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    dangling_library_doc_comments: ignore
+    curly_braces_in_flow_control_structures: ignore
+    prefer_const_literals_to_create_immutables: ignore
+    prefer_interpolation_to_compose_strings: ignore
+    prefer_const_declarations: ignore
+    prefer_const_constructors: ignore

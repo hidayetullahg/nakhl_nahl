@@ -1,0 +1,21 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: PGDATABASE=nakhl_nahl ./scripts/backup.sh
+INPUT: Live database nakhl_nahl on localhost:5432
+EXPECTED: AES-256-CBC encrypted, gzip-compressed backup with SHA-256 integrity checksum
+ACTUAL: Backup created successfully with native pg_dump. File: backups/nakhl_nahl_*.sql.gz.enc, SHA-256 computed.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+[NAKHL-BACKUP] Starting automated backup for database: nakhl_nahl at localhost:5432...
+[NAKHL-BACKUP] Executing native pg_dump...
+[NAKHL-BACKUP] Encrypting backup archive with AES-256-CBC...
+[NAKHL-BACKUP] Computing SHA-256 integrity checksum...
+[NAKHL-BACKUP] Enforcing 30-day retention policy...
+[NAKHL-BACKUP] Backup completed successfully!
+[NAKHL-BACKUP] Encrypted Archive: ./backups/nakhl_nahl_20260906_211437.sql.gz.enc
+[NAKHL-BACKUP] SHA-256: ad4894f1fd0a649b81c11b59c8e68d80e2d9df280f887510605cbea94d3af066
+[NAKHL-BACKUP] Size: 80320 bytes

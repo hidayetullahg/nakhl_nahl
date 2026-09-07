@@ -1,0 +1,25 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/033_inventory_ledger_balance_tests.sql
+INPUT: 100 In, 20 Out, 30 Out, 5 Return -> net 55. Negative stock attempts, ledger tampering
+EXPECTED: Stock ledger balance calculated correctly (+100 -20 -30 +5 = 55.000). Negative stock blocked.
+ACTUAL: 9/9 inventory balance tests PASS.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+NOTICE:  ====================================================================
+NOTICE:  === FAZ 13: INVENTORY + STOCK LEDGER BALANCE TESTLERİ BAŞLIYOR   ===
+NOTICE:  ====================================================================
+NOTICE:  TEST 1: Initial Inflow (100 Kg) -> PASS
+NOTICE:  TEST 2: Outflow Movement 1 (-20 Kg) -> PASS
+NOTICE:  TEST 3: Outflow Movement 2 (-30 Kg) -> PASS
+NOTICE:  TEST 4: Return Inflow (+5 Kg) -> PASS
+NOTICE:  TEST 5: Net Balance Calculation -> PASS (Expected: 55.000, Actual: 55.000)
+NOTICE:  TEST 6: Stock Ledger Immutability -> PASS (UPDATE and DELETE blocked)
+NOTICE:  TEST 7: Negative Stock Prevention -> PASS (Attempt to issue 60 Kg from 55 Kg balance blocked)
+NOTICE:  TEST 8: Authorized Negative Stock Override -> PASS (Negative stock allowed with audit trail when enabled)
+NOTICE:  TEST 9: Cross-Tenant Stock Ledger Isolation -> PASS (0 rows visible to foreign tenant)
+NOTICE:  === FAZ 13 TEST SONUÇLARI: 9 / 9 TEST BAŞARIYLA GEÇTİ (PASS) ===

@@ -1,0 +1,41 @@
+================================================================================
+NAKHL & NAHL — Turkey (TR / TUR) Master Cities Verification
+Total Turkey Cities Count: 720
+================================================================================
+
+Top 25 Turkey Cities by Population:
+ 1. Istanbul             (ASCII: Istanbul          ) | Admin: İstanbul               | Pop: 15,382,791
+ 2. Esenyurt             (ASCII: Esenyurt          ) | Admin: İstanbul               | Pop:   977,489
+ 3. Çankaya              (ASCII: Cankaya           ) | Admin: Ankara                 | Pop:   942,553
+ 4. Küçükçekmece         (ASCII: Kucukcekmece      ) | Admin: İstanbul               | Pop:   805,930
+ 5. Bağcılar             (ASCII: Bagcilar          ) | Admin: İstanbul               | Pop:   757,162
+ 6. Pendik               (ASCII: Pendik            ) | Admin: Kocaeli                | Pop:   741,895
+ 7. Umraniye             (ASCII: Umraniye          ) | Admin: İstanbul               | Pop:   726,758
+ 8. Seyhan               (ASCII: Seyhan            ) | Admin: Adana                  | Pop:   642,321
+ 9. Kartal               (ASCII: Kartal            ) | Admin: İstanbul               | Pop:   557,664
+10. Van                  (ASCII: Van               ) | Admin: Van                    | Pop:   530,574
+11. Denizli              (ASCII: Denizli           ) | Admin: Denizli                | Pop:   525,497
+12. Esenler              (ASCII: Esenler           ) | Admin: İstanbul               | Pop:   517,235
+13. Osmangazi            (ASCII: Osmangazi         ) | Admin: Bursa                  | Pop:   473,302
+14. Avcılar              (ASCII: Avcilar           ) | Admin: İstanbul               | Pop:   457,981
+15. Kâğıthane            (ASCII: Kagithane         ) | Admin: İstanbul               | Pop:   455,943
+16. Erköklü              (ASCII: Erkoklu           ) | Admin: Batman                 | Pop:   452,157
+17. Demiryol             (ASCII: Demiryol          ) | Admin: Batman                 | Pop:   452,157
+18. Keçiören             (ASCII: Kecioren          ) | Admin: Ankara                 | Pop:   433,559
+19. Elazığ               (ASCII: Elazig            ) | Admin: Elazığ                 | Pop:   421,726
+20. Bağlar               (ASCII: Baglar            ) | Admin: Diyarbakır             | Pop:   402,275
+21. Beylikdüzü           (ASCII: Beylikduzu        ) | Admin: İstanbul               | Pop:   398,122
+22. Manisa               (ASCII: Manisa            ) | Admin: Manisa                 | Pop:   385,452
+23. Mamak                (ASCII: Mamak             ) | Admin: Ankara                 | Pop:   371,904
+24. Kocaeli              (ASCII: Kocaeli           ) | Admin: Kocaeli                | Pop:   363,416
+25. Sultanbeyli          (ASCII: Sultanbeyli       ) | Admin: İstanbul               | Pop:   349,485
+
+Turkey Priority Verification Checklist:
+ - City 'Istanbul': FOUND (PASS)
+ - City 'Ankara': FOUND (PASS)
+ - City 'Izmir': FOUND (PASS)
+ - City 'Bursa': FOUND (PASS)
+ - City 'Antalya': FOUND (PASS)
+ - City 'Gaziantep': FOUND (PASS)
+ - City 'Konya': FOUND (PASS)
+ - City 'Kayseri': FOUND (PASS)

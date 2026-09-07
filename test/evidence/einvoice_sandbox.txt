@@ -1,0 +1,17 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: flutter test test/einvoice_zatca_health_test.dart --plain-name 'FAZ 29 & 30'
+INPUT: MockSandboxEInvoiceAdapter, Logo, QNB eFinans, Uyumsoft, Sovos provider interfaces
+EXPECTED: UBL-TR XML generator validates VKN/TCKN, invoice UUID, totals, idempotency
+ACTUAL: SANDBOX VERIFIED. Production commercial API credentials are external configuration (PRODUCTION NOT VERIFIED).
+RESULT: CONDITIONAL
+EXIT CODE: 0
+================================================================================
+
+Turkish E-Invoice (GİB / UBL-TR) Status:
+- Architecture: EInvoiceAdapter provider abstraction pattern active.
+- Sandbox Validation: PASS (MockSandboxEInvoiceAdapter validates VKN/TCKN, UBL-TR XML, invoice UUID, cancellation).
+- Production Status: CONDITIONAL (Production integration requires customer's commercial private keys/GİB portal credentials).
+- Rating: SANDBOX VERIFIED / PRODUCTION CONDITIONAL.

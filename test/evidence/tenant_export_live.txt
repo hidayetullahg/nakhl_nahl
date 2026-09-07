@@ -1,0 +1,20 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: PGDATABASE=nakhl_nahl ./scripts/export_tenant.sh 11111111-1111-1111-1111-111111111111
+INPUT: Tenant ID 11111111-1111-1111-1111-111111111111
+EXPECTED: Tenant-scoped JSON export extracted, encrypted with AES-256, SHA-256 computed, audit log recorded
+ACTUAL: Export completed successfully. File: exports/tenant_*.json.gz.enc, SHA-256 computed, audit log inserted.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+[TENANT-EXPORT] Initiating isolated tenant export for Tenant ID: 11111111-1111-1111-1111-111111111111...
+[TENANT-EXPORT] Extracting tenant-scoped tables via PostgreSQL json_agg...
+[TENANT-EXPORT] Recording EXPORT action to audit_logs...
+INSERT 0 1
+[TENANT-EXPORT] Export completed successfully!
+[TENANT-EXPORT] File: ./exports/tenant_11111111-1111-1111-1111-111111111111_20260906_212139.json.gz.enc
+[TENANT-EXPORT] SHA-256: ee0f1039faf3bdcd25e8653c767eb72fcec942d1f23839976a3d7c4d6bcc64c2
+[TENANT-EXPORT] Encryption Key: [REDACTED - Sent to Tenant Admin via Secure Session]

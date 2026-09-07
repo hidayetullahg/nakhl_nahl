@@ -1,0 +1,95 @@
+version: '3.8'
+
+# ==============================================================================
+# NAKHL & NAHL — Local Production-Parity PostgreSQL / Supabase Stack
+# Complies with Sections 4, 24 & 51 of Master Production Hardening Directive
+# ==============================================================================
+
+services:
+  db:
+    image: supabase/postgres:15.1.1.78
+    container_name: nakhl_nahl_db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_local_dev_password}
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      JWT_SECRET: ${JWT_SECRET:-nakhl_nahl_super_secure_jwt_secret_minimum_32_chars}
+    volumes:
+      - ./supabase/migrations:/docker-entrypoint-initdb.d/migrations:ro
+      - ./supabase/seed.sql:/docker-entrypoint-initdb.d/seed.sql:ro
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  postgrest:
+    image: postgrest/postgrest:v12.0.1
+    container_name: nakhl_nahl_postgrest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      PGRST_DB_URI: postgres://postgres:${POSTGRES_PASSWORD:-postgres_local_dev_password}@db:5432/postgres
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: ${JWT_SECRET:-nakhl_nahl_super_secure_jwt_secret_minimum_32_chars}
+      PGRST_OPENAPI_SERVER_PROXY_URI: http://localhost:3000
+
+  gotrue:
+    image: supabase/gotrue:v2.132.3
+    container_name: nakhl_nahl_auth
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "9999:9999"
+    environment:
+      GOTRUE_API_HOST: 0.0.0.0
+      GOTRUE_API_PORT: 9999
+      GOTRUE_DB_DRIVER: postgres
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres_local_dev_password}@db:5432/postgres?sslmode=disable
+      GOTRUE_JWT_SECRET: ${JWT_SECRET:-nakhl_nahl_super_secure_jwt_secret_minimum_32_chars}
+      GOTRUE_JWT_EXP: 3600
+      GOTRUE_SITE_URL: http://localhost:8080
+      GOTRUE_URI_ALLOW_LIST: http://localhost:*
+
+  storage:
+    image: supabase/storage-api:v0.40.4
+    container_name: nakhl_nahl_storage
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    environment:
+      ANON_KEY: ${SUPABASE_ANON_KEY:-local_anon_key}
+      SERVICE_KEY: ${SUPABASE_SERVICE_ROLE_KEY:-local_service_role_key}
+      POSTGREST_URL: http://postgrest:3000
+      PGRST_JWT_SECRET: ${JWT_SECRET:-nakhl_nahl_super_secure_jwt_secret_minimum_32_chars}
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres_local_dev_password}@db:5432/postgres?sslmode=disable
+      FILE_STORAGE_BACKEND_PATH: /var/lib/storage
+      TENANT_ID: stub
+    volumes:
+      - storage_data:/var/lib/storage
+
+  inbucket:
+    image: inbucket/inbucket:3.0.4
+    container_name: nakhl_nahl_mail
+    restart: unless-stopped
+    ports:
+      - "2500:2500"
+      - "9000:9000"
+
+volumes:
+  db_data:
+  storage_data:

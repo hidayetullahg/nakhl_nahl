@@ -1,0 +1,14 @@
+================================================================================
+NAKHL & NAHL — World Cities Master Data Ingestion Evidence
+Source: SimpleMaps World Cities Database (v1.91.4, CC BY 4.0)
+================================================================================
+
+Total Rows In File : 50250
+Countries Imported : 241
+Cities Imported    : 50250
+Skipped Rows       : 0
+Duplicate IDs      : 0
+Coordinate Errors  : 0
+KSA Cities Total   : 106
+Turkey Cities Total: 720
+Status             : PASS (100% Normalized and Validated)

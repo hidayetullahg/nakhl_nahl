@@ -1,0 +1,131 @@
+# NAKHL&NAHL — Production Deploy Pipeline
+# ============================================================
+# Supabase veritabanı migrasyonlarını production'a deploy eder.
+# SADECE manuel tetikleme (workflow_dispatch) ile çalışır.
+# Kullanıcı onayı olmadan production deployment yapılmaz.
+# ============================================================
+
+name: Deploy — Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Hedef ortam"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
+      confirm_deploy:
+        description: "Production deploy onayı (evet yazın)"
+        required: false
+        type: string
+
+jobs:
+  # ──────────────────────────────────────────────────
+  # 1. PRE-FLIGHT KONTROL
+  # ──────────────────────────────────────────────────
+  pre-flight:
+    name: "🛡️ Pre-Flight Check"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Production deploy onayı kontrolü
+        if: inputs.environment == 'production'
+        run: |
+          if [ "${{ inputs.confirm_deploy }}" != "evet" ]; then
+            echo "❌ Production deployment için 'evet' yazarak onay vermeniz gerekiyor."
+            echo "Güvenlik kuralı: Kullanıcı onayı olmadan production deployment yapılmaz."
+            exit 1
+          fi
+          echo "✅ Production deploy onaylandı: ${{ github.actor }}"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.19.0"
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run static analysis
+        run: flutter analyze --no-pub
+
+      - name: Run full test suite
+        run: flutter test
+
+  # ──────────────────────────────────────────────────
+  # 2. DATABASE MİGRASYON DEPLOY
+  # ──────────────────────────────────────────────────
+  deploy-database:
+    name: "🗄️ Deploy Database Migrations"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: pre-flight
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Supabase CLI
+        run: |
+          npm install -g supabase@latest
+
+      - name: Deploy migrations
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        run: |
+          echo "🚀 Deploying migrations to ${{ inputs.environment }}..."
+          supabase db push --project-ref $SUPABASE_PROJECT_ID
+          echo "✅ Migrations deployed successfully."
+
+      - name: Deploy Edge Functions (if any)
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        run: |
+          if [ -d "supabase/functions" ]; then
+            echo "🚀 Deploying Edge Functions..."
+            supabase functions deploy --project-ref $SUPABASE_PROJECT_ID
+          else
+            echo "ℹ️ No Edge Functions found, skipping."
+          fi
+
+  # ──────────────────────────────────────────────────
+  # 3. DEPLOY SONRASI DOĞRULAMA
+  # ──────────────────────────────────────────────────
+  post-deploy-verify:
+    name: "✅ Post-Deploy Verification"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: deploy-database
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deployment özeti
+        run: |
+          echo "=============================================="
+          echo "NAKHL&NAHL — DEPLOYMENT RAPORU"
+          echo "=============================================="
+          echo "Ortam:        ${{ inputs.environment }}"
+          echo "Tetikleyen:   ${{ github.actor }}"
+          echo "Commit:       ${{ github.sha }}"
+          echo "Tarih:        $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "=============================================="
+          echo ""
+          echo "✅ Database migrations deployed"
+          echo "✅ Pre-flight checks passed"
+          echo "✅ All tests passed"
+          echo ""
+          echo "DİKKAT: Supabase Dashboard üzerinden RLS"
+          echo "politikalarını ve tablo yapılarını doğrulayın."
+          echo "=============================================="

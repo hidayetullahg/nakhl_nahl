@@ -1,0 +1,58 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/030_comprehensive_security_test_suite.sql
+INPUT: Authenticated sessions for User A (Tenant A) and User B (Tenant B) attempting cross-tenant operations
+EXPECTED: 10/10 security attack vectors denied / 0 records returned. Immutability triggers enforced.
+ACTUAL: 10/10 tests PASS: SELECT, INSERT, UPDATE, DELETE, RPC, fake JWT claims, posted journal immutability, stock ledger immutability, audit log immutability.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+NOTICE:  ====================================================================
+NOTICE:  === NAKHL & NAHL — COMPREHENSIVE TENANT SECURITY & IMMUTABILITY TEST ===
+NOTICE:  ====================================================================
+NOTICE:  TEST 1: Cross-Tenant SELECT Isolation (User A -> Tenant B)
+NOTICE:    EXPECTED: 0 rows returned
+NOTICE:    ACTUAL:   0 rows returned
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 2: Cross-Tenant INSERT Rejection (User A -> Tenant B Company)
+NOTICE:    EXPECTED: Exception (RLS or Constraint Violation)
+NOTICE:    ACTUAL:   Exception caught: new row violates row-level security policy for table "companies"
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 3: Cross-Tenant UPDATE Rejection (User A -> Tenant B Data)
+NOTICE:    EXPECTED: 0 rows updated
+NOTICE:    ACTUAL:   0 rows updated
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 4: Cross-Tenant DELETE Rejection (User A -> Tenant B Data)
+NOTICE:    EXPECTED: 0 rows deleted
+NOTICE:    ACTUAL:   0 rows deleted
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 5: Cross-Company Access Control within Same Tenant
+NOTICE:    EXPECTED: Exception or 0 rows
+NOTICE:    ACTUAL:   Access blocked (has_company_access enforced)
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 6: Warehouse Access Control
+NOTICE:    EXPECTED: Exception (No warehouse access)
+NOTICE:    ACTUAL:   Access blocked
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 7: Client-Side Tenant ID Spoofing Defense
+NOTICE:    EXPECTED: Exception (JWT claim mismatch with target tenant)
+NOTICE:    ACTUAL:   Exception caught: is_tenant_member() verified caller JWT against parameter
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 8: Posted Journal Entry Immutability
+NOTICE:    EXPECTED: Exception (Kesinlesmis yevmiye degistirilemez)
+NOTICE:    ACTUAL:   Exception caught: Kesinleşmiş (POSTED/LOCKED) muhasebe fişinin tutarları veya tarihi değiştirilemez!
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 9: Stock Ledger Append-Only Immutability
+NOTICE:    EXPECTED: Exception (Stok defteri degistirilemez/silinemez)
+NOTICE:    ACTUAL:   Exception caught: Stok hareket defteri (stock_ledger_entries) kayıtları kesinlikle silinemez veya güncellenemez!
+NOTICE:    RESULT:   PASS
+NOTICE:  TEST 10: Audit Log Append-Only Immutability
+NOTICE:    EXPECTED: Exception (Audit log degistirilemez/silinemez)
+NOTICE:    ACTUAL:   Exception caught: CRITICAL COMPLIANCE VIOLATION: Audit log kayıtları kesinlikle değiştirilemez (UPDATE) veya silinemez (DELETE)!
+NOTICE:    RESULT:   PASS
+NOTICE:  ====================================================================
+NOTICE:  === SECURITY TEST SONUÇLARI: 10 / 10 TEST BAŞARIYLA GEÇTİ (PASS) ===
+NOTICE:  ====================================================================

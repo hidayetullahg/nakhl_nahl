@@ -1,0 +1,23 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/035_sales_purchase_atomic_tests.sql
+INPUT: Unauthorized User B attempting to invoke create_sales_invoice_atomic for Tenant A company
+EXPECTED: RPC execution denied with exception (GÜVENLİK İHLALİ / Access Denied)
+ACTUAL: Exception caught: Access Denied / GÜVENLİK İHLALİ: Aktif kullanıcı bu tenant'a üye değildir! Result: PASS
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+NOTICE:  ====================================================================
+NOTICE:  === FAZ 15: SALES + PURCHASE BOUNDED CONTEXT TESTLERİ BAŞLIYOR   ===
+NOTICE:  ====================================================================
+NOTICE:  TEST 1: Purchase Intake Flow & Stock Entry -> PASS (100.000 Kg in stock)
+NOTICE:  TEST 2: Purchase Journal Double-Entry Balance (153/191/320) -> PASS (5750.0000 SAR)
+NOTICE:  TEST 3: Sales Flow & Stock Deduction -> PASS (80.000 Kg remaining)
+NOTICE:  TEST 4: Sales Journal Double-Entry Balance (120/600/391) -> PASS (1840.0000 SAR)
+NOTICE:  TEST 5: Atomicity Rollback Guarantee -> PASS (Exception caught, 0 orphan invoices)
+NOTICE:  TEST 6: Duplicate Invoice Prevention -> PASS (Exception caught on duplicate number)
+NOTICE:  TEST 7: Unauthorized Cross-Tenant Security Rejection -> PASS (Cross-tenant invoice creation blocked)
+NOTICE:  === FAZ 15 TEST SONUÇLARI: 7 / 7 TEST BAŞARIYLA GEÇTİ (PASS) ===

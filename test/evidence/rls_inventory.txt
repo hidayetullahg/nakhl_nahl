@@ -1,0 +1,26 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/050_production_security_hardening_tests.sql
+INPUT: PostgreSQL system catalogs pg_tables, pg_class, pg_namespace, pg_policy for public schema
+EXPECTED: All public tenant-sensitive tables have RLS enabled (rowsecurity=true) and forced (forcerowsecurity=true)
+ACTUAL: Total Tables: 105, RLS Enabled: 105, RLS Forced: 105, Critical Security Findings: 0, High: 0, Medium: 0
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+NOTICE:  ====================================================================
+NOTICE:  === FAZ 31: PRODUCTION SECURITY HARDENING DOGRULAMA TESTLERI    ===
+NOTICE:  ====================================================================
+NOTICE:  >> Toplam Incelenen Public Tablo Sayisi: 105
+NOTICE:  >> RLS Aktif Tablo Sayisi             : 105
+NOTICE:  >> RLS FORCED (Bypass Korumali) Sayisi : 105
+NOTICE:  >> Toplam Aktif RLS Politika Sayisi    : 175
+NOTICE:  >> Guvenli SECURITY DEFINER Fonksiyonu : 14
+NOTICE:  >> KRITIK GUVENLIK BULGUSU            : 0
+NOTICE:  >> YUKSEK GUVENLIK BULGUSU            : 0
+NOTICE:  >> ORTA GUVENLIK BULGUSU              : 0
+NOTICE:  ====================================================================
+NOTICE:  === NIHAI GUVENLIK DURUMU: HARDENED_PRODUCTION_READY             ===
+NOTICE:  ====================================================================

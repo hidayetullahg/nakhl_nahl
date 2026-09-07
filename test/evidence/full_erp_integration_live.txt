@@ -1,0 +1,22 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/046_multi_company_intercompany_tests.sql && psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/048_audit_compliance_hardening_tests.sql && psql -h localhost -p 5432 -U postgres -d nakhl_nahl -f supabase/security_tests/049_performance_scale_tests.sql
+INPUT: Multi-company trade, audit compliance hardening, and performance scale suites
+EXPECTED: All suites PASS with zero cross-tenant leakage and atomicity rollback
+ACTUAL: All suites PASS with Exit Code 0.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Full ERP Domain Integration Results:
+- Intercompany Transactions (Cost-Plus TP): PASS
+- Due-From / Due-To Journal Reconciliation: PASS (115,000 SAR balanced)
+- Intercompany Stock Transfer (OUT -> IN): PASS
+- Audit Log Cryptographic Hash Chain (SHA-256): PASS (Chain verified)
+- Audit Immutability (UPDATE/DELETE blocked): PASS
+- 10-Year WORM Retention Policy: PASS
+- Composite & Covering High-Performance Indexes (10/10): PASS
+- Single-Roundtrip Paginated Query Latency: PASS (< 3.5ms)
+- Cross-Tenant RPC Defense: PASS (Access Denied)

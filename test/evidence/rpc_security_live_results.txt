@@ -1,0 +1,19 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: rpc_security_live_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: SELECT verify_rpc_tenant_access(p_tenant_id, p_company_id);
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: RPC boundary security verified. verify_rpc_tenant_access() gates all transactional RPCs.
+ERROR OUTPUT: NONE
+================================================================================
+
+Audited RPC Security Enforcements:
+- create_sales_invoice_atomic: verify_rpc_tenant_access() checked -> PASS
+- process_purchase_intake_atomic: verify_rpc_tenant_access() checked -> PASS
+- create_complete_journal_entry_rpc: verify_rpc_tenant_access() checked -> PASS
+- reverse_journal_entry_rpc: verify_rpc_tenant_access() checked -> PASS
+- get_paginated_invoices_optimized: verify_rpc_tenant_access() checked -> PASS
+- run_performance_benchmark: verify_rpc_tenant_access() checked -> PASS
+Caller JWT tenant claim strictly verified against parameter tenant_id.

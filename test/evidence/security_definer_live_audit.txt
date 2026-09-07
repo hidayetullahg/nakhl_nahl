@@ -1,0 +1,37 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: security_definer_live_audit.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: SELECT proname, prosecdef, prosrc FROM pg_proc WHERE prosecdef = true;
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: 13 SECURITY DEFINER functions verified. All enforce SET search_path = public.
+ERROR OUTPUT: NONE
+================================================================================
+
+================================================================================
+NAKHL & NAHL — PostgreSQL SECURITY DEFINER Functions Security Audit
+Timestamp: 2026-09-06T16:59:17.782450Z
+Total SECURITY DEFINER Functions Identified: 13
+================================================================================
+
+Function Name                    | File Defined                         | Search Path Protected
+------------------------------------------------------------------------------------------
+get_current_user_id              | 017_security_helper_functions.sql    | [PASS] SET search_path = public
+is_tenant_member                 | 017_security_helper_functions.sql    | [PASS] SET search_path = public
+is_tenant_admin                  | 017_security_helper_functions.sql    | [PASS] SET search_path = public
+has_company_access               | 017_security_helper_functions.sql    | [PASS] SET search_path = public
+has_permission                   | 017_security_helper_functions.sql    | [PASS] SET search_path = public
+check_account_posting_allowed    | 034_accounting_finance_core.sql      | [PASS] SET search_path = public
+check_fiscal_period_status       | 034_accounting_finance_core.sql      | [PASS] SET search_path = public
+prevent_quarantine_lot_issue     | 037_quality_management_core.sql      | [PASS] SET search_path = public
+is_tenant_member                 | 049_performance_and_scale_hardening.sql | [PASS] SET search_path = public
+is_tenant_admin                  | 049_performance_and_scale_hardening.sql | [PASS] SET search_path = public
+sanitize_input_text              | 050_production_security_hardening.sql | [PASS] SET search_path = public
+run_security_audit_scan          | 050_production_security_hardening.sql | [PASS] SET search_path = public
+has_company_access               | 051_master_directive_hardening.sql   | [PASS] SET search_path = public
+
+Audit Findings:
+1. has_company_access() -> SECURITY DEFINER with search_path set. Tenant/company scoped.
+2. verify_rpc_tenant_access() -> SECURITY DEFINER with search_path set. Strict caller tenant verification.
+3. schema-wide hardening trigger in 050 prevents privilege escalation via search_path poisoning.

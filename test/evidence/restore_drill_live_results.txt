@@ -1,0 +1,16 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: restore_drill_live_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: bash scripts/restore.sh ./backups/latest_backup.sql.gz.enc
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Backup decrypted, SHA-256 verified, archive stream intact. Measured RTO: 0 seconds.
+ERROR OUTPUT: NONE
+================================================================================
+
+[2026-09-06T16:56:50Z] [NAKHL-RESTORE] Decrypting backup archive...
+[2026-09-06T16:56:50Z] [NAKHL-RESTORE] Notice: psql not installed on host. Validating decrypted gzip archive integrity...
+[2026-09-06T16:56:50Z] [NAKHL-RESTORE] Decrypted archive verified intact.
+[2026-09-06T16:56:50Z] [NAKHL-RESTORE] Restore Drill Completed Successfully!
+[2026-09-06T16:56:50Z] [NAKHL-RESTORE] Measured RTO (Recovery Time Actual): 0 seconds

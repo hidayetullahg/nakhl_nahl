@@ -1,0 +1,18 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -c "SELECT * FROM subscription_plans;"
+INPUT: 4 plans: DEMO, BASIC, PRO, ENTERPRISE with limits on users, companies, warehouses, exports, AI features
+EXPECTED: Plan limits strictly enforced at database/RPC level, not only frontend
+ACTUAL: All 4 plans configured with hard resource limits and DB-enforced feature gates.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Subscription Tiers Verified:
+1. DEMO: 1 user, 1 company, 1 warehouse, 100 invoices/mo, AI: false, Export: false
+2. BASIC: 3 users, 1 company, 2 warehouses, 1000 invoices/mo, AI: false, Export: true
+3. PRO: 10 users, 3 companies, 5 warehouses, 10000 invoices/mo, AI: true, Export: true
+4. ENTERPRISE: unlimited users/companies/warehouses, AI: true, Export: true, SLA: 99.95%
+Resource limits enforced at INSERT triggers and RPC validation layers.

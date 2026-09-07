@@ -1,0 +1,20 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: ./scripts/restore.sh ./backups/nakhl_nahl_20260906_211437.sql.gz.enc
+INPUT: Encrypted backup archive and SHA-256 checksum file
+EXPECTED: Checksum verified, decrypted, restored into drill database, tables and tenants validated
+ACTUAL: Restore Drill Completed Successfully! Public Tables: 125, Tenants: 2. Measured RTO: 6 seconds.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+[NAKHL-RESTORE] Verifying SHA-256 integrity checksum...
+[NAKHL-RESTORE] Checksum OK (ad4894f1fd0a649b81c11b59c8e68d80e2d9df280f887510605cbea94d3af066)
+[NAKHL-RESTORE] Decrypting backup archive...
+[NAKHL-RESTORE] Executing restore into target drill database: nakhl_nahl_restore_drill...
+[NAKHL-RESTORE] Running schema and data consistency verification...
+[NAKHL-RESTORE] Restore Metrics -> Public Tables: 125, Tenants: 2
+[NAKHL-RESTORE] Restore Drill Completed Successfully!
+[NAKHL-RESTORE] Measured RTO (Recovery Time Actual): 6 seconds

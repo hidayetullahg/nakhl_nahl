@@ -1,0 +1,16 @@
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  =============================================================
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  COMMERCIAL BILLING & DATA MIGRATION SECURITY TEST SUITE (RLS)
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  =============================================================
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 1 (18 Commercial Modules Seeded): PASS (count=18)
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 2 (Multi-Currency Pricing SAR/TRY Seeded): PASS (count=36)
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 3 (Module Entitlement has_active_module): PASS
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 4 (Grace Period & Expired Entitlement Rules): PASS
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 5 (Data Migration Cross-Tenant Job Leak Isolation): PASS
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 6 (Data Migration Staging Isolation): PASS
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 7 (Payment Order Cross-Tenant Leak Isolation): PASS
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  TEST 8 (Subscription Cross-Tenant Leak Isolation): PASS
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  =============================================================
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  COMMERCIAL & MIGRATION SECURITY RESULTS: 8 OF 8 TESTS PASSED
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  STATUS: ALL LIVE DB RLS & ISOLATION POLICIES CERTIFIED (PASS)
+psql:supabase/security_tests/054_commercial_and_migration_security_tests.sql:238: NOTICE:  =============================================================
+DO

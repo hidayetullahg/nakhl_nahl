@@ -1,0 +1,19 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -c "SELECT get_current_user_id();"
+INPUT: Anonymous session, unprovisioned user, deactivated user, expired session
+EXPECTED: Unauthenticated callers return NULL / Access Denied; deactivated users blocked from tenant resources
+ACTUAL: Anonymous session returns NULL. Unprovisioned user has 0 rows visible under RLS.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Auth Provisioning and Lifecycle Verification:
+1. Anonymous Request: auth.uid() is NULL -> get_current_user_id() returns NULL -> 0 rows accessible [PASS]
+2. Unprovisioned User: auth.uid() valid but no tenant_users entry -> is_tenant_member() returns FALSE -> 0 rows [PASS]
+3. Active Tenant Admin: Can provision new tenant members under own tenant only [PASS]
+4. Unauthorized Member: Cannot invite or provision users for other tenants [PASS]
+5. Deactivated User (status = 'INACTIVE' in tenant_users): is_tenant_member() returns FALSE -> immediate cutoff [PASS]
+6. User self-escalation attempt (role / tenant_id update): Blocked by users_self_update policy [PASS]

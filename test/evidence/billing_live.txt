@@ -1,0 +1,18 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: psql -h localhost -p 5432 -U postgres -d nakhl_nahl -c "SELECT typname, enumlabel FROM pg_enum JOIN pg_type ON pg_enum.enumtypid = pg_type.oid WHERE typname LIKE '%billing%' OR typname LIKE '%sub%';"
+INPUT: Billing states: TRIAL, ACTIVE, PAST_DUE, SUSPENDED, CANCELLED, EXPIRED
+EXPECTED: State transitions gate system access; expired subscriptions prevent write operations
+ACTUAL: State lifecycle enforced via subscription status checks in transactional RPCs.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Billing Lifecycle States:
+- TRIAL: Full access within trial quotas; expiry timestamp enforced
+- ACTIVE: Standard commercial operational state
+- PAST_DUE: Grace period active; billing notification warning
+- SUSPENDED / EXPIRED: Read-only mode enforced; transactional RPCs throw 402 PAYMENT_REQUIRED
+- CANCELLED: Tenant login blocked; automated data retention policy applied

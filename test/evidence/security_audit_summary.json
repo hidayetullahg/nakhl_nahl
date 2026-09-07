@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-09-06T22:47:00+03:00",
+  "audit_version": "1.0.0",
+  "target_system": "NAKHL&NAHL ERP",
+  "database": "PostgreSQL 15 (Local Live Instance on port 5432)",
+  "migrations_evaluated": [
+    "001_initial_schema.sql",
+    "002_rls_security_framework.sql",
+    "052_universal_integration_and_help_system.sql"
+  ],
+  "security_tests": {
+    "test_file": "supabase/security_tests/053_integration_and_help_security_tests.sql",
+    "total_tests": 10,
+    "passed_tests": 10,
+    "failed_tests": 0,
+    "status": "ALL_PASS",
+    "checks": [
+      {
+        "name": "TEST 1: Tenant Membership Boundary User A",
+        "result": "PASS",
+        "details": "User A cannot read User B membership records"
+      },
+      {
+        "name": "TEST 2: Cross-Tenant Credentials Leak Prevention",
+        "result": "PASS",
+        "details": "Integration configs strictly isolated to tenant_id; encrypted secrets inaccessible across tenants"
+      },
+      {
+        "name": "TEST 3: Cross-Tenant Entity Mapping Isolation",
+        "result": "PASS",
+        "details": "ERP entity mappings isolated per tenant"
+      },
+      {
+        "name": "TEST 4: Webhook & Event Tenant Isolation",
+        "result": "PASS",
+        "details": "Webhooks isolated by tenant_id"
+      },
+      {
+        "name": "TEST 5: Webhook Idempotency Enforcement",
+        "result": "PASS",
+        "details": "Duplicate webhook event rejected by database idempotency index"
+      },
+      {
+        "name": "TEST 6: Integration Sync Logs Isolation",
+        "result": "PASS",
+        "details": "Sync history logs strictly segregated"
+      },
+      {
+        "name": "TEST 7: User Help Progress Tenant Isolation",
+        "result": "PASS",
+        "details": "Help progress records private to user and tenant"
+      },
+      {
+        "name": "TEST 8: Help Content Global Read & Tenant Privacy",
+        "result": "PASS",
+        "details": "System guides readable by all; custom tenant guides segregated"
+      },
+      {
+        "name": "TEST 9: Help Usage Analytics Tenant Boundary",
+        "result": "PASS",
+        "details": "Analytics events filtered to owning tenant"
+      },
+      {
+        "name": "TEST 10: Provider Registry Catalogue Access",
+        "result": "PASS",
+        "details": "All 13 active international integration providers accessible for discovery"
+      }
+    ]
+  },
+  "rls_enforcement": {
+    "tables_checked": [
+      "integration_provider_registry",
+      "integration_configs",
+      "integration_entity_mappings",
+      "integration_webhooks",
+      "integration_webhook_events",
+      "integration_sync_logs",
+      "help_contents",
+      "user_help_progress",
+      "help_usage_events"
+    ],
+    "forced_rls": true,
+    "bypass_risk": "NONE"
+  },
+  "compliance": {
+    "tenant_isolation": "PASS",
+    "secret_masking": "PASS",
+    "idempotency": "PASS",
+    "replay_protection": "PASS",
+    "zero_pii_help_analytics": "PASS"
+  }
+}

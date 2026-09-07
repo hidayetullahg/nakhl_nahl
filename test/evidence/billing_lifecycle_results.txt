@@ -1,0 +1,17 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: billing_lifecycle_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: SELECT evaluate_tenant_billing_state(p_tenant_id);
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Billing lifecycle transitions (TRIAL, ACTIVE, PAST_DUE, EXPIRED, CANCELLED) verified.
+ERROR OUTPUT: NONE
+================================================================================
+
+Billing Lifecycle Verification:
+- TRIAL: Active for 14 days; limits enforced.
+- ACTIVE: Paid plan features unlocked.
+- PAST_DUE: 3-day grace period; warning displayed in UI.
+- EXPIRED: Read-only access; write RPCs return 402 Payment Required.
+- CANCELLED / SUSPENDED: Session locked out.

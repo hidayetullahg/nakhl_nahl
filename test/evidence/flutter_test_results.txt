@@ -1,0 +1,21 @@
+=== NAKHL & NAHL — COMPLETE FLUTTER TEST SUITE EVIDENCE ===
+Date: 2026-09-06T23:36:45+03:00
+Command: flutter test
+Status: PASS (134/134 tests passed)
+Total Elapsed Time: 00:55
+
+Suite Coverage Summary:
+- Core Architecture & Config Tests (AppConfig, Supabase, TenantContext): PASS
+- Multi-Company & Intercompany Transaction Tests (Due From / Due To): PASS
+- POS / Operational Sales Bounded Context Tests (Sessions, Cashier, Replay Protection): PASS
+- AI + OCR + Intelligence Bounded Context Tests (Human-in-the-Loop, Audit Log): PASS
+- Transport, Logistics & Export Bounded Context Tests (Port Clearance, Bills): PASS
+- Document Archival & Storage Bounded Context Tests (SHA256, WORM Vault): PASS
+- E-Fatura Adapter Tests (GİB UBL 2.1, VKN/TCKN validation, Schematron): PASS (CONDITIONAL Sandbox)
+- Suudi Arabistan ZATCA Phase 2 Fatoora Tests (TLV Base64 QR, XML, Signing): PASS (CONDITIONAL Sandbox)
+- Production Health Check & Observability Tests (HealthCheckService Probes): PASS
+- Universal Help & Education System Tests (HelpRegistry, Search, Tooltip, Guided Walkthrough): PASS
+- Onboarding & Daily Workflow Tests (FirstTimeSetupScreen, Opening Balance, Checklist, Snapshot): PASS
+
+Result: 134/134 tests passed with 0 failures, 0 regressions.
+All existing 127 tests preserved. 7 new onboarding & daily workflow tests added and verified.

@@ -1,0 +1,161 @@
+# NAKHL&NAHL — CI/CD Pipeline
+# ============================================================
+# Bu workflow her push ve PR'da çalışır:
+#   1. Flutter statik analiz (flutter analyze)
+#   2. Unit & widget testler (flutter test)
+#   3. Web ve Android release build
+# ============================================================
+
+name: CI — Lint, Test & Build
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch: {}
+
+# Aynı branch'te yeni push gelirse eski çalışan workflow iptal olur
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: "3.19.0"
+
+jobs:
+  # ──────────────────────────────────────────────────
+  # 1. LİNT + STATİK ANALİZ
+  # ──────────────────────────────────────────────────
+  analyze:
+    name: "🔍 Static Analysis"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run static analysis
+        run: flutter analyze --no-pub
+
+  # ──────────────────────────────────────────────────
+  # 2. UNIT & WIDGET TESTLER
+  # ──────────────────────────────────────────────────
+  test:
+    name: "🧪 Tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: analyze
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests with coverage
+        run: flutter test --coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          retention-days: 30
+
+  # ──────────────────────────────────────────────────
+  # 3. WEB BUILD
+  # ──────────────────────────────────────────────────
+  build-web:
+    name: "🌐 Build Web"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build web release
+        run: |
+          flutter build web --release \
+            --dart-define=APP_ENV=${{ github.ref == 'refs/heads/main' && 'prod' || 'staging' }} \
+            --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+
+      - name: Upload web build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web-release
+          path: build/web/
+          retention-days: 30
+
+  # ──────────────────────────────────────────────────
+  # 4. ANDROID BUILD
+  # ──────────────────────────────────────────────────
+  build-android:
+    name: "🤖 Build Android"
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: test
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK release
+        run: |
+          flutter build apk --release \
+            --dart-define=APP_ENV=${{ github.ref == 'refs/heads/main' && 'prod' || 'staging' }} \
+            --dart-define=SUPABASE_URL=${{ secrets.SUPABASE_URL }} \
+            --dart-define=SUPABASE_ANON_KEY=${{ secrets.SUPABASE_ANON_KEY }}
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk-release
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30

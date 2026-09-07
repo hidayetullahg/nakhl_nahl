@@ -1,0 +1,17 @@
+=== FLUTTER BUILD WEB RELEASE OUTPUT ===
+
+Compiling lib/main.dart for the Web...                          
+Expected to find fonts for (MaterialIcons, packages/cupertino_icons/CupertinoIcons), but found (MaterialIcons). This usually means you are referring to font families in an IconData class but not including them in the assets section of your pubspec.yaml, are missing the package that would include them, or are missing "uses-material-design: true".
+Font asset "MaterialIcons-Regular.otf" was tree-shaken, reducing it from 1645184 to 10884 bytes (99.3% reduction). Tree-shaking can be disabled by providing the --no-tree-shake-icons flag when building your app.
+Compiling lib/main.dart for the Web...                            128,0s
+total 4648
+drwxr-xr-x   9 gulbahargokturk  staff   288B Sep  6 18:24 assets
+drwxr-xr-x  10 gulbahargokturk  staff   320B Sep  6 18:22 canvaskit
+-rw-r--r--   1 gulbahargokturk  staff   917B Sep  5 13:11 favicon.png
+-rw-r--r--   1 gulbahargokturk  staff   3.8K Apr 17  2024 flutter.js
+-rw-r--r--   1 gulbahargokturk  staff   7.8K Sep  6 22:44 flutter_service_worker.js
+drwxr-xr-x   6 gulbahargokturk  staff   192B Sep  6 18:24 icons
+-rw-r--r--   1 gulbahargokturk  staff   1.8K Sep  6 22:44 index.html
+-rw-r--r--   1 gulbahargokturk  staff   2.2M Sep  6 22:44 main.dart.js
+-rw-r--r--   1 gulbahargokturk  staff   916B Sep  6 18:16 manifest.json
+-rw-r--r--   1 gulbahargokturk  staff    90B Sep  6 22:44 version.json

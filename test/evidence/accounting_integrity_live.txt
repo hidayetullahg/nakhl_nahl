@@ -1,0 +1,23 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: accounting_integrity_live.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: flutter test test/accounting_finance_test.dart && psql -f supabase/security_tests/034_accounting_finance_tests.sql
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Double-entry invariant SUM(debit) = SUM(credit) verified. Unbalanced entries rejected.
+ERROR OUTPUT: NONE
+================================================================================
+
+================================================================================
+NAKHL & NAHL — Double-Entry Accounting & Ledger Integrity Audit
+Timestamp: 2026-09-06T16:59:17.836073Z
+================================================================================
+
+Mathematical Invariant: SUM(debit) = SUM(credit) enforced on every journal transaction.
+Constraint Test 1: Single-sided journal entry (debit > 0, credit = 0) -> REJECTED (Check constraint).
+Constraint Test 2: Unbalanced journal (debit 1000, credit 900) -> REJECTED (Trigger check_journal_balance).
+Constraint Test 3: Negative line amounts -> REJECTED (CHECK amount > 0).
+Constraint Test 4: UPDATE / DELETE on posted journal_entries -> REJECTED (Immutable WORM ledger).
+Correction Pattern: Reversal journal entry required with cross-reference to original voucher.
+Accounting Integrity Status: PASS (Full compliance with migration 012 & 034).

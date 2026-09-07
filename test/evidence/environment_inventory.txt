@@ -1,0 +1,36 @@
+=== OS & KERNEL ===
+Darwin GULBAHARs-MacBook-Air.local 21.6.0 Darwin Kernel Version 21.6.0: Mon Jun 24 00:56:10 PDT 2024; root:xnu-8020.240.18.709.2~1/RELEASE_X86_64 x86_64
+x86_64
+ProductName:	macOS
+ProductVersion:	12.7.6
+BuildVersion:	21H1320
+
+=== DOCKER & CONTAINERIZATION ===
+zsh:8: command not found: docker
+zsh:9: command not found: docker
+
+=== SUPABASE CLI ===
+zsh:12: command not found: supabase
+
+=== POSTGRESQL CLIENT TOOLS ===
+zsh:15: command not found: psql
+zsh:16: command not found: pg_dump
+zsh:17: command not found: pg_restore
+
+=== NODE.JS & NPM ===
+zsh:20: command not found: node
+zsh:21: command not found: npm
+
+=== FLUTTER & DART SDK ===
+Flutter 3.19.6 • channel [user-branch] • unknown source
+Framework • revision 54e66469a9 (2 years, 5 months ago) • 2024-04-17 13:08:03 -0700
+Engine • revision c4cd48e186
+Tools • Dart 3.3.4 • DevTools 2.31.1
+Dart SDK version: 3.3.4 (stable) (Tue Apr 16 19:56:12 2024 +0000) on "macos_x64"
+
+=== PYTHON & OPENSSL ===
+Python 3.9.6
+LibreSSL 2.8.3
+
+=== GIT VERSION ===
+git version 2.37.1 (Apple Git-137.1)

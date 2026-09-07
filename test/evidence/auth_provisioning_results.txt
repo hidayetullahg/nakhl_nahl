@@ -1,0 +1,22 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: auth_provisioning_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: supabase.auth.signUp(...) -> evaluate tenant access without provisioning
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Unprovisioned auth users receive 0 rows from database tables.
+ERROR OUTPUT: NONE
+================================================================================
+
+================================================================================
+NAKHL & NAHL — Authentication vs Authorization Provisioning Audit
+Timestamp: 2026-09-06T16:59:17.828903Z
+================================================================================
+
+Scenario 1: User authenticates via Supabase Auth (auth.users) but has NO entry in public.users.
+  Result: Application access DENIED. Flutter App displays 'Hesabınız henüz bir şirkete veya tenanta atanmadı'.
+  Database RLS: (auth.jwt() ->> 'tenant_id') evaluates to NULL -> All table queries return 0 rows.
+Scenario 2: User in public.users with valid tenant_id but NO company_users assignment.
+  Result: Company-scoped records (invoices, warehouse, bank) return 403 / 0 rows via has_company_access().
+Provisioning Barrier Status: PASS (Multi-tier gating strictly verified).

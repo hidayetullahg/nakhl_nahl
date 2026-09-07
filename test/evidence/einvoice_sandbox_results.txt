@@ -1,0 +1,43 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: einvoice_sandbox_results.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: flutter test test/einvoice_zatca_health_test.dart --plain-name 'FAZ 29 & 30'
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS
+RESULT: Turkish E-Invoice multi-provider adapter and UBL-TR XML generator verified.
+ERROR OUTPUT: NONE
+================================================================================
+
+00:00 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:01 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:02 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:03 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:04 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:05 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:06 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:07 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:08 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:09 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:10 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:11 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:12 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:13 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:14 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:15 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:16 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:17 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:18 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:19 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:20 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:21 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:22 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:23 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:24 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:25 +0: loading /Users/gulbahargokturk/Documents/NAKHL&NAHL/test/einvoice_zatca_health_test.dart                                                                                                     
+00:25 +0: FAZ 29 & 30: Türkiye E-Fatura Adapter Tests EInvoiceFactory resolves correct provider adapters                                                                                               
+00:25 +1: FAZ 29 & 30: Türkiye E-Fatura Adapter Tests EInvoiceFactory resolves correct provider adapters                                                                                               
+00:25 +1: FAZ 29 & 30: Türkiye E-Fatura Adapter Tests MockSandboxEInvoiceAdapter validates VKN/TCKN and sends invoice with UBL XML                                                                     
+00:26 +1: FAZ 29 & 30: Türkiye E-Fatura Adapter Tests MockSandboxEInvoiceAdapter validates VKN/TCKN and sends invoice with UBL XML                                                                     
+00:26 +2: FAZ 29 & 30: Türkiye E-Fatura Adapter Tests MockSandboxEInvoiceAdapter validates VKN/TCKN and sends invoice with UBL XML                                                                     
+00:26 +2: All tests passed!

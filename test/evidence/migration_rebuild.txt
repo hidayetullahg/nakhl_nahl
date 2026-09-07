@@ -1,0 +1,14 @@
+=== MIGRATION 052 & SECURITY TEST 053 EXECUTION LOG ===
+          table_name           
+-------------------------------
+ integration_provider_registry
+ integration_configs
+ integration_entity_mappings
+ integration_webhooks
+ integration_webhook_events
+ integration_sync_logs
+ help_contents
+ user_help_progress
+ help_usage_events
+(9 rows)
+

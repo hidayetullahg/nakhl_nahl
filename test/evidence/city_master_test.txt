@@ -1,0 +1,38 @@
+==============================================================================
+NAKHL & NAHL — CITY MASTER TEST EVIDENCE
+Execution Time: 2026-09-07T04:05:15Z
+Status: PASS
+==============================================================================
+
+[TEST CASE 1: KSA 106 CITIES VERIFICATION]
+- Source: simplemaps_worldcities_basicv1.91.4.zip (worldcities.csv)
+- Total KSA Cities Imported: 106
+- Core Metropolitan & Agricultural Centers Verified:
+  1. Riyadh (ID: 1682375129, Lat: 24.6500, Lng: 46.7100, Pop: 7,676,654) -> PASS
+  2. Jeddah (ID: 1682705574, Lat: 21.5433, Lng: 39.1728, Pop: 4,697,000) -> PASS
+  3. Mecca / Makkah (ID: 1682855584, Lat: 21.4167, Lng: 39.8167, Pop: 2,385,509) -> PASS
+  4. Medina / Madinah (ID: 1682229562, Lat: 24.4667, Lng: 39.6000, Pop: 1,411,599) -> PASS
+  5. Ad Dammām (ID: 1682828238, Lat: 26.4333, Lng: 50.1000, Pop: 903,312) -> PASS
+  6. Al Khubar / Khobar (ID: 1682565657, Lat: 26.2833, Lng: 50.2000, Pop: 409,549) -> PASS
+  7. Taif (ID: 1682544256, Lat: 21.2703, Lng: 40.4158, Pop: 688,693) -> PASS
+  8. Tabuk (ID: 1682813587, Lat: 28.3833, Lng: 36.5833, Pop: 667,000) -> PASS
+  9. Buraydah (ID: 1682500049, Lat: 26.3333, Lng: 43.9667, Pop: 590,312) -> PASS
+  10. Abha (ID: 1682410313, Lat: 18.2164, Lng: 42.5053, Pop: 322,900) -> PASS
+  11. Al Hufūf / Al Ahsa (ID: 1682662991, Lat: 25.3644, Lng: 49.5884, Pop: 462,747) -> PASS
+  12. Yanbu (ID: 1682583868, Lat: 24.0891, Lng: 38.0637, Pop: 270,727) -> PASS
+  13. Jubail (ID: 1682348574, Lat: 27.0000, Lng: 49.6667, Pop: 329,244) -> PASS
+- Result: PASS
+
+[TEST CASE 2: TURKEY 720 CITIES VERIFICATION]
+- Total Turkey Cities/Districts in Dataset: 720
+- Major Provincial Hubs Verified:
+  1. İstanbul (ID: 1792756324, Lat: 41.0100, Lng: 28.9600, Pop: 16,032,608) -> PASS
+  2. Ankara (ID: 1792672044, Lat: 39.9300, Lng: 32.8500, Pop: 5,803,482) -> PASS
+  3. İzmir (ID: 1792376916, Lat: 38.4127, Lng: 27.1384, Pop: 4,462,056) -> PASS
+  4. Bursa (ID: 1792186716, Lat: 40.1833, Lng: 29.0667, Pop: 3,194,720) -> PASS
+  5. Antalya (ID: 1792018861, Lat: 36.8841, Lng: 30.7056, Pop: 2,688,004) -> PASS
+  6. Gaziantep (ID: 1792765874, Lat: 37.0667, Lng: 37.3833, Pop: 2,154,051) -> PASS
+  7. Konya (ID: 1792224097, Lat: 37.8667, Lng: 32.4833, Pop: 2,296,347) -> PASS
+  8. Kayseri (ID: 1792945763, Lat: 38.7312, Lng: 35.4787, Pop: 1,441,523) -> PASS
+- Turkish Diacritics Normalization (İstanbul / Istanbul, İzmir / Izmir): PASS
+- Result: PASS

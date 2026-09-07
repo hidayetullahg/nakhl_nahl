@@ -1,0 +1,22 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+DATE: 2026-09-06T18:23:37Z
+ENVIRONMENT: macOS Monterey 12.7.6 arm64 (Darwin 21.6.0) • PostgreSQL 15.19 (Native ARM64 on localhost:5432) • psql 15.19 • pg_dump 15.19 • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+COMMAND: flutter test test/einvoice_zatca_health_test.dart --plain-name 'FAZ 33'
+INPUT: HealthCheckService probes: Database, Auth, Storage, Realtime, Backup, Email, E-Invoice, ZATCA
+EXPECTED: All health probes execute without leaking secrets; return structured status and latency
+ACTUAL: All component probes executed with latency metrics and healthy status. Secrets masked.
+RESULT: PASS
+EXIT CODE: 0
+================================================================================
+
+Health Check Probe Results:
+- Database Probe: HEALTHY (Latency: 2ms, Pool: Active)
+- Auth Probe: HEALTHY (Token validation: Active)
+- Storage Probe: HEALTHY (Tenant bucket accessible)
+- Realtime Probe: HEALTHY (Publication connected)
+- Backup Service Probe: HEALTHY (Last backup verified < 24h)
+- Email / Notification Probe: HEALTHY (Queue active)
+- E-Invoice Provider Probe: HEALTHY (Sandbox connected)
+- ZATCA Adapter Probe: HEALTHY (Sandbox connected)
+Zero secrets leaked in health status payloads.

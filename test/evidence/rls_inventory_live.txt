@@ -1,0 +1,125 @@
+================================================================================
+NAKHL & NAHL — PRODUCTION EVIDENCE RECORD
+FILE: rls_inventory_live.txt
+TIMESTAMP: 2026-09-06T17:09:48Z
+COMMAND: psql -h localhost -U postgres -d nakhl_nahl -f test/evidence/rls_inventory.sql
+ENVIRONMENT: macOS Monterey 12.7.6 x86_64 (Darwin 21.6.0) • Flutter 3.19.6 • Dart 3.3.4 • Python 3.9.7
+STATUS: PASS (AST Catalog Verified)
+RESULT: 104/104 tables have RLS ENABLED and FORCED via Migration 050. 175 Policies active.
+ERROR OUTPUT: NONE
+================================================================================
+
+================================================================================
+NAKHL & NAHL — PostgreSQL Schema RLS Coverage Inventory
+Timestamp: 2026-09-06T16:59:17.770543Z
+Total Public Tables: 104
+Total Explicit Policies: 175
+Schema-Wide Hardening: Migration 050 dynamically enforces & forces RLS on all tables
+================================================================================
+
+Table Name                          | Tenant ID | Company ID | RLS     | Forced  | Policies Count
+------------------------------------------------------------------------------------------
+ai_audit_logs                       | YES       | YES        | ENABLED | FORCED  | 2
+ai_commercial_suggestions           | YES       | YES        | ENABLED | FORCED  | 2
+ai_document_classifications         | YES       | YES        | ENABLED | FORCED  | 2
+ai_ocr_extractions                  | YES       | YES        | ENABLED | FORCED  | 2
+audit_logs                          | YES       | YES        | ENABLED | FORCED  | 3
+audit_retention_policies            | YES       | NO         | ENABLED | FORCED  | 2
+branches                            | YES       | YES        | ENABLED | FORCED  | 2
+business_units                      | YES       | YES        | ENABLED | FORCED  | 2
+cariler                             | YES       | YES        | ENABLED | FORCED  | 4
+chart_of_accounts                   | YES       | YES        | ENABLED | FORCED  | 2
+cold_chain_temperature_logs         | YES       | YES        | ENABLED | FORCED  | 2
+commercial_accounts                 | YES       | YES        | ENABLED | FORCED  | 2
+companies                           | YES       | NO         | ENABLED | FORCED  | 4
+countries                           | NO        | NO         | ENABLED | FORCED  | 1
+crops                               | YES       | YES        | ENABLED | FORCED  | 2
+currencies                          | NO        | NO         | ENABLED | FORCED  | 1
+customers                           | YES       | YES        | ENABLED | FORCED  | 2
+customs_declarations                | YES       | YES        | ENABLED | FORCED  | 2
+departments                         | YES       | YES        | ENABLED | FORCED  | 2
+document_access_logs                | YES       | YES        | ENABLED | FORCED  | 2
+document_versions                   | YES       | YES        | ENABLED | FORCED  | 2
+documents                           | YES       | YES        | ENABLED | FORCED  | 2
+drivers                             | YES       | YES        | ENABLED | FORCED  | 2
+exchange_rates                      | YES       | NO         | ENABLED | FORCED  | 2
+export_containers                   | YES       | YES        | ENABLED | FORCED  | 2
+export_documents                    | YES       | YES        | ENABLED | FORCED  | 2
+export_file_items                   | YES       | YES        | ENABLED | FORCED  | 2
+export_files                        | YES       | YES        | ENABLED | FORCED  | 2
+facility_halal_certifications       | YES       | YES        | ENABLED | FORCED  | 2
+farms                               | YES       | YES        | ENABLED | FORCED  | 2
+fields                              | YES       | YES        | ENABLED | FORCED  | 2
+fiscal_periods                      | YES       | YES        | ENABLED | FORCED  | 1
+halal_ai_advisories                 | YES       | YES        | ENABLED | FORCED  | 2
+halal_audits                        | YES       | YES        | ENABLED | FORCED  | 2
+halal_certificates                  | YES       | YES        | ENABLED | FORCED  | 2
+halal_certification_bodies          | YES       | YES        | ENABLED | FORCED  | 0
+halal_scope_items                   | YES       | YES        | ENABLED | FORCED  | 2
+harvests                            | YES       | YES        | ENABLED | FORCED  | 2
+intercompany_agreements             | YES       | YES        | ENABLED | FORCED  | 1
+intercompany_stock_transfers        | YES       | YES        | ENABLED | FORCED  | 1
+intercompany_transaction_lines      | YES       | YES        | ENABLED | FORCED  | 1
+intercompany_transactions           | YES       | YES        | ENABLED | FORCED  | 1
+invoice_lines                       | YES       | YES        | ENABLED | FORCED  | 2
+invoices                            | YES       | YES        | ENABLED | FORCED  | 2
+item_lots                           | YES       | YES        | ENABLED | FORCED  | 2
+items                               | YES       | YES        | ENABLED | FORCED  | 2
+journal_entries                     | YES       | YES        | ENABLED | FORCED  | 3
+journal_lines                       | YES       | YES        | ENABLED | FORCED  | 2
+languages                           | NO        | NO         | ENABLED | FORCED  | 0
+legislations                        | YES       | YES        | ENABLED | FORCED  | 2
+locales                             | NO        | NO         | ENABLED | FORCED  | 0
+lot_factory_processings             | YES       | YES        | ENABLED | FORCED  | 1
+menu_definitions                    | NO        | NO         | ENABLED | FORCED  | 0
+modules                             | NO        | NO         | ENABLED | FORCED  | 0
+parties                             | YES       | YES        | ENABLED | FORCED  | 2
+party_addresses                     | YES       | YES        | ENABLED | FORCED  | 2
+party_contacts                      | YES       | YES        | ENABLED | FORCED  | 2
+party_roles                         | YES       | YES        | ENABLED | FORCED  | 2
+permissions                         | NO        | NO         | ENABLED | FORCED  | 0
+pos_payments                        | YES       | YES        | ENABLED | FORCED  | 1
+pos_sale_lines                      | YES       | YES        | ENABLED | FORCED  | 1
+pos_sales                           | YES       | YES        | ENABLED | FORCED  | 1
+pos_sessions                        | YES       | YES        | ENABLED | FORCED  | 1
+pos_terminals                       | YES       | YES        | ENABLED | FORCED  | 1
+product_categories                  | YES       | YES        | ENABLED | FORCED  | 2
+purchase_order_lines                | YES       | YES        | ENABLED | FORCED  | 2
+purchase_orders                     | YES       | YES        | ENABLED | FORCED  | 2
+quality_inspection_samples          | YES       | YES        | ENABLED | FORCED  | 2
+quality_inspections                 | YES       | YES        | ENABLED | FORCED  | 2
+quality_parameters                  | YES       | YES        | ENABLED | FORCED  | 2
+quality_specifications              | YES       | YES        | ENABLED | FORCED  | 2
+regional_locales                    | YES       | YES        | ENABLED | FORCED  | 1
+role_permissions                    | NO        | NO         | ENABLED | FORCED  | 0
+roles                               | YES       | NO         | ENABLED | FORCED  | 0
+saas_plans                          | NO        | NO         | ENABLED | FORCED  | 0
+sales_order_lines                   | YES       | YES        | ENABLED | FORCED  | 2
+sales_orders                        | YES       | YES        | ENABLED | FORCED  | 2
+scripts                             | NO        | NO         | ENABLED | FORCED  | 0
+shipment_containers                 | YES       | YES        | ENABLED | FORCED  | 2
+shipment_halal_documents            | YES       | YES        | ENABLED | FORCED  | 2
+shipment_packages                   | YES       | YES        | ENABLED | FORCED  | 2
+shipments                           | YES       | YES        | ENABLED | FORCED  | 2
+stock_ledger_entries                | YES       | YES        | ENABLED | FORCED  | 2
+supplier_halal_compliance           | YES       | YES        | ENABLED | FORCED  | 2
+suppliers                           | YES       | YES        | ENABLED | FORCED  | 2
+tax_profiles                        | YES       | YES        | ENABLED | FORCED  | 2
+tax_rules                           | YES       | YES        | ENABLED | FORCED  | 2
+tenant_modules                      | YES       | NO         | ENABLED | FORCED  | 2
+tenant_subscriptions                | YES       | NO         | ENABLED | FORCED  | 0
+tenant_users                        | YES       | NO         | ENABLED | FORCED  | 2
+tenants                             | YES       | NO         | ENABLED | FORCED  | 2
+trade_order_lines                   | YES       | YES        | ENABLED | FORCED  | 2
+trade_orders                        | YES       | YES        | ENABLED | FORCED  | 2
+transport_order_items               | YES       | YES        | ENABLED | FORCED  | 2
+transport_orders                    | YES       | YES        | ENABLED | FORCED  | 2
+ui_translations                     | NO        | NO         | ENABLED | FORCED  | 0
+unit_conversions                    | YES       | YES        | ENABLED | FORCED  | 1
+units                               | YES       | YES        | ENABLED | FORCED  | 1
+uom_categories                      | YES       | YES        | ENABLED | FORCED  | 1
+user_company_access                 | YES       | YES        | ENABLED | FORCED  | 2
+users                               | NO        | NO         | ENABLED | FORCED  | 2
+vehicles                            | YES       | YES        | ENABLED | FORCED  | 2
+warehouse_locations                 | YES       | NO         | ENABLED | FORCED  | 2
+warehouses                          | YES       | YES        | ENABLED | FORCED  | 4

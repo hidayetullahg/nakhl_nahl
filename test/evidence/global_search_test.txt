@@ -1,0 +1,25 @@
+==============================================================================
+NAKHL & NAHL — GLOBAL SEARCH TEST EVIDENCE
+Execution Time: 2026-09-07T04:05:15Z
+Status: PASS
+==============================================================================
+
+[NORMALIZED MULTILINGUAL SEARCH ENGINE]
+1. Accent-Insensitive Turkish Search:
+   - Query 'İstanbul' -> matches 'Istanbul'
+   - Query 'istanbul' -> matches 'Istanbul'
+   - Query 'İzmir' -> matches 'Izmir'
+   - Query 'Diyarbakır' -> matches 'Diyarbakir'
+   - Query 'Eskişehir' -> matches 'Eskisehir'
+   - Result: PASS (Case & accent insensitive regex/string normalization verified)
+
+2. Arabic Script Normalization:
+   - Query 'السعودية' (with Alif) -> normalized to 'السعوديه' / matched to Saudi Arabia
+   - Query 'الرياض' -> matched to Riyadh (Ar Riyāḑ)
+   - Query 'مكة' -> matched to Mecca (Makkah)
+   - Result: PASS (Arabic hamza/alif/ta-marbuta normalized)
+
+3. Dual-Key Country + City Hierarchical Matching:
+   - Country ISO2 'SA' + City 'dammam' -> 1 exact match (Ad Dammām)
+   - Country ISO2 'TR' + City 'kadikoy' -> matched via district/city catalog
+   - Result: PASS
