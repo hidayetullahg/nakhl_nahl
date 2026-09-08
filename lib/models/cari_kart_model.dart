@@ -72,6 +72,11 @@ class CariKart {
   DateTime kayitTarihi;
   DateTime? guncellemeTarihi;
   String kayitDili;
+  String privacyLegalBasis;
+  DateTime privacyNoticeInformedAt;
+  bool privacyConsentGiven;
+  DateTime? privacyConsentGivenAt;
+  DateTime privacyRetentionEndsAt;
 
   CariKart({
     this.id,
@@ -132,7 +137,15 @@ class CariKart {
     DateTime? kayitTarihi,
     this.guncellemeTarihi,
     this.kayitDili = 'TR',
-  }) : kayitTarihi = kayitTarihi ?? DateTime.now();
+    this.privacyLegalBasis = 'CONTRACT_NECESSITY',
+    DateTime? privacyNoticeInformedAt,
+    this.privacyConsentGiven = false,
+    this.privacyConsentGivenAt,
+    DateTime? privacyRetentionEndsAt,
+  })  : kayitTarihi = kayitTarihi ?? DateTime.now(),
+        privacyNoticeInformedAt = privacyNoticeInformedAt ?? DateTime.now(),
+        privacyRetentionEndsAt = privacyRetentionEndsAt ??
+            DateTime.now().add(const Duration(days: 3650));
 
   /// Cloud Firestore Map formatına dönüştürme
   Map<String, dynamic> toMap() {
@@ -194,6 +207,11 @@ class CariKart {
       'kayitTarihi': kayitTarihi.toIso8601String(),
       'guncellemeTarihi': guncellemeTarihi?.toIso8601String(),
       'kayitDili': kayitDili,
+      'privacyLegalBasis': privacyLegalBasis,
+      'privacyNoticeInformedAt': privacyNoticeInformedAt.toIso8601String(),
+      'privacyConsentGiven': privacyConsentGiven,
+      'privacyConsentGivenAt': privacyConsentGivenAt?.toIso8601String(),
+      'privacyRetentionEndsAt': privacyRetentionEndsAt.toIso8601String(),
     };
   }
 
@@ -262,6 +280,17 @@ class CariKart {
           ? DateTime.tryParse(map['guncellemeTarihi'])
           : null,
       kayitDili: map['kayitDili'] ?? 'TR',
+      privacyLegalBasis: map['privacyLegalBasis'] ?? 'CONTRACT_NECESSITY',
+      privacyNoticeInformedAt: map['privacyNoticeInformedAt'] != null
+          ? DateTime.tryParse(map['privacyNoticeInformedAt'])
+          : null,
+      privacyConsentGiven: map['privacyConsentGiven'] ?? false,
+      privacyConsentGivenAt: map['privacyConsentGivenAt'] != null
+          ? DateTime.tryParse(map['privacyConsentGivenAt'])
+          : null,
+      privacyRetentionEndsAt: map['privacyRetentionEndsAt'] != null
+          ? DateTime.tryParse(map['privacyRetentionEndsAt'])
+          : null,
     );
   }
 

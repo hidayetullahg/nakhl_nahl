@@ -93,6 +93,17 @@ class CariRepository {
               ? DateTime.tryParse(map['guncelleme_tarihi'])
               : null,
           kayitDili: map['kayit_dili'] ?? 'TR',
+          privacyLegalBasis: map['privacy_legal_basis'] ?? 'CONTRACT_NECESSITY',
+          privacyNoticeInformedAt: map['privacy_notice_informed_at'] != null
+              ? DateTime.tryParse(map['privacy_notice_informed_at'])
+              : null,
+          privacyConsentGiven: map['privacy_consent_given'] ?? false,
+          privacyConsentGivenAt: map['privacy_consent_given_at'] != null
+              ? DateTime.tryParse(map['privacy_consent_given_at'])
+              : null,
+          privacyRetentionEndsAt: map['privacy_retention_ends_at'] != null
+              ? DateTime.tryParse(map['privacy_retention_ends_at'])
+              : null,
         );
       }).toList();
     } catch (e) {
@@ -166,6 +177,14 @@ class CariRepository {
         'notlar': cari.notlar,
         'kayit_dili': cari.kayitDili,
         'guncelleme_tarihi': DateTime.now().toIso8601String(),
+        'privacy_legal_basis': cari.privacyLegalBasis,
+        'privacy_notice_informed_at':
+            cari.privacyNoticeInformedAt.toIso8601String(),
+        'privacy_consent_given': cari.privacyConsentGiven,
+        'privacy_consent_given_at':
+            cari.privacyConsentGivenAt?.toIso8601String(),
+        'privacy_retention_ends_at':
+            cari.privacyRetentionEndsAt.toIso8601String(),
       };
 
       final response = await SupabaseService.client

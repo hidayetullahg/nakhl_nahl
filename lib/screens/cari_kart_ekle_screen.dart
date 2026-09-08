@@ -37,6 +37,9 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
 
   String _secilenCariTipi = 'Musteri';
   bool _isSaving = false;
+  String _privacyLegalBasis = 'CONTRACT_NECESSITY';
+  bool _privacyNoticeInformed = false;
+  bool _privacyConsentGiven = false;
 
   @override
   void initState() {
@@ -64,6 +67,16 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
       );
       return;
     }
+    if (!_privacyNoticeInformed ||
+        (_privacyLegalBasis == 'EXPLICIT_CONSENT' && !_privacyConsentGiven)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content:
+              Text('KVKK aydınlatma ve seçilen işleme dayanağı zorunludur.'),
+        ),
+      );
+      return;
+    }
 
     setState(() => _isSaving = true);
 
@@ -81,6 +94,11 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
         paraBirimi: 'SAR',
         vergiTipi: 'TRN',
         kdvOrani: '%15',
+        privacyLegalBasis: _privacyLegalBasis,
+        privacyNoticeInformedAt: DateTime.now(),
+        privacyConsentGiven: _privacyConsentGiven,
+        privacyConsentGivenAt: _privacyConsentGiven ? DateTime.now() : null,
+        privacyRetentionEndsAt: DateTime.now().add(const Duration(days: 3650)),
       );
 
       // CariRepository üzerinden RLS ve tenant_id korumalı kayıt
@@ -131,7 +149,8 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
         actions: const [
           Padding(
             padding: EdgeInsets.only(right: 12),
-            child: HelpTooltip(route: '/customers', iconColor: Colors.amberAccent),
+            child:
+                HelpTooltip(route: '/customers', iconColor: Colors.amberAccent),
           ),
         ],
       ),
@@ -183,7 +202,7 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _secilenCariTipi,
+              initialValue: _secilenCariTipi,
               decoration: const InputDecoration(
                 labelText: 'Cari Hesap Türü',
                 border: OutlineInputBorder(),
@@ -233,11 +252,19 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
               children: [
                 const Text(
                   'Fatura Adresi & Lokasyon',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF5C4033)),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: Color(0xFF5C4033)),
                 ),
                 TextButton.icon(
-                  icon: const Icon(Icons.list_alt_rounded, size: 16, color: Color(0xFF5C4033)),
-                  label: const Text('Listeden Adres Seç', style: TextStyle(color: Color(0xFF5C4033), fontSize: 12, fontWeight: FontWeight.bold)),
+                  icon: const Icon(Icons.list_alt_rounded,
+                      size: 16, color: Color(0xFF5C4033)),
+                  label: const Text('Listeden Adres Seç',
+                      style: TextStyle(
+                          color: Color(0xFF5C4033),
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold)),
                   onPressed: () async {
                     final res = await AddressPickerDialog.show(
                       context,
@@ -263,6 +290,55 @@ class _CariKartEkleScreenState extends State<CariKartEkleScreen> {
               ),
             ),
             const SizedBox(height: 24),
+            const Divider(),
+            const Text('Kişisel Veri İşleme Dayanağı',
+                style: TextStyle(fontWeight: FontWeight.bold)),
+            DropdownButtonFormField<String>(
+              initialValue: _privacyLegalBasis,
+              decoration: const InputDecoration(
+                labelText: 'Hukuki dayanak *',
+                border: OutlineInputBorder(),
+              ),
+              items: const [
+                DropdownMenuItem(
+                  value: 'CONTRACT_NECESSITY',
+                  child: Text('Sözleşme kapsamında zorunlu işleme'),
+                ),
+                DropdownMenuItem(
+                  value: 'EXPLICIT_CONSENT',
+                  child: Text('Açık rıza'),
+                ),
+              ],
+              onChanged: (value) {
+                if (value == null) return;
+                setState(() {
+                  _privacyLegalBasis = value;
+                  if (value == 'CONTRACT_NECESSITY') {
+                    _privacyConsentGiven = false;
+                  }
+                });
+              },
+            ),
+            CheckboxListTile(
+              contentPadding: EdgeInsets.zero,
+              title: const Text('Kişisel veri aydınlatması yapıldı *'),
+              value: _privacyNoticeInformed,
+              onChanged: (value) =>
+                  setState(() => _privacyNoticeInformed = value ?? false),
+            ),
+            if (_privacyLegalBasis == 'EXPLICIT_CONSENT')
+              CheckboxListTile(
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Açık rıza alındı *'),
+                value: _privacyConsentGiven,
+                onChanged: (value) =>
+                    setState(() => _privacyConsentGiven = value ?? false),
+              ),
+            const Text(
+              'Saklama süresi: ticari ilişkinin bitiminden itibaren varsayılan 10 yıl. Metinler ve süreler uyum yöneticisi tarafından ülkeye göre düzenlenmelidir.',
+              style: TextStyle(fontSize: 12),
+            ),
+            const SizedBox(height: 16),
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF5C4033),
