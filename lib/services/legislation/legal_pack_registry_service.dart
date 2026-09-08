@@ -277,6 +277,23 @@ class LegalPackRegistryService {
   List<LegalPackModel> getActivePacks() => List.unmodifiable(_activePacks);
   List<LegalJurisdictionModel> getEmptyShelves() => List.unmodifiable(_emptyShelves);
 
+  /// Ülke koduna göre aktif mevzuat paketini döner (Bulunamazsa null)
+  LegalPackModel? getPackForCountry(String countryCode) {
+    try {
+      return _activePacks.firstWhere(
+        (p) => p.jurisdictionCode.toUpperCase() == countryCode.toUpperCase(),
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// Ülke paketinin aktif olup olmadığını kontrol eder
+  bool isCountryPackActive(String countryCode) {
+    final pack = getPackForCountry(countryCode);
+    return pack != null && pack.status == LegalShelfStatus.active;
+  }
+
   /// On-Demand Keşif İsteği (Yeni Ülkeye İhracat Başlatma Talebi)
   /// Durumu NOT_LOADED -> DISCOVERY yapar.
   Map<String, dynamic> requestPackDiscovery({

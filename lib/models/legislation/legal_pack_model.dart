@@ -168,6 +168,7 @@ class LegalPackModel {
 
   bool get isFullyActive => status == LegalShelfStatus.active;
   bool get isShelfEmpty => status == LegalShelfStatus.notLoaded;
+  String get packId => packCode;
 
   String get scopeDisplayTr {
     switch (scope) {

@@ -105,4 +105,24 @@ class CrossBorderEvaluationResult {
     required this.legalDisclaimer,
     this.isShelfEmpty = false,
   });
+
+  /// Belge adlarının basit listesi
+  List<String> get documentNames =>
+      requiredDocuments.map((d) => d.documentName).toList();
+
+  /// İlgili tüm resmi denetim ve gümrük otoritelerini döner
+  List<String> get applicableAuthorities {
+    final set = <String>{};
+    for (final o in sourceExportObligations) {
+      set.add(o.authority);
+    }
+    for (final o in supranationalObligations) {
+      set.add(o.authority);
+    }
+    for (final o in destinationNationalObligations) {
+      set.add(o.authority);
+    }
+    if (isTracesNtRequired) set.add('TRACES NT');
+    return set.toList();
+  }
 }

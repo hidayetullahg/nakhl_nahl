@@ -27,9 +27,9 @@ class CrossBorderLegalEngineService {
     }
 
     // 2. Senaryolar
-    if (source == 'SA' && (dest == 'DE' || dest == 'EU')) {
+    if (source == 'SA' && (dest == 'DE' || dest == 'EU' || dest == 'SA')) {
       return _evaluateSaudiToGermany(profile, now);
-    } else if (source == 'TR' && (dest == 'DE' || dest == 'EU')) {
+    } else if (source == 'TR' && (dest == 'DE' || dest == 'EU' || dest == 'TR')) {
       return _evaluateTurkeyToGermany(profile, now);
     } else if (source == 'SA' && dest == 'TR') {
       return _evaluateSaudiToTurkey(profile, now);
@@ -39,6 +39,24 @@ class CrossBorderLegalEngineService {
 
     // Bilinmeyen kombinasyon için güvenli fallback
     return _buildUnknownRouteResult(profile, now);
+  }
+
+  /// Uyumluluk analizi için yüksek seviyeli yardımcı fonksiyon
+  CrossBorderEvaluationResult analyzeExportCompliance({
+    required String originCountry,
+    required String destinationCountry,
+    required String hsCode,
+    required String productType,
+    double quantityKg = 1000.0,
+  }) {
+    final profile = ProductLegalProfileModel(
+      productName: productType,
+      hsCode: hsCode,
+      sourceCountry: originCountry,
+      destinationCountry: destinationCountry,
+      quantityKg: quantityKg,
+    );
+    return resolveApplicableLegalFramework(profile);
   }
 
   // --------------------------------------------------------------------------

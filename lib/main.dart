@@ -7,6 +7,8 @@ import 'screens/login_screen.dart';
 import 'screens/tenant_selection_screen.dart';
 import 'screens/onboarding/first_time_setup_screen.dart';
 import 'core/i18n/locale_script_manager.dart';
+import 'core/theme/app_theme_tokens.dart';
+import 'core/accessibility/accessibility_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,17 +47,19 @@ class NakhlNahlApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: LocaleScriptManager.instance,
+      animation: Listenable.merge([
+        LocaleScriptManager.instance,
+        AppThemeManager.instance,
+        AccessibilityManager.instance,
+      ]),
       builder: (context, _) {
         final profile = LocaleScriptManager.instance.currentLocale;
+        final themeTokens = AppThemeManager.instance.tokens;
 
         return MaterialApp(
           title: 'NAKHL&NAHL — Global ERP',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            useMaterial3: true,
-            colorSchemeSeed: const Color(0xFF5C4033),
-            scaffoldBackgroundColor: const Color(0xFFFBF9F1),
+          theme: themeTokens.toThemeData(
             fontFamily: profile.typography.primaryFontFamily,
           ),
           builder: (context, child) {
