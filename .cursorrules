@@ -1,0 +1,52 @@
+# Proje Anayasası / AI Kuralları
+
+Bu dosya, tüm AI yardımcıların ve otomasyonların çalışma ön koşuludur. Her istekten önce bu dosyayı okuyup uygulayarak ilerle.
+
+## 1) Otonom çalışma kuralı
+- Her görevde gereksiz onay isteme. Kural dışı ve kritik olmayan işlemleri doğrudan uygula.
+- Basit, tekrarlı ve güvenli değişiklikleri anında yap.
+- Yalnızca yüksek riskli, yasa/uygulama engelleyen veya kullanıcıdan net veri isteyen durumlarda soru sor.
+- Önce mevcut kodu oku, sonra küçük ve doğrulanabilir değişiklik yap.
+
+## 2) Arayüz ve tasarım kuralı
+- Daima kurumsal Enterprise UI (Material 3) standartlarını kullan.
+- Butonlarda ve kartlarda tutarlı, profesyonel görünüm oluştur.
+- Kullanılan boşluklar: temel düzenlerde 16px padding / 8px spacing sistemi.
+- Renkler: kurumsal marka paleti korunur; gereksiz "sade / çirkin" tasarım üretme.
+- Kısa ve temiz, ancak işlevsel ve profesyonel arayüz kur.
+- Gerekirse Material 3 elevation, colorScheme, shape, spacing ve typography standartlarını kullan.
+
+## 3) Finansal veri ve hesaplama kuralı
+- ERP modülünde finansal veriler için asla standart `double` kullanma.
+- Yuvarlama hatalarını önlemek için değişmez / güvenli hesaplama için kesinlikle `decimal` paketini kullan.
+- Para birimi, tutar, KDV, oran, faiz ve toplam hesaplamalarında `double` yerine Decimal/BigInt-uyumlu akış tercih et.
+- Tüm parasal işlemlerde uygun yuvarlama ve doğrulama yap.
+
+## 4) Dil, çeviri ve RTL kuralı
+- Çeviriler ve Arapça (RTL) düzeni için yalnızca mevcut proje mimarisini kullan.
+- `LocaleScriptManager`, `AppDictionary` ve ilgili i18n yapısını kullan.
+- Kendi başına yeni çeviri kütüphanesi icat etme, harici çeviri çözümü ekleme.
+- Kod ve UI içinde dil seçimi, script/RTL/LTR yönü ve fallback davranışı bu mimariye uygun şekilde çalıştır.
+- `LocaleScriptManager.instance.translate(...)` ve `AppDictionary.translate(...)` / `metin(...)` benzeri mevcut yöntemleri koru ve kullan.
+
+## 5) Kod kalitesi ve güvenlik kuralı
+- Hızlı çözüm yerine kök sebebe odaklan.
+- En küçük güvenli değişikliği yap.
+- Mevcut projeye ait isimlendirme ve düzeni koru.
+- İsim çakışmaları, gereksiz refactor ve anlamsız yeni dosya üretiminden kaçın.
+- Değişiklikten sonra mümkünse ilgili testleri çalıştır ve doğrula.
+
+## 6) Yapılacak iş akışı
+1. Kod tabanını okuma ve mevcut modele uygunluğu kontrol et.
+2. Mevcut mimari uyumunu koru.
+3. Küçük ama net bir fix uygula.
+4. Doğrulama komutunu çalıştır.
+5. Sonraki adımda ek iş varsa, gerekli minimum açıklama ile ilerle.
+
+## 7) Durdurulacak / yasaklanacak davranışlar
+- "Benim kafama göre yeni framework / translation libs / data model kuruyorum" deme.
+- Varsayılan `double` ile para hesaplaması yapma.
+- RTL/LTR düzeni için proje dışı yöntemler ekleme.
+- Gereksiz kullanıcı onayı isteyip durma.
+
+Bu kurallar, kod üretiminde zorunlu önceliktir.

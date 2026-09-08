@@ -240,7 +240,7 @@ class AppThemeTokens {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: surface,
       fontFamily: fontFamily,
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: surface,
         elevation: cardElevation,
         shape: RoundedRectangleBorder(

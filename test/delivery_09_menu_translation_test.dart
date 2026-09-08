@@ -48,5 +48,12 @@ void main() {
       expect(fallbackResult, isNotEmpty);
       expect(fallbackResult, equals('Dashboard'));
     });
+
+    test('metin helper resolves the selected locale and falls back safely', () {
+      expect(metin('dashboard', ['TR']), equals('Yönetici Paneli'));
+      expect(metin('dashboard', ['EN']), equals('Dashboard'));
+      expect(metin('dashboard', ['XX', 'TR']), equals('Yönetici Paneli'));
+      expect(metin('non_existent_key', ['TR']), equals('non_existent_key'));
+    });
   });
 }
