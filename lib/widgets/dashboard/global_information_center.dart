@@ -44,7 +44,8 @@ class _GlobalInformationCenterState extends State<GlobalInformationCenter> {
                     TextField(
                       controller: searchController,
                       decoration: const InputDecoration(
-                        hintText: 'Şehir veya IANA bölgesi ara (Örn: Tokyo, London)...',
+                        hintText:
+                            'Şehir veya IANA bölgesi ara (Örn: Tokyo, London)...',
                         prefixIcon: Icon(Icons.search),
                       ),
                       onChanged: (val) {
@@ -60,7 +61,8 @@ class _GlobalInformationCenterState extends State<GlobalInformationCenter> {
                         separatorBuilder: (_, __) => const Divider(height: 1),
                         itemBuilder: (context, idx) {
                           final tz = searchResults[idx];
-                          final isAlreadyAdded = WorldClockService.instance.clocks
+                          final isAlreadyAdded = WorldClockService
+                              .instance.clocks
                               .any((c) => c.timeZoneId == tz.id);
 
                           return ListTile(
@@ -75,7 +77,8 @@ class _GlobalInformationCenterState extends State<GlobalInformationCenter> {
                                     fontSize: 11, color: tokens.textMuted)),
                             trailing: isAlreadyAdded
                                 ? const Chip(
-                                    label: Text('Ekli', style: TextStyle(fontSize: 10)),
+                                    label: Text('Ekli',
+                                        style: TextStyle(fontSize: 10)),
                                     padding: EdgeInsets.zero,
                                   )
                                 : ElevatedButton(
@@ -85,8 +88,8 @@ class _GlobalInformationCenterState extends State<GlobalInformationCenter> {
                                           horizontal: 10),
                                     ),
                                     onPressed: () {
-                                      WorldClockService.instance
-                                          .addClock(timeZone: tz, isFavorite: true);
+                                      WorldClockService.instance.addClock(
+                                          timeZone: tz, isFavorite: true);
                                       Navigator.pop(ctx);
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -126,129 +129,84 @@ class _GlobalInformationCenterState extends State<GlobalInformationCenter> {
     final tokens = AppThemeManager.instance.tokens;
     final locManager = LocaleScriptManager.instance;
 
-    return Card(
-      elevation: tokens.cardElevation,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(tokens.borderRadius),
-        side: BorderSide(color: tokens.border),
+    return Container(
+      height: 76,
+      decoration: BoxDecoration(
+        color: tokens.surface,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: tokens.border),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Header
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: tokens.primaryContainer,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Icon(Icons.hub_outlined, size: 18, color: tokens.primary),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        locManager.translate(
-                          'global_info_center',
-                          defaultValue: 'GLOBAL INFORMATION CENTER',
-                        ),
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.8,
-                          color: tokens.primary,
-                        ),
-                      ),
-                      Text(
-                        locManager.translate(
-                          'global_info_center_subtitle',
-                          defaultValue:
-                              'Zaman, Çift Takvim (Miladi/Hicri), Piyasa Kurları & Dünya Saatleri',
-                        ),
-                        style: TextStyle(fontSize: 11, color: tokens.textMuted),
-                      ),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.add_circle_outline, size: 20),
-                  tooltip: 'Saat Dilimi Ekle',
-                  onPressed: _showAddTimezoneDialog,
-                ),
-              ],
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: Row(
+        children: [
+          Icon(Icons.public_rounded, size: 18, color: tokens.primary),
+          const SizedBox(width: 8),
+          Text(
+            locManager.translate('world_clocks',
+                defaultValue: 'PİYASA / ZAMAN'),
+            style: TextStyle(
+              fontSize: 10,
+              fontWeight: FontWeight.w800,
+              letterSpacing: 0.7,
+              color: tokens.textMuted,
             ),
-            const SizedBox(height: 16),
-
-            // Row 1: Time + Calendar + Market
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 800;
-
-                if (isWide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Yerel Saat
-                      const Expanded(flex: 2, child: _LiveClockWidget()),
-                      const SizedBox(width: 12),
-                      // Çift Takvim
-                      const Expanded(flex: 3, child: _DualCalendarWidget()),
-                      const SizedBox(width: 12),
-                      // Döviz Kurları
-                      const Expanded(flex: 3, child: _ExchangeRatesMiniCard()),
-                      const SizedBox(width: 12),
-                      // Altın
-                      const Expanded(flex: 2, child: _GoldPriceMiniCard()),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Row(
-                        children: const [
-                          Expanded(child: _LiveClockWidget()),
-                          SizedBox(width: 10),
-                          Expanded(child: _DualCalendarWidget()),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: const [
-                          Expanded(child: _ExchangeRatesMiniCard()),
-                          SizedBox(width: 10),
-                          Expanded(child: _GoldPriceMiniCard()),
-                        ],
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-
-            const SizedBox(height: 16),
-            const Divider(height: 1),
-            const SizedBox(height: 12),
-
-            // Row 2: Dünya Saatleri Şeridi
-            Text(
-              locManager.translate('world_clocks', defaultValue: 'DÜNYA SAATLERİ'),
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.bold,
-                color: tokens.textMuted,
-                letterSpacing: 0.5,
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: const [
+                  _CompactInfoItem(
+                      icon: Icons.schedule_rounded, child: _LiveClockWidget()),
+                  _CompactInfoItem(
+                      icon: Icons.today_rounded, child: _DualCalendarWidget()),
+                  _CompactInfoItem(
+                      icon: Icons.currency_exchange_rounded,
+                      child: _ExchangeRatesMiniCard()),
+                  _CompactInfoItem(
+                      icon: Icons.workspace_premium_rounded,
+                      child: _GoldPriceMiniCard()),
+                  _CompactInfoItem(
+                      icon: Icons.language_rounded, child: _WorldClocksStrip()),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-            const _WorldClocksStrip(),
-          ],
-        ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.add_circle_outline, size: 18),
+            tooltip: 'Saat Dilimi Ekle',
+            onPressed: _showAddTimezoneDialog,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CompactInfoItem extends StatelessWidget {
+  final IconData icon;
+  final Widget child;
+
+  const _CompactInfoItem({required this.icon, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      constraints: const BoxConstraints(minWidth: 118, maxWidth: 220),
+      height: 58,
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: AppThemeManager.instance.tokens.surfaceVariant,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 15, color: AppThemeManager.instance.tokens.primary),
+          const SizedBox(width: 7),
+          Flexible(child: child),
+        ],
       ),
     );
   }

@@ -17,9 +17,11 @@
 // ============================================================
 
 import 'dart:convert';
+import 'package:decimal/decimal.dart';
 import 'supabase_service.dart';
 import 'package:flutter/foundation.dart';
 import '../core/i18n/app_dictionary.dart';
+import '../core/money/money.dart';
 
 // ──────────────────────────────────────────────
 // ENUM: RAPOR KATEGORİLERİ & FORMATLARI
@@ -249,12 +251,12 @@ enum RaporModulu {
 /// Finansal hareketlerin özet raporu.
 class FinansOzeti {
   final int toplamIslemSayisi;
-  final double toplamTahsilat;
-  final double toplamOdeme;
-  final double toplamKarPayi;
-  final double toplamMasraf;
-  final double netBakiye;
-  final Map<String, double> paraBirimiKirilimi;
+  final Money toplamTahsilat;
+  final Money toplamOdeme;
+  final Money toplamKarPayi;
+  final Money toplamMasraf;
+  final Money netBakiye;
+  final Map<String, Money> paraBirimiKirilimi;
   final Map<String, int> islemTuruDagilimi;
   final List<Map<String, dynamic>> sonIslemler;
 
@@ -278,7 +280,9 @@ class FinansOzeti {
       'toplamKarPayi': toplamKarPayi,
       'toplamMasraf': toplamMasraf,
       'netBakiye': netBakiye,
-      'paraBirimiKirilimi': paraBirimiKirilimi,
+      'paraBirimiKirilimi': paraBirimiKirilimi.map(
+        (key, value) => MapEntry(key, value.amount.toString()),
+      ),
       'islemTuruDagilimi': islemTuruDagilimi,
       'sonIslemler': sonIslemler,
     };
@@ -291,8 +295,8 @@ class StokOzeti {
   final double toplamTonaj;
   final double toplamKoli;
   final double toplamCuval;
-  final double toplamEnvanterDegeriSar;
-  final double toplamEnvanterDegeriTry;
+  final Money toplamEnvanterDegeriSar;
+  final Money toplamEnvanterDegeriTry;
   final Map<String, double> cesitBazindaTonaj;
   final List<Map<String, dynamic>> tumStokKayitlari;
 
@@ -313,8 +317,8 @@ class StokOzeti {
       'toplamTonaj': toplamTonaj,
       'toplamKoli': toplamKoli,
       'toplamCuval': toplamCuval,
-      'toplamEnvanterDegeriSar': toplamEnvanterDegeriSar,
-      'toplamEnvanterDegeriTry': toplamEnvanterDegeriTry,
+      'toplamEnvanterDegeriSar': toplamEnvanterDegeriSar.amount.toString(),
+      'toplamEnvanterDegeriTry': toplamEnvanterDegeriTry.amount.toString(),
       'cesitBazindaTonaj': cesitBazindaTonaj,
       'tumStokKayitlari': tumStokKayitlari,
     };
@@ -464,32 +468,32 @@ class RaporlamaServisi {
           .map((e) => e as Map<String, dynamic>)
           .toList();
 
-      double toplamTahsilat = 0;
-      double toplamOdeme = 0;
-      double toplamKarPayi = 0;
-      double toplamMasraf = 0;
-      final Map<String, double> pbKirilimi = {};
+      var toplamTahsilat = Money.zero('SAR');
+      var toplamOdeme = Money.zero('SAR');
+      var toplamKarPayi = Money.zero('SAR');
+      var toplamMasraf = Money.zero('SAR');
+      final Map<String, Money> pbKirilimi = {};
       final Map<String, int> turDagilimi = {};
 
       for (final d in list) {
-        final double tutar = (d['total_debit'] as num?)?.toDouble() ?? 0.0;
+        final pb = d['currency'] ?? 'SAR';
+        final tutar = Money.fromString(d['total_debit']?.toString() ?? '0', pb);
         final String tur = d['entry_type'] ?? 'Genel';
-        final String pb = d['currency'] ?? 'SAR';
 
         if (tur.toLowerCase().contains('sales') ||
             tur.toLowerCase().contains('tahsilat')) {
-          toplamTahsilat += tutar;
+          if (pb == 'SAR') toplamTahsilat += tutar;
         } else if (tur.toLowerCase().contains('payment') ||
             tur.toLowerCase().contains('odeme')) {
-          toplamOdeme += tutar;
+          if (pb == 'SAR') toplamOdeme += tutar;
         } else if (tur.toLowerCase().contains('dividend') ||
             tur.toLowerCase().contains('kar')) {
-          toplamKarPayi += tutar;
+          if (pb == 'SAR') toplamKarPayi += tutar;
         } else {
-          toplamMasraf += tutar;
+          if (pb == 'SAR') toplamMasraf += tutar;
         }
 
-        pbKirilimi[pb] = (pbKirilimi[pb] ?? 0) + tutar;
+        pbKirilimi[pb] = (pbKirilimi[pb] ?? Money.zero(pb)) + tutar;
         turDagilimi[tur] = (turDagilimi[tur] ?? 0) + 1;
       }
 
@@ -511,11 +515,11 @@ class RaporlamaServisi {
       debugPrint('❌ finansOzetiGetir Hatası: $e');
       return FinansOzeti(
         toplamIslemSayisi: 0,
-        toplamTahsilat: 0,
-        toplamOdeme: 0,
-        toplamKarPayi: 0,
-        toplamMasraf: 0,
-        netBakiye: 0,
+        toplamTahsilat: Money.zero('SAR'),
+        toplamOdeme: Money.zero('SAR'),
+        toplamKarPayi: Money.zero('SAR'),
+        toplamMasraf: Money.zero('SAR'),
+        netBakiye: Money.zero('SAR'),
         paraBirimiKirilimi: {},
         islemTuruDagilimi: {},
         sonIslemler: [],
@@ -534,15 +538,18 @@ class RaporlamaServisi {
       double toplamTonaj = 0;
       double toplamKoli = 0;
       double toplamCuval = 0;
-      double toplamDegerSar = 0;
-      double toplamDegerTry = 0;
+      var toplamDegerSar = Money.zero('SAR');
+      var toplamDegerTry = Money.zero('TRY');
       final Map<String, double> cesitMap = {};
 
       for (final d in list) {
         final double miktar =
             (d['current_quantity'] as num?)?.toDouble() ?? 0.0;
         final String birim = d['unit_of_measure'] ?? 'Ton';
-        final double toplamDeger = miktar * 25.0; // Ortalama hurma birim fiyatı
+        final toplamDeger = Money.fromString(
+          (Decimal.parse(miktar.toString()) * Decimal.parse('25')).toString(),
+          'SAR',
+        );
         final String cesit = d['item_name'] ?? 'Hurma';
 
         switch (birim) {
@@ -577,8 +584,8 @@ class RaporlamaServisi {
         toplamTonaj: 0,
         toplamKoli: 0,
         toplamCuval: 0,
-        toplamEnvanterDegeriSar: 0,
-        toplamEnvanterDegeriTry: 0,
+        toplamEnvanterDegeriSar: Money.zero('SAR'),
+        toplamEnvanterDegeriTry: Money.zero('TRY'),
         cesitBazindaTonaj: {},
         tumStokKayitlari: [],
       );
@@ -788,9 +795,7 @@ class RaporlamaServisi {
 
       await Future.delayed(const Duration(milliseconds: 500));
 
-      final dilIsimleri = diller
-          .map((d) => desteklenenDiller[d.toUpperCase()] ?? d)
-          .join(' + ');
+      final dilIsimleri = diller.join(' + ');
 
       final mesaj = '$dosyaAdi başarıyla oluşturuldu.\n'
           'Format: ${format.goruntulenenAd} (${format.kategori.baslik})\n'
@@ -1103,10 +1108,11 @@ class RaporlamaServisi {
         'NAK${now.year}${now.month.toString().padLeft(2, '0')}${now.day.toString().padLeft(2, '0')}0001';
 
     final f = rapor.finansOzeti;
-    final double toplamTutar =
-        f.toplamTahsilat > 0 ? f.toplamTahsilat : 250000.00;
-    final double kdvTutari = toplamTutar * 0.10;
-    final double odenecekTutar = toplamTutar + kdvTutari;
+    final toplamTutar = f.toplamTahsilat > Money.zero('SAR')
+        ? f.toplamTahsilat
+        : Money.fromString('250000.00', 'SAR');
+    final kdvTutari = toplamTutar * Decimal.parse('0.10');
+    final odenecekTutar = toplamTutar + kdvTutari;
 
     final buf = StringBuffer();
     buf.writeln('<?xml version="1.0" encoding="UTF-8"?>');

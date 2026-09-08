@@ -1,4 +1,6 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nakhl_nahl/core/money/money.dart';
 import 'package:nakhl_nahl/repositories/agriculture_repository.dart';
 import 'package:nakhl_nahl/repositories/sales_repository.dart';
 import 'package:nakhl_nahl/repositories/inventory_repository.dart';
@@ -138,42 +140,42 @@ void main() {
 
       // 4. BALANCED JOURNAL ENTRY (150 Ticari Mallar Borç, 191 İndirilecek KDV Borç, 320 Satıcılar Alacak)
       final journalLines = [
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-150-inventory',
           description: 'Ticari Mallar - Hurma Alımı',
-          debitAmount: 10000.0,
-          creditAmount: 0.0,
+          debitAmount: Money.fromString('10000.00', 'SAR'),
+          creditAmount: Money.zero('SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-191-vat',
           description: 'İndirilecek KDV %15',
-          debitAmount: 1500.0,
-          creditAmount: 0.0,
+          debitAmount: Money.fromString('1500.00', 'SAR'),
+          creditAmount: Money.zero('SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-320-suppliers',
           description: 'Satıcılar - Medina Hurma Birliği',
-          debitAmount: 0.0,
-          creditAmount: 11500.0,
+          debitAmount: Money.zero('SAR'),
+          creditAmount: Money.fromString('11500.00', 'SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
       ];
 
-      double totalDebit = 0.0;
-      double totalCredit = 0.0;
+      var totalDebit = Money.zero('SAR');
+      var totalCredit = Money.zero('SAR');
       for (final line in journalLines) {
         totalDebit += line.debitAmount;
         totalCredit += line.creditAmount;
       }
 
       expect(totalDebit, totalCredit);
-      expect(totalDebit, 11500.0);
-      expect(totalCredit, 11500.0);
+      expect(totalDebit, Money.fromString('11500.00', 'SAR'));
+      expect(totalCredit, Money.fromString('11500.00', 'SAR'));
     });
 
     // =========================================================================
@@ -229,42 +231,42 @@ void main() {
 
       // 4. BALANCED SALES JOURNAL ENTRY (120 Alıcılar Borç, 600 Yurt İçi Satışlar Alacak, 391 Hesaplanan KDV Alacak)
       final salesJournalLines = [
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-120-receivables',
           description: 'Alıcılar - İstanbul Gıda A.Ş.',
-          debitAmount: 23000.0,
-          creditAmount: 0.0,
+          debitAmount: Money.fromString('23000.00', 'SAR'),
+          creditAmount: Money.zero('SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-600-sales',
           description: 'Hurma Satış Gelirleri',
-          debitAmount: 0.0,
-          creditAmount: 20000.0,
+          debitAmount: Money.zero('SAR'),
+          creditAmount: Money.fromString('20000.00', 'SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-391-vat',
           description: 'Hesaplanan KDV %15',
-          debitAmount: 0.0,
-          creditAmount: 3000.0,
+          debitAmount: Money.zero('SAR'),
+          creditAmount: Money.fromString('3000.00', 'SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
       ];
 
-      double salesDebit = 0.0;
-      double salesCredit = 0.0;
+      var salesDebit = Money.zero('SAR');
+      var salesCredit = Money.zero('SAR');
       for (final line in salesJournalLines) {
         salesDebit += line.debitAmount;
         salesCredit += line.creditAmount;
       }
 
       expect(salesDebit, salesCredit);
-      expect(salesDebit, 23000.0);
-      expect(salesCredit, 23000.0);
+      expect(salesDebit, Money.fromString('23000.00', 'SAR'));
+      expect(salesCredit, Money.fromString('23000.00', 'SAR'));
     });
 
     // =========================================================================

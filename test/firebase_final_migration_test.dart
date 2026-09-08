@@ -1,5 +1,7 @@
+import 'package:decimal/decimal.dart';
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nakhl_nahl/core/money/money.dart';
 import 'package:nakhl_nahl/models/cari_kart_model.dart';
 import 'package:nakhl_nahl/repositories/inventory_repository.dart';
 import 'package:nakhl_nahl/repositories/sales_repository.dart';
@@ -224,42 +226,42 @@ void main() {
         'DATA INVENTORY: Accounting mapping (finansal_hareketler -> journal_entries) has zero data loss',
         () {
       final lines = [
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-120-receivables',
           description: 'Müşteri Borç Kaydı',
-          debitAmount: 57500.0,
-          creditAmount: 0.0,
+          debitAmount: Money.fromString('57500.00', 'SAR'),
+          creditAmount: Money.zero('SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-600-sales',
           description: 'Hurma Satış Geliri',
-          debitAmount: 0.0,
-          creditAmount: 50000.0,
+          debitAmount: Money.zero('SAR'),
+          creditAmount: Money.fromString('50000.00', 'SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-391-vat',
           description: 'Hesaplanan KDV %15',
-          debitAmount: 0.0,
-          creditAmount: 7500.0,
+          debitAmount: Money.zero('SAR'),
+          creditAmount: Money.fromString('7500.00', 'SAR'),
           transactionCurrency: 'SAR',
-          exchangeRate: 1.0,
+          exchangeRate: Decimal.one,
         ),
       ];
 
-      double totalDebit = 0.0;
-      double totalCredit = 0.0;
+      var totalDebit = Money.zero('SAR');
+      var totalCredit = Money.zero('SAR');
       for (final line in lines) {
         totalDebit += line.debitAmount;
         totalCredit += line.creditAmount;
       }
 
       expect(totalDebit, totalCredit);
-      expect(totalDebit, 57500.0);
-      expect(totalCredit, 57500.0);
+      expect(totalDebit, Money.fromString('57500.00', 'SAR'));
+      expect(totalCredit, Money.fromString('57500.00', 'SAR'));
     });
 
     // =========================================================================

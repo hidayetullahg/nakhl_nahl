@@ -85,10 +85,10 @@ class AppThemeTokens {
     primary: Color(0xFF0B4656), // Deep Petrol / Midnight Teal
     primaryContainer: Color(0xFFE2F0F3),
     secondary: Color(0xFF287A52), // Palm Green
-    background: Color(0xFFF7F3EB), // Warm Sand
+    background: Color(0xFFF5F7FA), // Neutral enterprise canvas
     surface: Color(0xFFFFFFFF), // Temiz Beyaz Kart
-    surfaceVariant: Color(0xFFEFEBE2),
-    border: Color(0xFFE2DDD2),
+    surfaceVariant: Color(0xFFEEF2F5),
+    border: Color(0xFFD9E1E7),
     textPrimary: Color(0xFF102A33),
     textSecondary: Color(0xFF60727A),
     textMuted: Color(0xFF8F9FA6),
@@ -296,7 +296,8 @@ class AppThemeTokens {
           borderRadius: BorderRadius.circular(borderRadius),
           borderSide: BorderSide(color: primary, width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       ),
     );
   }
@@ -327,8 +328,10 @@ class AppThemeManager extends ChangeNotifier {
       }
     } else if (modeOrId is String) {
       for (final mode in AppThemeMode.values) {
-        final snake = mode.name.replaceAll(RegExp(r'(?=[A-Z])'), '_').toLowerCase();
-        if (mode.name.toLowerCase() == modeOrId.toLowerCase() || snake == modeOrId.toLowerCase()) {
+        final snake =
+            mode.name.replaceAll(RegExp(r'(?=[A-Z])'), '_').toLowerCase();
+        if (mode.name.toLowerCase() == modeOrId.toLowerCase() ||
+            snake == modeOrId.toLowerCase()) {
           _currentMode = mode;
           notifyListeners();
           return;

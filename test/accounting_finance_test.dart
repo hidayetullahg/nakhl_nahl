@@ -1,4 +1,6 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:nakhl_nahl/core/money/money.dart';
 import 'package:nakhl_nahl/repositories/accounting_repository.dart';
 
 void main() {
@@ -68,28 +70,28 @@ void main() {
 
     test('Double-Entry Balance and Multi-Currency calculation', () {
       final lines = [
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-cash',
           description: 'Kasa Girişi',
-          debitAmount: 1000.0,
-          creditAmount: 0.0,
+          debitAmount: Money.fromString('1000.00', 'USD'),
+          creditAmount: Money.zero('USD'),
           transactionCurrency: 'USD',
-          exchangeRate: 3.75,
+          exchangeRate: Decimal.parse('3.75'),
         ),
-        const JournalLine(
+        JournalLine(
           accountId: 'acc-rev',
           description: 'Gelir Tahakkuku',
-          debitAmount: 0.0,
-          creditAmount: 1000.0,
+          debitAmount: Money.zero('USD'),
+          creditAmount: Money.fromString('1000.00', 'USD'),
           transactionCurrency: 'USD',
-          exchangeRate: 3.75,
+          exchangeRate: Decimal.parse('3.75'),
         ),
       ];
 
-      double totalDebit = 0.0;
-      double totalCredit = 0.0;
-      double totalBaseDebit = 0.0;
-      double totalBaseCredit = 0.0;
+      var totalDebit = Money.zero('USD');
+      var totalCredit = Money.zero('USD');
+      var totalBaseDebit = Money.zero('USD');
+      var totalBaseCredit = Money.zero('USD');
 
       for (final line in lines) {
         totalDebit += line.debitAmount;
@@ -100,11 +102,11 @@ void main() {
 
       // Check balance equality: Total Debit == Total Credit
       expect(totalDebit, totalCredit);
-      expect(totalDebit, 1000.0);
+      expect(totalDebit, Money.fromString('1000.00', 'USD'));
 
       // Check base currency conversion (USD -> SAR at 3.75)
-      expect(totalBaseDebit, 3750.0);
-      expect(totalBaseCredit, 3750.0);
+      expect(totalBaseDebit, Money.fromString('3750.00', 'USD'));
+      expect(totalBaseCredit, Money.fromString('3750.00', 'USD'));
       expect(totalBaseDebit, totalBaseCredit);
     });
   });

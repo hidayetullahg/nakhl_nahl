@@ -169,7 +169,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 color: AppColors.secondary,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Icon(Icons.spa_rounded, color: Colors.white, size: 20),
+              child:
+                  const Icon(Icons.spa_rounded, color: Colors.white, size: 20),
             ),
             const SizedBox(width: 12),
             Column(
@@ -177,7 +178,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 const Text(
                   'NAKHL & NAHL ERP',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, letterSpacing: 0.8),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 0.8),
                 ),
                 Text(
                   'İşletmenin Nabzı (${_sirketKodu.toUpperCase()})',
@@ -194,7 +198,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const ManagementPresentationStudioScreen()),
+                MaterialPageRoute(
+                    builder: (_) => const ManagementPresentationStudioScreen()),
               );
             },
           ),
@@ -204,7 +209,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const StrategyMindMapScreen()),
+                MaterialPageRoute(
+                    builder: (_) => const StrategyMindMapScreen()),
               );
             },
           ),
@@ -220,7 +226,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
           Builder(
             builder: (c) => IconButton(
-              icon: const Icon(Icons.auto_awesome_rounded, color: AppColors.accent),
+              icon: const Icon(Icons.auto_awesome_rounded,
+                  color: AppColors.accent),
               tooltip: 'NAKHL Asistan (AI & 5N1K)',
               onPressed: () => Scaffold.of(c).openEndDrawer(),
             ),
@@ -238,351 +245,435 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ── 1. "İŞLETMENİN NABZI" ANA BAŞLIK ALANI ──
-            Column(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 1200),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('İşletmenin Nabzı', style: AppTypography.pageTitle(color: AppColors.primary)),
-                const SizedBox(height: 4),
-                Text(
-                  'Tüm operasyonlarınız tek ekranda. Bugünün durumu, yarının fırsatları.',
-                  style: AppTypography.bodyMedium(color: AppColors.textSecondary),
-                ),
-              ],
-            ),
-            const SizedBox(height: 18),
-
-            // ── GLOBAL ZAMAN + TAKVİM + PİYASA BİLGİ PANELİ ──
-            const GlobalInformationCenter(),
-            const SizedBox(height: 20),
-
-            // ── KURULUM EKSİKLİKLERİ UYARISI ──
-            _kurulumEksikleriBanneri(),
-
-            // ── 2. İŞLETME SAĞLIĞI & PULSE SKORU (82/100) ──
-            const BusinessPulseCard(),
-            const SizedBox(height: 20),
-
-            // ── 3. ALTI TEMEL FİNANSAL KPI KARTI ──
-            SectionHeader(
-              title: 'Temel Finansal & Operasyonel Göstergeler',
-              subtitle: 'Canlı veritabanı akışından anlık bakiye ve hacimler',
-              icon: Icons.analytics_outlined,
-            ),
-            LayoutBuilder(
-              builder: (ctx, constraints) {
-                final isWide = constraints.maxWidth > 900;
-                final crossCount = isWide ? 3 : (constraints.maxWidth > 600 ? 2 : 1);
-
-                return GridView.count(
-                  crossAxisCount: crossCount,
-                  crossAxisSpacing: 14,
-                  mainAxisSpacing: 14,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  childAspectRatio: isWide ? 2.1 : 2.4,
-                  children: const [
-                    KpiCard(
-                      title: 'Kasa Bakiyesi',
-                      value: '₺248.500',
-                      icon: Icons.account_balance_wallet_rounded,
-                      iconColor: AppColors.primary,
-                      changePercent: 12.4,
-                      comparisonPeriod: 'Geçen aya göre',
-                    ),
-                    KpiCard(
-                      title: 'Banka Mevduatı',
-                      value: '₺1.120.000',
-                      icon: Icons.account_balance_rounded,
-                      iconColor: AppColors.secondary,
-                      changePercent: 8.1,
-                      comparisonPeriod: 'Geçen aya göre',
-                    ),
-                    KpiCard(
-                      title: 'Alacaklar (Müşteri)',
-                      value: '₺680.300',
-                      icon: Icons.trending_up_rounded,
-                      iconColor: AppColors.info,
-                      changePercent: -3.2,
-                      comparisonPeriod: 'Geçen haftaya göre',
-                    ),
-                    KpiCard(
-                      title: 'Borçlar (Tedarikçi)',
-                      value: '₺312.400',
-                      icon: Icons.trending_down_rounded,
-                      iconColor: AppColors.warning,
-                      changePercent: -5.0,
-                      comparisonPeriod: 'Planlanan vadelere göre',
-                    ),
-                    KpiCard(
-                      title: 'Bugünkü Satış',
-                      value: '₺84.600',
-                      icon: Icons.point_of_sale_rounded,
-                      iconColor: AppColors.secondary,
-                      changePercent: 18.2,
-                      comparisonPeriod: 'Düne göre',
-                    ),
-                    KpiCard(
-                      title: 'Toplam Stok Değeri',
-                      value: '₺2.450.000',
-                      icon: Icons.inventory_2_rounded,
-                      iconColor: AppColors.accentDark,
-                      changePercent: 2.1,
-                      comparisonPeriod: '78.5 Ton Hurma & Paket',
+                // ── 1. "İŞLETMENİN NABZI" ANA BAŞLIK ALANI ──
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('İşletmenin Nabzı',
+                        style:
+                            AppTypography.pageTitle(color: AppColors.primary)),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Tüm operasyonlarınız tek ekranda. Bugünün durumu, yarının fırsatları.',
+                      style: AppTypography.bodyMedium(
+                          color: AppColors.textSecondary),
                     ),
                   ],
-                );
-              },
-            ),
-            const SizedBox(height: 24),
+                ),
+                const SizedBox(height: 18),
 
-            // ── 4. ANALİTİK GRAFİKLER (NAKİT AKIŞI & SATIŞ VE HEDEF) ──
-            LayoutBuilder(
-              builder: (ctx, constraints) {
-                final isWide = constraints.maxWidth > 900;
-                if (isWide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Expanded(
-                        flex: 6,
-                        child: UniversalChartEngine(
-                          title: '12 Aylık Nakit Akışı (Giriş / Çıkış / Net)',
-                          subtitle: 'Son 12 ayın kümülatif nakit hareket eğilimi',
-                          type: UniversalChartType.area,
-                          data: [
-                            ChartDataPoint(label: 'Eki', value: 320),
-                            ChartDataPoint(label: 'Kas', value: 410),
-                            ChartDataPoint(label: 'Ara', value: 390),
-                            ChartDataPoint(label: 'Oca', value: 520),
-                            ChartDataPoint(label: 'Şub', value: 480),
-                            ChartDataPoint(label: 'Mar', value: 650),
-                            ChartDataPoint(label: 'Nis', value: 710),
-                            ChartDataPoint(label: 'May', value: 680),
-                            ChartDataPoint(label: 'Haz', value: 820),
-                            ChartDataPoint(label: 'Tem', value: 790),
-                            ChartDataPoint(label: 'Ağu', value: 910),
-                            ChartDataPoint(label: 'Eyl', value: 980),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        flex: 4,
-                        child: UniversalChartEngine(
-                          title: 'Satış ve Hedef (Actual vs Target)',
-                          subtitle: 'Çeyrek bazlı satış gerçekleşme performansı',
-                          type: UniversalChartType.bar,
-                          data: [
-                            ChartDataPoint(label: 'Q1 Hedef', value: 600, color: AppColors.primary),
-                            ChartDataPoint(label: 'Q1 Gerçek', value: 680, color: AppColors.secondary),
-                            ChartDataPoint(label: 'Q2 Hedef', value: 750, color: AppColors.primary),
-                            ChartDataPoint(label: 'Q2 Gerçek', value: 820, color: AppColors.secondary),
-                            ChartDataPoint(label: 'Q3 Hedef', value: 900, color: AppColors.primary),
-                            ChartDataPoint(label: 'Q3 Gerçek', value: 980, color: AppColors.secondary),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: const [
-                      UniversalChartEngine(
-                        title: '12 Aylık Nakit Akışı (Giriş / Çıkış / Net)',
-                        subtitle: 'Son 12 ayın kümülatif nakit hareket eğilimi',
-                        type: UniversalChartType.area,
-                        data: [
-                          ChartDataPoint(label: 'Eki', value: 320),
-                          ChartDataPoint(label: 'Ara', value: 390),
-                          ChartDataPoint(label: 'Şub', value: 480),
-                          ChartDataPoint(label: 'Nis', value: 710),
-                          ChartDataPoint(label: 'Haz', value: 820),
-                          ChartDataPoint(label: 'Ağu', value: 910),
-                          ChartDataPoint(label: 'Eyl', value: 980),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      UniversalChartEngine(
-                        title: 'Satış ve Hedef (Actual vs Target)',
-                        subtitle: 'Çeyrek bazlı satış gerçekleşme performansı',
-                        type: UniversalChartType.bar,
-                        data: [
-                          ChartDataPoint(label: 'Q1', value: 680, color: AppColors.secondary),
-                          ChartDataPoint(label: 'Q2', value: 820, color: AppColors.secondary),
-                          ChartDataPoint(label: 'Q3', value: 980, color: AppColors.secondary),
-                        ],
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 20),
+                // En sık kullanılan işler, bilgi panellerinden önce görünür.
+                QuickActionsGrid(
+                  onActionSelected: (key) {
+                    switch (key) {
+                      case 'satis':
+                      case 'fatura':
+                        _yetkiliSayfayaGit('satis', const SatisFaturaScreen());
+                        break;
+                      case 'tahsilat':
+                      case 'odeme':
+                        _yetkiliSayfayaGit('finans', const FinansIslemScreen());
+                        break;
+                      case 'stok_girisi':
+                        _yetkiliSayfayaGit('stok', const StokYonetimScreen());
+                        break;
+                      case 'yeni_musteri':
+                      case 'yeni_tedarikci':
+                      case 'cari_islem':
+                        _altNavigasyonaGit(1);
+                        break;
+                      case 'alis':
+                      case 'yeni_siparis':
+                        _yetkiliSayfayaGit(
+                            'ihracat', const IhracatSevkiyatScreen());
+                        break;
+                    }
+                  },
+                ),
+                const SizedBox(height: 14),
 
-            // ── 5. ALACAK YAŞLANDIRMA & STOK RİSK ISI HARİTASI ──
-            LayoutBuilder(
-              builder: (ctx, constraints) {
-                final isWide = constraints.maxWidth > 900;
-                return isWide
-                    ? Row(
+                // ── GLOBAL ZAMAN + TAKVİM + PİYASA BİLGİ PANELİ ──
+                const GlobalInformationCenter(),
+                const SizedBox(height: 20),
+
+                // ── KURULUM EKSİKLİKLERİ UYARISI ──
+                _kurulumEksikleriBanneri(),
+
+                // ── 2. İŞLETME SAĞLIĞI & PULSE SKORU (82/100) ──
+                const BusinessPulseCard(),
+                const SizedBox(height: 20),
+
+                // ── 3. ALTI TEMEL FİNANSAL KPI KARTI ──
+                SectionHeader(
+                  title: 'Temel Finansal & Operasyonel Göstergeler',
+                  subtitle:
+                      'Canlı veritabanı akışından anlık bakiye ve hacimler',
+                  icon: Icons.analytics_outlined,
+                ),
+                LayoutBuilder(
+                  builder: (ctx, constraints) {
+                    final isWide = constraints.maxWidth > 900;
+                    final crossCount =
+                        isWide ? 3 : (constraints.maxWidth > 600 ? 2 : 1);
+
+                    return GridView.count(
+                      crossAxisCount: crossCount,
+                      crossAxisSpacing: 14,
+                      mainAxisSpacing: 14,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      childAspectRatio: 1.618,
+                      children: const [
+                        KpiCard(
+                          title: 'Kasa Bakiyesi',
+                          value: '₺248.500',
+                          icon: Icons.account_balance_wallet_rounded,
+                          iconColor: AppColors.primary,
+                          changePercent: 12.4,
+                          comparisonPeriod: 'Geçen aya göre',
+                        ),
+                        KpiCard(
+                          title: 'Banka Mevduatı',
+                          value: '₺1.120.000',
+                          icon: Icons.account_balance_rounded,
+                          iconColor: AppColors.secondary,
+                          changePercent: 8.1,
+                          comparisonPeriod: 'Geçen aya göre',
+                        ),
+                        KpiCard(
+                          title: 'Alacaklar (Müşteri)',
+                          value: '₺680.300',
+                          icon: Icons.trending_up_rounded,
+                          iconColor: AppColors.info,
+                          changePercent: -3.2,
+                          comparisonPeriod: 'Geçen haftaya göre',
+                        ),
+                        KpiCard(
+                          title: 'Borçlar (Tedarikçi)',
+                          value: '₺312.400',
+                          icon: Icons.trending_down_rounded,
+                          iconColor: AppColors.warning,
+                          changePercent: -5.0,
+                          comparisonPeriod: 'Planlanan vadelere göre',
+                        ),
+                        KpiCard(
+                          title: 'Bugünkü Satış',
+                          value: '₺84.600',
+                          icon: Icons.point_of_sale_rounded,
+                          iconColor: AppColors.secondary,
+                          changePercent: 18.2,
+                          comparisonPeriod: 'Düne göre',
+                        ),
+                        KpiCard(
+                          title: 'Toplam Stok Değeri',
+                          value: '₺2.450.000',
+                          icon: Icons.inventory_2_rounded,
+                          iconColor: AppColors.accentDark,
+                          changePercent: 2.1,
+                          comparisonPeriod: '78.5 Ton Hurma & Paket',
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                // ── 4. ANALİTİK GRAFİKLER (NAKİT AKIŞI & SATIŞ VE HEDEF) ──
+                LayoutBuilder(
+                  builder: (ctx, constraints) {
+                    final isWide = constraints.maxWidth > 900;
+                    if (isWide) {
+                      return Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Expanded(
-                            flex: 5,
+                            flex: 6,
                             child: UniversalChartEngine(
-                              title: 'Alacak Yaşlandırma Analizi',
-                              subtitle: '0-30, 31-60, 61-90, 91+ gün vade dağılımı',
-                              type: UniversalChartType.aging,
+                              title:
+                                  '12 Aylık Nakit Akışı (Giriş / Çıkış / Net)',
+                              subtitle:
+                                  'Son 12 ayın kümülatif nakit hareket eğilimi',
+                              type: UniversalChartType.area,
                               data: [
-                                ChartDataPoint(label: '0-30 Gün (Düşük Risk)', value: 410000, color: AppColors.success),
-                                ChartDataPoint(label: '31-60 Gün (Orta Risk)', value: 160000, color: AppColors.info),
-                                ChartDataPoint(label: '61-90 Gün (Yüksek Risk)', value: 75000, color: AppColors.warning),
-                                ChartDataPoint(label: '91+ Gün (Kritik Takip)', value: 35300, color: AppColors.danger),
+                                ChartDataPoint(label: 'Eki', value: 320),
+                                ChartDataPoint(label: 'Kas', value: 410),
+                                ChartDataPoint(label: 'Ara', value: 390),
+                                ChartDataPoint(label: 'Oca', value: 520),
+                                ChartDataPoint(label: 'Şub', value: 480),
+                                ChartDataPoint(label: 'Mar', value: 650),
+                                ChartDataPoint(label: 'Nis', value: 710),
+                                ChartDataPoint(label: 'May', value: 680),
+                                ChartDataPoint(label: 'Haz', value: 820),
+                                ChartDataPoint(label: 'Tem', value: 790),
+                                ChartDataPoint(label: 'Ağu', value: 910),
+                                ChartDataPoint(label: 'Eyl', value: 980),
                               ],
                             ),
                           ),
                           SizedBox(width: 16),
                           Expanded(
-                            flex: 5,
+                            flex: 4,
                             child: UniversalChartEngine(
-                              title: 'Stok Risk Analizi (Isı Haritası)',
-                              subtitle: 'Ürün kategorisi ve depo güvenli stok seviyesi',
-                              type: UniversalChartType.heatmap,
+                              title: 'Satış ve Hedef (Actual vs Target)',
+                              subtitle:
+                                  'Çeyrek bazlı satış gerçekleşme performansı',
+                              type: UniversalChartType.bar,
                               data: [
-                                ChartDataPoint(label: 'Medjool Jumbo 1kg', value: 85),
-                                ChartDataPoint(label: 'Sukari Lüks 500g', value: 65),
-                                ChartDataPoint(label: 'Ajwa Özel Kutu', value: 18), // Kritik
-                                ChartDataPoint(label: 'Safawi Toptan Kasa', value: 42),
-                                ChartDataPoint(label: 'Mabroom Standart', value: 14), // Kritik
-                                ChartDataPoint(label: 'Deglet Noor 2kg', value: 78),
+                                ChartDataPoint(
+                                    label: 'Q1 Hedef',
+                                    value: 600,
+                                    color: AppColors.primary),
+                                ChartDataPoint(
+                                    label: 'Q1 Gerçek',
+                                    value: 680,
+                                    color: AppColors.secondary),
+                                ChartDataPoint(
+                                    label: 'Q2 Hedef',
+                                    value: 750,
+                                    color: AppColors.primary),
+                                ChartDataPoint(
+                                    label: 'Q2 Gerçek',
+                                    value: 820,
+                                    color: AppColors.secondary),
+                                ChartDataPoint(
+                                    label: 'Q3 Hedef',
+                                    value: 900,
+                                    color: AppColors.primary),
+                                ChartDataPoint(
+                                    label: 'Q3 Gerçek',
+                                    value: 980,
+                                    color: AppColors.secondary),
                               ],
                             ),
                           ),
                         ],
-                      )
-                    : Column(
+                      );
+                    } else {
+                      return Column(
                         children: const [
                           UniversalChartEngine(
-                            title: 'Alacak Yaşlandırma Analizi',
-                            subtitle: '0-30, 31-60, 61-90, 91+ gün vade dağılımı',
-                            type: UniversalChartType.aging,
+                            title: '12 Aylık Nakit Akışı (Giriş / Çıkış / Net)',
+                            subtitle:
+                                'Son 12 ayın kümülatif nakit hareket eğilimi',
+                            type: UniversalChartType.area,
                             data: [
-                              ChartDataPoint(label: '0-30 Gün', value: 410000, color: AppColors.success),
-                              ChartDataPoint(label: '31-60 Gün', value: 160000, color: AppColors.info),
-                              ChartDataPoint(label: '61-90 Gün', value: 75000, color: AppColors.warning),
-                              ChartDataPoint(label: '91+ Gün', value: 35300, color: AppColors.danger),
+                              ChartDataPoint(label: 'Eki', value: 320),
+                              ChartDataPoint(label: 'Ara', value: 390),
+                              ChartDataPoint(label: 'Şub', value: 480),
+                              ChartDataPoint(label: 'Nis', value: 710),
+                              ChartDataPoint(label: 'Haz', value: 820),
+                              ChartDataPoint(label: 'Ağu', value: 910),
+                              ChartDataPoint(label: 'Eyl', value: 980),
                             ],
                           ),
                           SizedBox(height: 16),
                           UniversalChartEngine(
-                            title: 'Stok Risk Analizi (Isı Haritası)',
-                            subtitle: 'Ürün kategorisi ve depo güvenli stok seviyesi',
-                            type: UniversalChartType.heatmap,
+                            title: 'Satış ve Hedef (Actual vs Target)',
+                            subtitle:
+                                'Çeyrek bazlı satış gerçekleşme performansı',
+                            type: UniversalChartType.bar,
                             data: [
-                              ChartDataPoint(label: 'Medjool Jumbo', value: 85),
-                              ChartDataPoint(label: 'Ajwa Kutu', value: 18),
-                              ChartDataPoint(label: 'Mabroom Kasa', value: 14),
+                              ChartDataPoint(
+                                  label: 'Q1',
+                                  value: 680,
+                                  color: AppColors.secondary),
+                              ChartDataPoint(
+                                  label: 'Q2',
+                                  value: 820,
+                                  color: AppColors.secondary),
+                              ChartDataPoint(
+                                  label: 'Q3',
+                                  value: 980,
+                                  color: AppColors.secondary),
                             ],
                           ),
                         ],
                       );
-              },
+                    }
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // ── 5. ALACAK YAŞLANDIRMA & STOK RİSK ISI HARİTASI ──
+                LayoutBuilder(
+                  builder: (ctx, constraints) {
+                    final isWide = constraints.maxWidth > 900;
+                    return isWide
+                        ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Expanded(
+                                flex: 5,
+                                child: UniversalChartEngine(
+                                  title: 'Alacak Yaşlandırma Analizi',
+                                  subtitle:
+                                      '0-30, 31-60, 61-90, 91+ gün vade dağılımı',
+                                  type: UniversalChartType.aging,
+                                  data: [
+                                    ChartDataPoint(
+                                        label: '0-30 Gün (Düşük Risk)',
+                                        value: 410000,
+                                        color: AppColors.success),
+                                    ChartDataPoint(
+                                        label: '31-60 Gün (Orta Risk)',
+                                        value: 160000,
+                                        color: AppColors.info),
+                                    ChartDataPoint(
+                                        label: '61-90 Gün (Yüksek Risk)',
+                                        value: 75000,
+                                        color: AppColors.warning),
+                                    ChartDataPoint(
+                                        label: '91+ Gün (Kritik Takip)',
+                                        value: 35300,
+                                        color: AppColors.danger),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(width: 16),
+                              Expanded(
+                                flex: 5,
+                                child: UniversalChartEngine(
+                                  title: 'Stok Risk Analizi (Isı Haritası)',
+                                  subtitle:
+                                      'Ürün kategorisi ve depo güvenli stok seviyesi',
+                                  type: UniversalChartType.heatmap,
+                                  data: [
+                                    ChartDataPoint(
+                                        label: 'Medjool Jumbo 1kg', value: 85),
+                                    ChartDataPoint(
+                                        label: 'Sukari Lüks 500g', value: 65),
+                                    ChartDataPoint(
+                                        label: 'Ajwa Özel Kutu',
+                                        value: 18), // Kritik
+                                    ChartDataPoint(
+                                        label: 'Safawi Toptan Kasa', value: 42),
+                                    ChartDataPoint(
+                                        label: 'Mabroom Standart',
+                                        value: 14), // Kritik
+                                    ChartDataPoint(
+                                        label: 'Deglet Noor 2kg', value: 78),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )
+                        : Column(
+                            children: const [
+                              UniversalChartEngine(
+                                title: 'Alacak Yaşlandırma Analizi',
+                                subtitle:
+                                    '0-30, 31-60, 61-90, 91+ gün vade dağılımı',
+                                type: UniversalChartType.aging,
+                                data: [
+                                  ChartDataPoint(
+                                      label: '0-30 Gün',
+                                      value: 410000,
+                                      color: AppColors.success),
+                                  ChartDataPoint(
+                                      label: '31-60 Gün',
+                                      value: 160000,
+                                      color: AppColors.info),
+                                  ChartDataPoint(
+                                      label: '61-90 Gün',
+                                      value: 75000,
+                                      color: AppColors.warning),
+                                  ChartDataPoint(
+                                      label: '91+ Gün',
+                                      value: 35300,
+                                      color: AppColors.danger),
+                                ],
+                              ),
+                              SizedBox(height: 16),
+                              UniversalChartEngine(
+                                title: 'Stok Risk Analizi (Isı Haritası)',
+                                subtitle:
+                                    'Ürün kategorisi ve depo güvenli stok seviyesi',
+                                type: UniversalChartType.heatmap,
+                                data: [
+                                  ChartDataPoint(
+                                      label: 'Medjool Jumbo', value: 85),
+                                  ChartDataPoint(label: 'Ajwa Kutu', value: 18),
+                                  ChartDataPoint(
+                                      label: 'Mabroom Kasa', value: 14),
+                                ],
+                              ),
+                            ],
+                          );
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                // ── BUGÜN NE YAPMALIYIM? GÖREV MERKEZİ ──
+                const TaskCenterCard(),
+                const SizedBox(height: 24),
+
+                // ── CANLI AKIŞ: SON FATURALAR & SEVKİYATLAR ──
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isWide = constraints.maxWidth >= 900;
+                    if (isWide) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Son Kesilen Faturalar (Canlı Akış)',
+                                    style: AppTypography.cardTitle()),
+                                const SizedBox(height: 10),
+                                _sonFaturalarCanliListesi(),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Aktif Sevkiyatlar & Lojistik',
+                                    style: AppTypography.cardTitle()),
+                                const SizedBox(height: 10),
+                                _sonSevkiyatlarCanliListesi(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Son Kesilen Faturalar (Canlı Akış)',
+                              style: AppTypography.cardTitle()),
+                          const SizedBox(height: 10),
+                          _sonFaturalarCanliListesi(),
+                          const SizedBox(height: 20),
+                          Text('Aktif Sevkiyatlar & Lojistik',
+                              style: AppTypography.cardTitle()),
+                          const SizedBox(height: 10),
+                          _sonSevkiyatlarCanliListesi(),
+                        ],
+                      );
+                    }
+                  },
+                ),
+                const SizedBox(height: 24),
+
+                // ── 9. SAAS VE VERİ AKTARIM SİHİRBAZI ──
+                _ticariSaaSVeVeriAktarimBanneri(),
+                const SizedBox(height: 30),
+              ],
             ),
-            const SizedBox(height: 24),
-
-            // ── 6. HIZLI İŞLEMLER PANELİ ──
-            QuickActionsGrid(
-              onActionSelected: (key) {
-                switch (key) {
-                  case 'satis':
-                  case 'fatura':
-                    _yetkiliSayfayaGit('satis', const SatisFaturaScreen());
-                    break;
-                  case 'tahsilat':
-                  case 'odeme':
-                    _yetkiliSayfayaGit('finans', const FinansIslemScreen());
-                    break;
-                  case 'stok_girisi':
-                    _yetkiliSayfayaGit('stok', const StokYonetimScreen());
-                    break;
-                  case 'yeni_musteri':
-                  case 'yeni_tedarikci':
-                  case 'cari_islem':
-                    _altNavigasyonaGit(1);
-                    break;
-                  case 'alis':
-                  case 'yeni_siparis':
-                    _yetkiliSayfayaGit('ihracat', const IhracatSevkiyatScreen());
-                    break;
-                }
-              },
-            ),
-            const SizedBox(height: 20),
-
-            // ── 7. BUGÜN NE YAPMALIYIM? GÖREV MERKEZİ ──
-            const TaskCenterCard(),
-            const SizedBox(height: 24),
-
-            // ── 8. CANLI AKIŞ: SON FATURALAR & SEVKİYATLAR ──
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide = constraints.maxWidth >= 900;
-                if (isWide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Son Kesilen Faturalar (Canlı Akış)', style: AppTypography.cardTitle()),
-                            const SizedBox(height: 10),
-                            _sonFaturalarCanliListesi(),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Aktif Sevkiyatlar & Lojistik', style: AppTypography.cardTitle()),
-                            const SizedBox(height: 10),
-                            _sonSevkiyatlarCanliListesi(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Son Kesilen Faturalar (Canlı Akış)', style: AppTypography.cardTitle()),
-                      const SizedBox(height: 10),
-                      _sonFaturalarCanliListesi(),
-                      const SizedBox(height: 20),
-                      Text('Aktif Sevkiyatlar & Lojistik', style: AppTypography.cardTitle()),
-                      const SizedBox(height: 10),
-                      _sonSevkiyatlarCanliListesi(),
-                    ],
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 24),
-
-            // ── 9. SAAS VE VERİ AKTARIM SİHİRBAZI ──
-            _ticariSaaSVeVeriAktarimBanneri(),
-            const SizedBox(height: 30),
-          ],
+          ),
         ),
       ),
-
       bottomNavigationBar: _altNavigasyonBari(),
     );
   }
@@ -602,25 +693,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
         color: Colors.amber.shade50,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.amber.shade400, width: 1.5),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2))],
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2))
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              const Icon(Icons.warning_amber_rounded, color: Colors.amber, size: 24),
+              const Icon(Icons.warning_amber_rounded,
+                  color: Colors.amber, size: 24),
               const SizedBox(width: 8),
               const Text(
                 'İşletme Kurulum Eksiklikleri:',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF5C4033)),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    color: Color(0xFF5C4033)),
               ),
               const Spacer(),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: hurmaKahvesi,
                   foregroundColor: altinSarisi,
-                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   visualDensity: VisualDensity.compact,
                 ),
                 onPressed: () {
@@ -634,7 +732,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   );
                 },
                 icon: const Icon(Icons.rocket_launch, size: 14),
-                label: const Text('Sihirbazla Tamamla', style: TextStyle(fontSize: 12)),
+                label: const Text('Sihirbazla Tamamla',
+                    style: TextStyle(fontSize: 12)),
               ),
             ],
           ),
@@ -643,8 +742,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 2),
                 child: Row(
                   children: [
-                    const Icon(Icons.arrow_right, size: 18, color: Colors.deepOrange),
-                    Text(d, style: const TextStyle(fontSize: 13, color: Colors.black87)),
+                    const Icon(Icons.arrow_right,
+                        size: 18, color: Colors.deepOrange),
+                    Text(d,
+                        style: const TextStyle(
+                            fontSize: 13, color: Colors.black87)),
                   ],
                 ),
               )),
@@ -927,7 +1029,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const LegislationLibraryScreen()),
+                MaterialPageRoute(
+                    builder: (_) => const LegislationLibraryScreen()),
               );
             },
             icon: const Icon(Icons.gavel_rounded, size: 16),
@@ -986,7 +1089,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             label: context.tr('menu.sales', fallback: 'Satış'),
           ),
         ],
-
       ),
     );
   }

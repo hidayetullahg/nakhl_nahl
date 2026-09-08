@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// NAKHL&NAHL ERP — Premium Kurumsal Renk Sistemi
-/// 
+///
 /// Görsel Kimlik:
 /// Primary: Deep Petrol / Midnight Teal (#0B4656)
 /// Secondary: Palm Green (#287A52)
@@ -30,11 +30,14 @@ class AppColors {
   static const Color accentContainer = Color(0xFFFDF3E3);
 
   // Arka Plan ve Yüzeyler (Sıcak Kum & Temiz Kartlar)
-  static const Color background = Color(0xFFF7F3EB); // Warm Sand
+  static const Color background =
+      Color(0xFFF5F7FA); // Neutral enterprise canvas
   static const Color backgroundDark = Color(0xFF0D1619); // Koyu mod zemin
   static const Color surface = Color(0xFFFFFFFF); // Temiz Kart
   static const Color surfaceDark = Color(0xFF152227); // Koyu mod kart
   static const Color surfaceVariant = Color(0xFFEFEBE2);
+  static const Color brandSurface =
+      Color(0xFFF7F3EB); // Warm Sand accent surface
   static const Color surfaceVariantDark = Color(0xFF1F3036);
 
   // Tipografi Renkleri

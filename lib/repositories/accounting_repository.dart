@@ -1,3 +1,6 @@
+import 'package:decimal/decimal.dart';
+
+import '../core/money/money.dart';
 import '../services/supabase_service.dart';
 import '../core/tenant/tenant_context.dart';
 
@@ -79,7 +82,7 @@ class ExchangeRateModel {
   final String fromCurrency;
   final String toCurrency;
   final DateTime rateDate;
-  final double rate;
+  final Decimal rate;
   final String source;
 
   const ExchangeRateModel({
@@ -97,7 +100,7 @@ class ExchangeRateModel {
       fromCurrency: map['from_currency'] ?? 'USD',
       toCurrency: map['to_currency'] ?? 'SAR',
       rateDate: DateTime.parse(map['rate_date'].toString()),
-      rate: (map['rate'] as num?)?.toDouble() ?? 1.0,
+      rate: Decimal.parse(map['rate']?.toString() ?? '1'),
       source: map['source'] ?? 'CENTRAL_BANK',
     );
   }
@@ -108,30 +111,30 @@ class JournalLine {
   final String accountId;
   final String? partyId;
   final String description;
-  final double debitAmount;
-  final double creditAmount;
+  final Money debitAmount;
+  final Money creditAmount;
   final String transactionCurrency;
-  final double exchangeRate;
+  final Decimal exchangeRate;
 
-  const JournalLine({
+  JournalLine({
     required this.accountId,
     this.partyId,
     required this.description,
     required this.debitAmount,
     required this.creditAmount,
     this.transactionCurrency = 'SAR',
-    this.exchangeRate = 1.000000,
-  });
+    Decimal? exchangeRate,
+  }) : exchangeRate = exchangeRate ?? Decimal.one;
 
   Map<String, dynamic> toMap() {
     return {
       'account_id': accountId,
       if (partyId != null) 'party_id': partyId,
       'description': description,
-      'debit_amount': debitAmount,
-      'credit_amount': creditAmount,
+      'debit_amount': debitAmount.amount.toString(),
+      'credit_amount': creditAmount.amount.toString(),
       'transaction_currency': transactionCurrency,
-      'exchange_rate': exchangeRate,
+      'exchange_rate': exchangeRate.toString(),
     };
   }
 }
@@ -271,9 +274,9 @@ class AccountingRepository {
     required DateTime faturaTarihi,
     required String cariId,
     required String cariUnvani,
-    required double araToplam,
-    required double kdvTutari,
-    required double genelToplam,
+    required Money araToplam,
+    required Money kdvTutari,
+    required Money genelToplam,
     required String alicilarHesapId,
     required String satisGelirHesapId,
     required String kdvHesapId,
@@ -285,23 +288,23 @@ class AccountingRepository {
         partyId: cariId,
         description: 'Satış Faturası: $faturaNo — $cariUnvani',
         debitAmount: genelToplam,
-        creditAmount: 0.0,
+        creditAmount: Money.zero(genelToplam.currencyCode),
       ),
       // 600 YURT İÇİ / DIŞI SATIŞLAR (ALACAK)
       JournalLine(
         accountId: satisGelirHesapId,
         partyId: cariId,
         description: 'Hurma Satış Geliri: $faturaNo',
-        debitAmount: 0.0,
+        debitAmount: Money.zero(araToplam.currencyCode),
         creditAmount: araToplam,
       ),
       // 391 HESAPLANAN KDV / VAT (ALACAK)
-      if (kdvTutari > 0)
+      if (kdvTutari > Money.zero(kdvTutari.currencyCode))
         JournalLine(
           accountId: kdvHesapId,
           partyId: cariId,
           description: 'Hesaplanan KDV (%15): $faturaNo',
-          debitAmount: 0.0,
+          debitAmount: Money.zero(kdvTutari.currencyCode),
           creditAmount: kdvTutari,
         ),
     ];
@@ -319,15 +322,15 @@ class AccountingRepository {
   }
 
   /// Döviz kurlarını sorgular
-  Future<double> getExchangeRate({
+  Future<Decimal> getExchangeRate({
     required String fromCurrency,
     required String toCurrency,
     DateTime? forDate,
   }) async {
-    if (fromCurrency == toCurrency) return 1.0;
+    if (fromCurrency == toCurrency) return Decimal.one;
     try {
       final tenantId = TenantContext.instance.activeTenantId;
-      if (tenantId == null) return 1.0;
+      if (tenantId == null) return Decimal.one;
 
       final dateStr =
           (forDate ?? DateTime.now()).toIso8601String().substring(0, 10);
@@ -341,9 +344,9 @@ class AccountingRepository {
         },
       );
 
-      return (res as num?)?.toDouble() ?? 1.0;
+      return Decimal.parse(res?.toString() ?? '1');
     } catch (e) {
-      return 1.0;
+      return Decimal.one;
     }
   }
 
@@ -352,7 +355,7 @@ class AccountingRepository {
     required String fromCurrency,
     required String toCurrency,
     required DateTime rateDate,
-    required double rate,
+    required Decimal rate,
     String source = 'CENTRAL_BANK',
   }) async {
     final tenantId = TenantContext.instance.activeTenantId;
@@ -363,7 +366,7 @@ class AccountingRepository {
       'from_currency': fromCurrency,
       'to_currency': toCurrency,
       'rate_date': rateDate.toIso8601String().substring(0, 10),
-      'rate': rate,
+      'rate': rate.toString(),
       'source': source,
     }, onConflict: 'tenant_id,from_currency,to_currency,rate_date');
   }
